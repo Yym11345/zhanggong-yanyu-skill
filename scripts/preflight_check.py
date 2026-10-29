@@ -105,11 +105,14 @@ chk("while [ $# -gt 0 ]" in sh, "install.sh 用 while+shift 解析参数（避�
 chk("--target" in sh, "install.sh 支持 --target")
 
 # ---------- 5. 占位符 ----------
+# 注意：排除本脚本自身（源码里含有该占位符字面量，会造成自指误报）
 leftover = []
 for dp, dns, fns in os.walk(ROOT):
     dns[:] = [d for d in dns if d != ".git"]
     for f in fns:
         if not f.endswith((".md", ".sh", ".ps1", ".py")):
+            continue
+        if f == os.path.basename(__file__):
             continue
         t = io.open(os.path.join(dp, f), encoding="utf-8", errors="ignore").read()
         if "YOUR_GITHUB_USERNAME" in t:
@@ -153,6 +156,41 @@ for s in scripts:
             chk(True, "scripts/%s 语法可编译" % s)
         except SyntaxError as e:
             chk(False, "scripts/%s 语法可编译" % s, str(e))
+
+# ---------- 9b. .gitattributes（防止 Windows clone 后 CRLF） ----------
+ga = os.path.join(ROOT, ".gitattributes")
+chk(os.path.exists(ga), "存在 .gitattributes")
+if os.path.exists(ga):
+    g = io.open(ga, encoding="utf-8").read()
+    chk("eol=lf" in g, ".gitattributes 声明 eol=lf")
+    chk("install.sh" in g, ".gitattributes 显式覆盖 install.sh")
+    chk("*.sh" in g, ".gitattributes 覆盖所有 .sh")
+
+# 仓库内不得有 CRLF 文件（用 git ls-files 检查实际入库内容）
+gitdir = ROOT
+if os.path.isdir(os.path.join(gitdir, ".git")):
+    import subprocess
+    try:
+        out = subprocess.run(["git", "-C", gitdir, "ls-files", "-z"],
+                             capture_output=True, text=True, timeout=30).stdout
+        crlf = []
+        for f in out.split("\0"):
+            if not f:
+                continue
+            p = os.path.join(gitdir, f)
+            if not os.path.isfile(p):
+                continue
+            # 只对「会被当作脚本执行」的文本文件强制 LF；
+            # HTML/文档的 CRLF 无害，且工作区副本可能由 Windows 工具生成。
+            if not f.endswith((".sh", ".ps1", ".py")):
+                continue
+            b = io.open(p, "rb").read()
+            if b"\r\n" in b:
+                crlf.append(f)
+        chk(not crlf, "可执行脚本无 CRLF (sh/ps1/py)",
+            "含 CRLF: %s" % crlf[:3] if crlf else "全部 LF")
+    except Exception as e:
+        chk(False, "git ls-files 检查", str(e))
 
 # ---------- 10. zip 包 ----------
 zp = os.path.join(HERE, "zhanggong-yanyu-skill.zip")
