@@ -119,6 +119,24 @@ if os.path.exists(shp):
     sh = io.open(shp, encoding="utf-8").read()
     chk("while [ $# -gt 0 ]" in sh, "install.sh 用 while+shift 解析参数（避开 for 吞参数 bug）")
     chk("--target" in sh, "install.sh 支持 --target")
+    # 管道模式（curl | bash）：BASH_SOURCE 为空，必须有管道兜底分支
+    chk("BASH_SOURCE" in sh and "管道" in sh,
+        "install.sh 支持管道模式（curl | bash）")
+    chk("archive/refs/heads" in sh or "codeload" in sh or "tarball" in sh.lower(),
+        "install.sh 管道模式有可下载的安装包来源")
+    chk("trap cleanup EXIT" in sh or "cleanup()" in sh,
+        "install.sh 管道模式会清理临时目录")
+
+psp = os.path.join(ROOT, "install.ps1")
+if os.path.exists(psp):
+    ps = io.open(psp, encoding="utf-8").read()
+    chk("PSScriptRoot" in ps, "install.ps1 判定本地/管道模式")
+    chk("Invoke-WebRequest" in ps, "install.ps1 管道模式会下载安装包")
+    chk("finally" in ps, "install.ps1 有 finally 清理临时目录")
+    # Remove-Item 空值守卫：Get-ChildItem 无匹配时返回 $null，
+    # 管道进 Remove-Item 会报 "missing path operand"。要求用 @() 数组化 + 计数判断。
+    chk("@(Get-ChildItem" in ps and ".Count -gt 0" in ps,
+        "install.ps1 清理逻辑有 $null 守卫（避免 missing path operand）")
 
 # ---------- 5. 占位符 ----------
 # 注意：排除本脚本自身（源码里含有该占位符字面量，会造成自指误报）
