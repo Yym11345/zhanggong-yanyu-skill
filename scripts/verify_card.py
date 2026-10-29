@@ -31,7 +31,12 @@ DEFAULT_CARD = r"D:\other\gong\xingce\中心理解_方法速记卡.html"
 ANS_CELL = re.compile(r'<td class="k">\s*([A-D])([^<]*)</td>')
 
 # 判定栏里出现的可疑标记
-SUSPECT_MARKS = ["待核", "?", "？", "疑似", "不确定"]
+# 注意："?"／"？" 若来自**引用的原文问句**（如"也会对大脑造成危害吗？"）属正常，
+# 只有出现在标记位（答案单元格后缀）才算存疑。故问号只查 mark，不查 judge。
+SUSPECT_MARKS = ["待核", "疑似", "不确定", "存疑"]
+SUSPECT_MARKS_JUDGE = ["待核", "疑似", "不确定", "存疑"]
+# 仅在标记位检索的问号（答案单元格后缀里的裸问号）
+QUESTION_IN_MARK = re.compile(r"[?？]")
 
 
 def strip_tags(h: str) -> str:
@@ -149,9 +154,12 @@ def main() -> int:
         tag = ""
         if mark:
             tag = mark
-        if any(s in (mark + judge) for s in SUSPECT_MARKS):
+        # 标记位（含裸问号）→ 存疑
+        if QUESTION_IN_MARK.search(mark or ""):
             suspect.append((k, a, tag, judge))
-        if "原误记" in judge:
+        elif any(s in (mark + judge) for s in SUSPECT_MARKS_JUDGE):
+            suspect.append((k, a, tag, judge))
+        if "原误记" in judge or "更正为" in judge:
             noconfirm.append((k, a, judge))
         print("  %-38s %s%s" % (k.replace("\n", " ")[:38], a, (" " + tag) if tag else ""))
 

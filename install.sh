@@ -101,7 +101,9 @@ fi
 
 # ---------- 决定目标目录 ----------
 if [ "$MODE" = "custom" ]; then
-  TARGET="$CUSTOM_TARGET"
+  # --target 指定的是**skills 根目录**，skill 装在其下的 $SKILL_NAME/ 子目录，
+  # 避免把 SKILL.md / references/ 直接铺平到 skills 根目录污染其他 skill。
+  TARGET="${CUSTOM_TARGET%/}/$SKILL_NAME"
 elif [ "$MODE" = "project" ]; then
   TARGET="$(pwd)/.workbuddy/skills/$SKILL_NAME"
 else

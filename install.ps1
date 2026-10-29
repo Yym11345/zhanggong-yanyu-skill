@@ -71,7 +71,9 @@ try {
 
   # ---------- decide destination ----------
   if ($Target) {
-    $Dest = $Target
+    # -Target is the skills ROOT dir; the skill lives in its $SkillName subdir,
+    # so we never scatter SKILL.md / references into the root and pollute other skills.
+    $Dest = Join-Path $Target $SkillName
   } elseif ($Project) {
     $Dest = Join-Path (Get-Location).Path ".workbuddy\skills\$SkillName"
   } else {

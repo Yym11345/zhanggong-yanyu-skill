@@ -126,6 +126,10 @@ if os.path.exists(shp):
         "install.sh 管道模式有可下载的安装包来源")
     chk("trap cleanup EXIT" in sh or "cleanup()" in sh,
         "install.sh 管道模式会清理临时目录")
+    # --target 语义：必须是「skills 根目录 / skill 名」子目录，
+    # 否则会把 SKILL.md / references 直接铺平到 skills 根目录，污染其他 skill。
+    chk('TARGET="${CUSTOM_TARGET%/}/$SKILL_NAME"' in sh,
+        "install.sh --target 装到 <根目录>/<skill名>（不铺平污染根目录）")
 
 psp = os.path.join(ROOT, "install.ps1")
 if os.path.exists(psp):
@@ -137,6 +141,8 @@ if os.path.exists(psp):
     # 管道进 Remove-Item 会报 "missing path operand"。要求用 @() 数组化 + 计数判断。
     chk("@(Get-ChildItem" in ps and ".Count -gt 0" in ps,
         "install.ps1 清理逻辑有 $null 守卫（避免 missing path operand）")
+    chk("$Dest = Join-Path $Target $SkillName" in ps,
+        "install.ps1 -Target 装到 <根目录>/<skill名>（不铺平污染根目录）")
 
 # ---------- 5. 占位符 ----------
 # 注意：排除本脚本自身（源码里含有该占位符字面量，会造成自指误报）
@@ -175,7 +181,7 @@ chk(len(cards) >= 1, "assets 含速记卡 HTML", str(cards))
 if cards:
     c = io.open(os.path.join(assets, cards[0]), encoding="utf-8").read()
     pages = len(re.findall(r'class="sheet"', c))
-    chk(pages == 42, "速记卡 42 页", "实际 %d 页" % pages)
+    chk(pages == 43, "速记卡 43 页", "实际 %d 页" % pages)
 
 # ---------- 9. scripts 可执行性 ----------
 sdir = os.path.join(ROOT, "scripts")
