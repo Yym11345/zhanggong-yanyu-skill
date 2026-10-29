@@ -1,0 +1,2716 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>行测言语理解 · 方法速记卡</title>
+<style>
+  :root{
+    --ink:#1F1E1C;
+    --ink-2:#4A4843;
+    --muted:#6B6862;
+    --line:#E3E0D8;
+    --line-2:#CFCBC1;
+    --paper:#FFFFFF;
+    --wash:#F6F4EE;
+    --wash-2:#EFEDE5;
+    --accent:#B4700F;
+    --accent-ink:#5C3A06;
+    --accent-wash:#FAEEDA;
+    --accent-line:#E0BE86;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--wash-2);
+    color:var(--ink);
+    font-family:"Source Han Serif SC","Songti SC","Noto Serif CJK SC",
+                "PingFang SC","Microsoft YaHei",serif;
+    font-size:11.5px;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet{
+    width:210mm;
+    margin:0 auto 10mm;
+    padding:11mm 12mm;
+    background:var(--paper);
+  }
+  @media print{
+    body{background:#fff;}
+    .sheet{width:auto;margin:0;padding:0;page-break-after:always;}
+    .sheet:last-child{page-break-after:auto;}
+    @page{size:A4;margin:10mm 11mm;}
+  }
+
+  .masthead{border-bottom:2px solid var(--ink);padding-bottom:6px;margin-bottom:10px;}
+  .masthead h1{
+    margin:0;font-size:17px;font-weight:600;letter-spacing:.5px;
+    font-family:"PingFang SC","Microsoft YaHei",sans-serif;
+  }
+  .masthead .sub{
+    margin-top:4px;font-size:11px;color:var(--muted);
+    font-family:"PingFang SC","Microsoft YaHei",sans-serif;
+    display:flex;justify-content:space-between;
+  }
+
+  section{margin-bottom:10px;}
+  h2{
+    font-size:12px;font-weight:600;margin:0 0 5px;padding-left:7px;
+    border-left:3px solid var(--accent);
+    font-family:"PingFang SC","Microsoft YaHei",sans-serif;letter-spacing:.3px;
+  }
+  h2 .tag{font-weight:400;font-size:10.5px;color:var(--muted);margin-left:6px;letter-spacing:0;}
+  h3{
+    font-size:10.5px;font-weight:600;margin:7px 0 4px;color:var(--ink-2);
+    font-family:"PingFang SC","Microsoft YaHei",sans-serif;
+  }
+
+  table{width:100%;border-collapse:collapse;font-size:10.5px;font-family:"PingFang SC","Microsoft YaHei",sans-serif;}
+  th,td{border:1px solid var(--line);padding:2.5px 5px;text-align:left;vertical-align:top;}
+  th{background:var(--wash);font-weight:600;color:var(--ink-2);white-space:nowrap;}
+  td.k{font-weight:600;white-space:nowrap;color:var(--ink);}
+  tr.hot td{background:var(--accent-wash);}
+  tr.hot td.k{color:var(--accent-ink);}
+  .mono{font-family:"Cascadia Mono",Consolas,monospace;font-size:11px;}
+
+  /* 启发式（经验规则，有反例）—— 虚线框，与判据（实线）区分 */
+  .heuristic{
+    border:1.5px dashed var(--accent-line);border-radius:7px;
+    padding:7px 10px;background:#FDF8EE;
+    font-size:11px;font-family:"PingFang SC","Microsoft YaHei",sans-serif;
+    color:var(--accent-ink);
+  }
+  .heuristic .tagline{display:inline-block;font-size:9.5px;padding:0 5px;border-radius:3px;
+    background:#fff;border:1px dashed var(--accent-line);color:var(--accent);margin-bottom:3px;}
+
+  .flow{display:flex;align-items:stretch;margin:2px 0 4px;}
+  .flow .step{flex:1;border:1px solid var(--line);border-radius:6px;padding:7px 9px;background:var(--wash);}
+  .flow .step.on{background:var(--accent-wash);border-color:var(--accent-line);}
+  .flow .step.off{background:#FBF9F5;border-style:dashed;}
+  .flow .arrow{display:flex;align-items:center;justify-content:center;padding:0 7px;color:var(--line-2);font-size:14px;}
+  .flow .step b{display:block;font-size:11.5px;margin-bottom:2px;}
+  .flow .step span{font-size:10.5px;color:var(--muted);line-height:1.5;display:block;}
+
+  .layers{border:1px solid var(--line);border-radius:8px;padding:9px 11px;background:var(--wash);}
+  .layer{
+    border-radius:6px;padding:6px 10px;margin-bottom:6px;background:#fff;
+    border:1px solid var(--line);font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11px;
+  }
+  .layer:last-child{margin-bottom:0;}
+  .layer.hot{background:var(--accent-wash);border-color:var(--accent-line);}
+  .layer b{font-size:11.5px;display:block;margin-bottom:1px;}
+  .layer .why{color:var(--muted);font-size:10.5px;}
+  .layer.hot .why{color:var(--accent-ink);}
+
+  .scope{border:1px solid var(--line-2);border-radius:10px;padding:8px 10px;background:var(--wash);}
+  .scope .s1{font-size:11px;font-family:"PingFang SC","Microsoft YaHei",sans-serif;margin-bottom:6px;}
+  .scope .s2{border:1px solid var(--line-2);border-radius:7px;padding:6px 9px;background:#fff;margin-bottom:6px;
+    font-size:11px;font-family:"PingFang SC","Microsoft YaHei",sans-serif;}
+  .scope .s3{border:1px solid var(--accent-line);border-radius:5px;padding:6px 9px;background:var(--accent-wash);
+    font-size:11px;font-family:"PingFang SC","Microsoft YaHei",sans-serif;color:var(--accent-ink);}
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;}
+  .card{border:1px solid var(--line);border-radius:6px;padding:7px 9px;background:#fff;
+    font-family:"PingFang SC","Microsoft YaHei",sans-serif;}
+  .card b{font-size:11.5px;display:block;margin-bottom:2px;}
+  .card span{font-size:10.5px;color:var(--muted);line-height:1.55;display:block;}
+  .card.hot{background:var(--accent-wash);border-color:var(--accent-line);}
+  .card.hot b,.card.hot span{color:var(--accent-ink);}
+
+  ol.steps{margin:0;padding-left:18px;font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:11.5px;}
+  ol.steps li{margin-bottom:3px;}
+  ol.steps li b{font-weight:600;}
+
+  .note{
+    border-left:3px solid var(--accent);background:var(--accent-wash);padding:5px 8px;
+    font-size:10.5px;border-radius:0 6px 6px 0;
+    font-family:"PingFang SC","Microsoft YaHei",sans-serif;color:var(--accent-ink);line-height:1.5;
+  }
+  .note.gray{border-left-color:var(--line-2);background:var(--wash);color:var(--ink-2);}
+
+  .foot{
+    margin-top:12px;padding-top:6px;border-top:1px solid var(--line);
+    font-size:10px;color:var(--muted);
+    font-family:"PingFang SC","Microsoft YaHei",sans-serif;
+    display:flex;justify-content:space-between;
+  }
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+</style>
+</head>
+<body>
+<!-- ==================== PAGE 1 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>考场速查 ｜ 六种题型</span>
+      <span>第 1 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>考场速查 ｜ 六种题型 · 一行判据 <span class="tag">考前 30 秒扫这里</span></h2>
+    <span id="a-sucha"></span>
+    <table>
+      <thead><tr><th style="width:70px;">题型</th><th style="width:118px;">第一步动作</th><th>核心判据</th><th style="width:172px;">最大的坑</th><th style="width:56px;">详见</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="k">中心理解</td><td>找重点（3步走）</td><td>语义 ＞ 功能 ＞ 关系；答案必含<b>主题词</b>；先排硬错 → 再排"对但不重要" → 比毛病轻重</td><td>把非重点部分的同义替换当成答案</td><td class="k">第 <span class="pr" data-t="a-s1">2</span> 页</td></tr>
+        <tr><td class="k">细节判断</td><td><b>先辨题型</b></td><td>逐项比对原文，<b>精确对应</b>；"过度同义替换"＝陷阱</td><td>带着中心理解的"找替换"本能进场</td><td class="k">第 <span class="pr" data-t="a-xijie">24</span> 页</td></tr>
+        <tr><td class="k">语句填空</td><td>看横线位置</td><td>结尾＝总结/对策；开头＝概括后文；中间＝<b>承上启下最优</b></td><td>语感"读着顺"就选——先读完文段</td><td class="k">第 <span class="pr" data-t="a-yuju">27</span> 页</td></tr>
+        <tr><td class="k">接语选择</td><td>抓尾句话题</td><td>答案 ＝ 核心话题 ＋ <b>未论述的新内容</b></td><td>选了尾句之前已具体论述过的</td><td class="k">第 <span class="pr" data-t="a-jieyu">29</span> 页</td></tr>
+        <tr><td class="k">语句排序</td><td>对比选项差异</td><td>排除法只有两角度：<b>先后顺序＋紧密相连</b>；三类句子不作首句</td><td>凭语感通读硬排、强行找"倒序"</td><td class="k">第 <span class="pr" data-t="a-paixu">31</span> 页</td></tr>
+        <tr><td class="k">逻辑填空</td><td>找横线的逻辑关系</td><td><b>语境分析为王</b>（文段意思＞搭配）；呼应看句内／并列／空与空／中心</td><td>迷信"固定搭配"、纠结时硬抠生僻词</td><td class="k">第 <span class="pr" data-t="a-tiankong">32</span> 页</td></tr>
+      </tbody>
+    </table>
+    <div class="note" style="margin-top:7px;">
+      <b>贯穿底线两条：</b>文段要看完整（局部 ≠ 整体）；不能过度依赖关联词（依据是语义）。规则打架时，只认<b>冲突仲裁表</b>（下一节）。
+    </div>
+  </section>
+
+<section>
+    <h2>⚠ 先读这张：冲突仲裁表 <span class="tag">规则打架时，谁优先</span></h2><span id="a-zhongcai"></span>
+    <table>
+      <thead><tr><th style="width:290px;">两边冲突时</th><th style="width:90px;">服从谁</th><th>为什么</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td><b>关系倾向</b>（第 <span class="pr" data-t="a-relations">2</span> 页七种关系）vs <b>功能层级</b>（第 <span class="pr" data-t="a-gongneng">3</span> 页 11 种功能）</td><td class="k">功能层级</td><td>关系只是<b>线索</b>，功能才是结构——关联词只是指路，重点按功能定</td></tr>
+        <tr class="hot"><td><b>功能层级</b>（11 种功能）vs <b>语义内容</b>（第 <span class="pr" data-t="a-sanceng">4</span> 页三条依据）</td><td class="k">语义内容</td><td>功能是形式，语义才是依据——事实落差／事理逻辑／态度倾向说了算</td></tr>
+        <tr class="hot"><td><b>启发式</b>（经验规律）vs <b>判据</b>（定义）</td><td class="k">判据</td><td>启发式只提供<b>候选项</b>，判据做<b>最后裁决</b>——经验有反例，判据没有</td></tr>
+        <tr><td><b>例证</b>（例题）vs <b>原则</b>（规则）</td><td class="k">原则</td><td>例题为原则服务；例题只说明"怎么用"，不能推翻原则</td></tr>
+      </tbody>
+    </table>
+    <div class="note" style="margin-top:7px;">
+      <b>卡上的规则有数十条，冲突时只认这一张表。</b>看别的规则之前，先想清楚它们打架时谁赢。<b>最底下那条原则永远赢：</b>语义内容 ＞ 功能层级 ＞ 关系倾向；判据 ＞ 启发式 ＞ 例证。<br>
+      <span style="color:var(--muted);">体例约定：<b>实线框＝判据</b>（可反证、可推导）；<b>虚线框＝启发式</b>（观察到的倾向，<b>有反例</b>，只做候选项提示）。</span>
+    </div>
+  </section>
+
+<section>
+    <h2>全卡目录导航 ｜ 按部分聚类 <span class="tag">页码由重排脚本自动写入</span></h2>
+    <span id="a-mulu"></span>
+    <table style="font-size:10.5px;">
+      <thead><tr><th style="width:104px;">部分</th><th>内容</th><th style="width:78px;">页码</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="k">速查层</td><td>四题型一行判据 ／ 冲突仲裁表 ／ 本目录</td><td class="k">第 <span class="pr" data-t="a-sucha">1</span>–<span class="pr" data-t="a-mulu">1</span> 页</td></tr>
+        <tr><td class="k">一 · 主线</td><td>3步走总纲 → 七种关系 → 只有才 → 11 功能 → 两步对称 → 关联词/管辖 → 同义替换 → 主题词 → 第三步三类型 → 全课程闭环</td><td class="k">第 <span class="pr" data-t="a-s1">2</span> 页起</td></tr>
+        <tr><td class="k">二 · 首句与例子</td><td>新老话题三情况 → 回扣开头九道例证 → 四个坑 → 例子四提升 → 回指 vs 结论</td><td class="k">第 <span class="pr" data-t="a-shouju">9</span> 页起</td></tr>
+        <tr><td class="k">三 · 对策类</td><td>知识树 → 考点 → 提升①② → 关联词补表 → 提升③④⑤</td><td class="k">第 <span class="pr" data-t="a-duice">11</span> 页起</td></tr>
+        <tr><td class="k">四 · 转折/因果</td><td>结论标志词三分类 → 提升①②③ → 例题 → 链条题规律</td><td class="k">第 <span class="pr" data-t="a-yinquo">13</span> 页起</td></tr>
+        <tr><td class="k">五 · 例题索引</td><td>例题速查总表 → 考点→例题反查表</td><td class="k">第 <span class="pr" data-t="a-ex-main">18</span> 页起</td></tr>
+        <tr class="hot"><td class="k">六 · 反例边界</td><td>违反规则但答案正确的题 —— 规则的软肋</td><td class="k">第 <span class="pr" data-t="a-ex-fanli">22</span> 页</td></tr>
+        <tr><td class="k">七 · 晦涩文段</td><td>高频词＋主体关系 → 例题 → 省流</td><td class="k">第 <span class="pr" data-t="a-huishe">22</span> 页起</td></tr>
+        <tr><td class="k">八 · 细节判断</td><td>题型总览 → 4 类错误 → 提升①–④ → 例题</td><td class="k">第 <span class="pr" data-t="a-xijie">24</span> 页起</td></tr>
+        <tr><td class="k">九 · 语句填空</td><td>考点 → 三种位置 → 提升①–④ → 例题 → 省流</td><td class="k">第 <span class="pr" data-t="a-yuju">27</span> 页起</td></tr>
+        <tr><td class="k">十 · 接语选择</td><td>考点 → 三种常考形式 → 例题 → 省流</td><td class="k">第 <span class="pr" data-t="a-jieyu">29</span> 页起</td></tr>
+        <tr><td class="k">十一 · 语句排序</td><td>两大原则 → 先后／相连判断 → 三步走 → 例题 → 省流</td><td class="k">第 <span class="pr" data-t="a-paixu">31</span> 页起</td></tr>
+        <tr><td class="k">十二 · 逻辑填空</td><td>解题思路 → 辨析七角度 → 五种呼应 → 应试策略 → 出题人视角 → 例题 → 省流</td><td class="k">第 <span class="pr" data-t="a-tiankong">32</span> 页起</td></tr>
+        <tr><td class="k">附录</td><td>基础词 → 补充词 → 易混对照 → PPT 来源对照表</td><td class="k">第 <span class="pr" data-t="a-fulu">40</span> 页起</td></tr>
+      </tbody>
+    </table>
+    <div class="note" style="margin-top:6px;">
+      <b>复习路径：</b>第 <span class="pr" data-t="a-sucha">1</span> 页速查层（30 秒）→ 各题型末尾的「省流版」（约 10 分钟）→ 全卡（约 1 小时）。38 页的卡，靠这条路径保持"可完成"。
+    </div>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 1 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 2 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>总纲 ｜ 解题思路"3步走"</span>
+      <span>第 2 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>总纲 ｜ 解题思路"3步走"</h2><span id="a-s1"></span>
+    <div class="flow">
+      <div class="step on">
+        <b>第一步　寻找重点</b>
+        <span>在众多句子中找出<br>最重要的"那一个"</span>
+      </div>
+      <div class="arrow">▶</div>
+      <div class="step on">
+        <b>第二步　同义替换</b>
+        <span>在选项中匹配一个<br>与重点部分"最接近"的</span>
+      </div>
+      <div class="arrow">▶</div>
+      <div class="step off">
+        <b>第三步　排除干扰项</b>
+        <span>类型1 一定不能选 → 类型2 基本不能选<br>→ 类型3 对比次选</span>
+      </div>
+    </div>
+    <div class="note" style="margin-top:7px;">
+      <b>基本思路：</b>一篇文章有很多句子，找重点＝找到最重要的<b>那一个</b>——强调"一个"，一段文字只有一个主旨。因此当两个选项都很像时，不是"两个都对"，而是你还没排完序。
+    </div>
+  </section>
+
+<section>
+    <h2>第一步 · 关系 ｜ 七种句间关系与重点倾向 <span class="tag">倾向供参考，须经功能与语义复核</span></h2><span id="a-relations"></span>
+    <table>
+      <thead>
+        <tr><th style="width:82px;">关系类型</th><th style="width:150px;">非重点侧（倾向）</th><th style="width:160px;">重点侧（倾向，须复核）</th><th>常见信号词</th></tr>
+      </thead>
+      <tbody>
+        <tr class="hot"><td class="k">转折关系</td><td>转折前的内容（多为让步铺垫）</td><td>转折后的内容</td><td class="mono">但是／然而／可是／不过／其实※／事实上※／实际上※／却<br><span style="color:var(--muted);font-size:10px;">※ 其实/事实上/实际上 须与引导的事实<b>是否与前文矛盾</b>联判，见第 <span class="pr" data-t="a-shishi">5</span> 页</span></td></tr>
+        <tr class="hot"><td class="k">因果关系</td><td>结论前的原因</td><td>结论／结果<br><span style="color:var(--muted);">倒装"之所以…是因为…"以<b>原因</b>为重点</span></td><td class="mono">所以／因此／可见／总之／致使<br><span style="color:var(--muted);font-size:10px;">※ 结论标志词的<b>三分类清单</b>见第 <span class="pr" data-t="a-biaozhi">13</span> 页</span></td></tr>
+        <tr class="hot"><td class="k">必要条件<br>（对策）</td><td>对策以外的内容</td><td>对策（该怎么做）</td><td class="mono">应该／应当／需要／必须／亟需／唯有…才／关键在于</td></tr>
+        <tr class="hot"><td class="k">解释关系</td><td>详细、具体的解释展开</td><td>明确、直接的观点论点</td><td class="mono">即／也就是说／所谓／例如／表现在</td></tr>
+        <tr class="hot"><td class="k">强调关系</td><td>非强调的内容</td><td>被强调的内容</td><td class="mono">真正／尤其／特别是／更／甚至／乃至／最／不是A而是B</td></tr>
+        <tr class="hot"><td class="k">新旧关系</td><td>前文出现的老话题</td><td>后文出现的新话题</td><td class="mono">如今／近年来／随着／当下／新形势下</td></tr>
+        <tr><td class="k">并列关系</td><td>并列的各个方面</td><td>先做<b>包含测试</b>：<br>并列<b>观点</b>（两个独立主张）→ <b>整体归纳，不可片面</b>；<br>并列<b>分述</b>（对同一观点的展开）→ 取<b>上位概括</b>或<b>具体执行项</b><br><span style="color:var(--muted);">信号词只提示"并列"，不决定是观点还是分述</span></td><td class="mono">同时／此外／另外／一方面…另一方面</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+<section>
+    <h2>关系 · 专条 ｜ "只有…才…" <span class="tag">重点在"只有"之后</span></h2><span id="a-zhiyou"></span>
+    <div class="note">
+      <b>逻辑：</b>"只有 A，才 B"＝ A 是 B 的必要条件 → 想做到 B 就必须先 A。重心落在 <b>A（怎么做）</b>，B（会怎样）只是被推导出来的效果。<br>
+      <b>理由：</b>① B 往往不言自明（才能成功／才能真正活起来），信息量小；② A＝解决问题（重点功能），B＝意义效果（支撑功能）；③ A 是因、B 是果，论述重心在可操作的那一环。
+    </div>
+    <h3>六种马甲形式（思路相同，都找那个"必要动作"）</h3>
+    <table>
+      <thead><tr><th style="width:190px;">形式</th><th>例子</th><th style="width:70px;">重点位置</th></tr></thead>
+      <tbody>
+        <tr><td class="k">只有 A，才 B</td><td>只有让群众成为治理主体，治理才能获得持久动力</td><td>A</td></tr>
+        <tr><td class="k">要 B，就必须 A</td><td>要让人才扎根基层，就必须提高岗位待遇</td><td>A（必须后）</td></tr>
+        <tr><td class="k">B 的关键在于 A</td><td>治理有效的关键在于权责对等</td><td>A（在于后）</td></tr>
+        <tr><td class="k">B 的前提／基础是 A</td><td>精准施策的前提是数据真实</td><td>A（是后）</td></tr>
+        <tr><td class="k">唯有 A，方能 B</td><td>唯有守住底线，方能行稳致远</td><td>A</td></tr>
+        <tr class="hot"><td class="k">没有 A，就没有 B</td><td>没有制度约束，就没有长期信任</td><td>A（<b>否定式须反推</b>）</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+<section>
+    <h2>关系 · 易错点</h2>
+    <div class="note">
+      ① "只有…才…"误选<b>"才"之后的<b>效果</b></b>（如"乡村振兴需要持续发展能力"）；② 若"只有…才…"是"有人认为"引出的、被"然而"推翻，则它只是<b>靶子</b>；③ 多个"只有"并列必须<b>整体归纳</b>；④ "不是A而是B"里 B 是重点、A 是靶子；⑤ 并列观点只选其中一项＝以偏概全（并列分述另论，见七种关系表）；⑥ "援引他人观点"是靶子，不是作者态度。
+    </div>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 2 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 3 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>第一步 · 功能</span>
+      <span>第 3 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>第一步 · 功能 ｜ 11 种句子作用，按"是否重点"分三层 <span class="tag">排的是"重要性顺序"</span></h2><span id="a-gongneng"></span>
+    <div class="layers">
+      <div class="layer hot">
+        <b>重点功能 · 答案落点　（2 种）</b>
+        <span class="why">提出观点　·　解决问题　　只有这两种是答案落点</span>
+      </div>
+      <div class="layer">
+        <b>过渡功能 · 交代情况，属铺垫　（4 种）</b>
+        <span class="why">背景引入　·　引出话题　·　提出问题※　·　分析问题<br><span style="color:var(--muted);">※ 提出问题单独出现＝铺垫；<b>若全文再无对策，它升为中心</b>（见 (五) 提升④）</span></span>
+      </div>
+      <div class="layer">
+        <b>支撑功能 · 服务重点　（5 种）</b>
+        <span class="why">意义效果　·　举例论证　·　反面论证※　·　解释说明　·　补充说明<br><span style="color:var(--muted);">※ 反面论证并非永远是支撑：<b>文段里只有反面论证时，它就是中心句</b>（见本页下方「反面论证的两种身份」）</span></span>
+      </div>
+    </div>
+    <div class="row2" style="margin-top:7px;">
+      <div class="note">
+        <b>标准行文链条：</b>背景引入 → 引出话题 → 提出问题 →（分析问题）→ <b>解决问题</b> → 意义效果<br>
+        或：背景引入 → 引出话题 → <b>提出观点</b> →（举例／解释／反面论证）
+      </div>
+      <div class="heuristic" style="margin-top:6px;">
+        <span class="tagline">经验 · 有反例</span>
+        <b>最高频链条：</b>背景/问题 → <b>需要/应该</b> → <b>对策</b>。
+      </div>
+      <div class="note">
+        <b>三个坑：</b>① "援引他人观点"是靶子，不是作者态度；② "反面论证"要反推对策；③ "提出问题"只答一半是最典型的错项。
+      </div>
+    </div>
+    <div class="note gray" style="margin-top:6px;">
+      <b>"反面论证"的两种身份（决定它是不是中心句）：</b><br>
+      ① 文段里<b>另有正面对策句</b>（应该／必须／需要）→ 它只是<b>支撑功能</b>，用于论证必要性；<br>
+      ② 文段里<b>只有反面论证</b> → 它<b>本身就是中心句</b>，必须<b>反推</b>（把"错的做法"反过来读）。<br>
+      <b>判据：</b>文段里有没有一句正面的"应该／必须／需要"？<br>
+      <b>例（2022 四川）：</b>"如果遇到这种情况，互相指责、争论或者装作漠不关心，都是错误而且缺乏远见的" → 反推 ＝ "用正确态度与方法面对学术争议"。<b>课件的讲法：对策的一种特殊情况。</b>
+    </div>
+    <div class="note" style="margin-top:6px;">
+      <b>说明文体的一处适配：</b>科技说明文（"这段文字主要介绍"类）的四段结构＝<b>引出话题 → 提出问题 → 实验过程 → 最终结果</b>，里面<b>没有"提出观点／解决问题"</b>——此时"<b>最终结果（研究结论）</b>"承担重点功能，而中心是<b>跨句组合</b>出来的：<b>研究对象（含限定语）＋ 研究结论</b>。所以说明文里"回扣开头"尤其重要。<br>
+      <b>例（2025 浙江·阿尔茨海默病）：</b>答案 D＝"<b>散发性</b>阿尔茨海默病<b>致病机制</b>的<b>新发现</b>"＝ ①的话题（散发性）＋ ②的问题（机制尚不清楚）＋ ③④的研究。干扰项：A 取材"引出话题"、B 取材"假设"、C 抓错了"家族性"这个分支（<b>限定语不能丢</b>）。
+    </div>
+  </section>
+
+<section>
+    <h2>第一步 · 心法 ｜ 庖丁解牛 <span class="tag">不要整段读，要拆开读</span></h2>
+    <table>
+      <thead><tr><th style="width:200px;">庖丁解牛（《庄子·养生主》）</th><th>解中心理解题的文段</th></tr></thead>
+      <tbody>
+        <tr><td>骨节、筋络、肌理</td><td>句子与句子之间的关系</td></tr>
+        <tr><td class="mono">批大郤，导大窾</td><td>先切分大层次，不抠字眼</td></tr>
+        <tr class="hot"><td><b>肯綮</b>（骨肉相连的关键处）</td><td><b>重点句</b>（结论句 / 对策句）</td></tr>
+        <tr><td class="mono">以无厚入有间</td><td>用"关系判定"顺着结构走</td></tr>
+        <tr><td>未尝见全牛（目无全牛）</td><td>文段是一张关系网，不是一坨字</td></tr>
+      </tbody>
+    </table>
+    <div class="note gray" style="margin-top:7px;">
+      <b>辨析：</b>"目无全牛"是<b>褒义</b>（技艺纯熟），不是"看不见全局"。同源成语：游刃有余、切中肯綮、批郤导窾、踌躇满志、新发于硎。
+    </div>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 3 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 4 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>两步对称 ｜ 每步各配三条思维提升</span>
+      <span>第 4 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>两步对称 ｜ 每步各配三条思维提升 <span class="tag">编号说明：本卡共有十余套编号——各章自成一套（第一步/第二步/第三步各①②③、主题词(1)(2)(3)、(四)～(八)节、细节判断/语句填空/接语选择各①…），以「章名＋序号」定位，勿跨章混用</span></h2>
+    <table>
+      <thead><tr><th style="width:34px;">#</th><th style="width:250px;">第一步　寻找重点</th><th>第二步　同义替换</th></tr></thead>
+      <tbody>
+        <tr><td class="k">基本<br>思路</td><td>从众多句子中找到最重要的<b>那一个</b></td><td>从选项中寻找一个和<b>中心句最像</b>的选项</td></tr>
+        <tr><td class="k">①</td><td>怎么判断谁重要？看<b>逻辑关系</b>，有基本的<b>排序</b>原则（七种句间关系）。功能分层给出<b>粗略档位</b>；同一档位内仍需<b>排序</b>。</td><td><b>大意一致即可</b> —— 不要求表述完全一致。内容严（主体／程度／范围）、形式松（用词／句式／修辞）。</td></tr>
+        <tr class="hot"><td class="k">②</td><td>关联词是"<b>拐杖</b>"，只作提示，不能依赖。依据是语义内容（事实落差／事理逻辑／态度倾向）。</td><td><b>抓大放小</b> —— "大"就是<b>主题词</b>，是判断正确答案的<b>基本依据</b>；要积累<b>三种主题词找法</b>。</td></tr>
+        <tr><td class="k">③</td><td>把文段当作<b>一个整体</b>：某句单独看很重要，放进整体可能就不重要了（关联词的管辖范围）。</td><td>主题词<b>优先用原词但非必须是原词</b>，可适当<b>扩大／缩小／替换</b> —— 一定要<b>对比择优</b>。</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+<section>
+    <h2>第一步 提升② ｜ 关联词不是依据，只是线索</h2>
+    <div class="row2">
+      <div>
+        <h3>删词测试（正面证据）</h3>
+        <table>
+          <thead><tr><th style="width:150px;">例句</th><th>删词后果</th></tr></thead>
+          <tbody>
+            <tr><td>…（但是）我还是按时赴约了</td><td>关系仍在 → 语义自带反差</td></tr>
+            <tr><td>…（所以）我没有按时赴约</td><td>关系仍在 → 语义自带因果</td></tr>
+            <tr class="hot"><td>我（应该）吃一些药休息一会</td><td><b>关系消失</b> → 滑落为陈述事实</td></tr>
+          </tbody>
+        </table>
+        <div class="note" style="margin-top:6px;">
+          <b>结论：</b>关联词分两类——<b>冗余标记型</b>（但是／所以／然而／因此，删之关系不变，可作硬判据）；<b>建立关系型</b>（应该／必须／唯有，删之关系崩塌，本身即重点信号）。
+        </div>
+      </div>
+      <div>
+        <h3>"而"的四种用法（反面证据）</h3>
+        <table>
+          <thead><tr><th style="width:140px;">例句</th><th style="width:56px;">关系</th><th>依据</th></tr></thead>
+          <tbody>
+            <tr><td>学而不思则罔</td><td class="k">转折</td><td>与预期相反</td></tr>
+            <tr><td>学而时习之</td><td class="k">承接</td><td>先后相续</td></tr>
+            <tr><td>意义重大而深远</td><td class="k">并列</td><td>地位平等</td></tr>
+            <tr><td>青出于蓝而胜于蓝</td><td class="k">转折</td><td>语意反转</td></tr>
+          </tbody>
+        </table>
+        <div class="note" style="margin-top:6px;">
+          <b>课件原话：</b>"句子与句子的关系，并不完全由关联词而决定，<b>关联词的存在与否不能完全构成我们分析的依据</b>。"注意"<b>完全</b>"二字——关联词不是无效，而是不够用。
+        </div>
+      </div>
+    </div>
+    <span id="a-sanceng"></span><h3>三层判据：谁是线索，谁是依据</h3>
+    <div class="layers">
+      <div class="layer">关联词、标点、位置 —— <span class="why" style="display:inline;">只是<b>线索</b></span></div>
+      <div class="layer">句子功能（背景／话题／问题／观点／对策）—— <span class="why" style="display:inline;">是<b>结构</b></span></div>
+      <div class="layer hot">语义内容（事实落差／事理逻辑／态度倾向）—— <span class="why" style="display:inline;">才是<b>依据</b></span></div>
+    </div>
+    <div class="note gray" style="margin-top:7px;">
+      <b>顺序不能颠倒：</b>先读语义，再用功能分层，最后拿关联词印证。反过来用（先看词再套关系），正是"分析依据"出偏差的根源。
+    </div>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 4 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 5 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>第一步 提升③</span>
+      <span>第 5 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>第一步 提升③ ｜ 部分关系 ≠ 整体关系 <span class="tag">关联词有"管辖范围"</span></h2><span id="a-guanxia"></span>
+    <div class="scope">
+      <div class="s1"><b>全篇管辖</b>：所以／因此／总之／可见 —— 决定主旨</div>
+      <div class="s2"><b>句群管辖</b>：因为…所以／如果…就 —— 决定层意
+        <div class="s3" style="margin-top:5px;"><b>单句管辖</b>：看似…其实／不是…而是 —— 只决定本句重心，不决定全文重点</div>
+      </div>
+    </div>
+    <div class="note" style="margin-top:7px;">
+      <b>课件原话：</b>"一个关联词只能保证管辖所在的句子，但不一定管辖整个文段。"<br>
+      <b>举例：</b>①看似很新颖，其实难度不会特别高（<b>局部重点</b>，"其实"只管本句）… ④所以我们还是要认真对待（<b>全文重点</b>，"所以"管全篇）。两者<b>方向相反</b>，只读前两句必错。<br>
+      <b>实操：</b>优先找覆盖范围最大的那一个，通常在结尾。两个重点方向相反时，服从覆盖范围大的那个。
+    </div>
+    <div class="note gray" style="margin-top:6px;">
+      <b>被打破的旧规则：</b>"转折之后是重点"的适用范围是<b>句内</b>；跨句、跨段时必须重新审视——第①句整体可能只是"让步"，真正的转折发生在①与④之间。
+    </div>
+    <div class="note gray" style="margin-top:6px;">
+      <span id="a-shishi"></span>★<b>思维提升①（"事实上"型转折）：其实／事实上／实际上，并非一定表转折；只是引导一种事实。</b><br>
+      <b>只有引导的事实，与前文构成<b>矛盾关系</b>，才是转折关系。</b><br>
+      例：① "大家都说老王是好人，<b>事实上</b>他是个坏人" —— 与前文矛盾 → <b>转折</b>（重点）<br>
+      　　② "大家都说老王是好人，<b>实际上</b>他确实如此" —— 与前文顺承 → <b>不是转折</b>（不重要）<br>
+      <b>判断规则</b>：以"事实上／其实／实际上"引导的事实<b>与前文矛盾吗？</b>矛盾 = 转折；不矛盾 = 顺承。<br>
+      <b>旧口诀的纠错</b>："事实上/其实/实际上 = 转折" 的默认理解<b>半对半错</b> → 应<b>看它引导的事实</b>与<b>前文的关系</b>才是关键。
+    </div>
+    <div class="note gray" style="margin-top:6px;border-style:dashed;">
+      ★<b>思维提升②（答案的两种形态）：转折文段的答案，既可以是对转折前观点的<b>否定</b>，也可以是对转折后内容的<b>阐述</b>。</b><span style="color:var(--muted);">（经验 · 有反例）</span><br>
+      例："有人说公务员考试简单，<b>其实</b>，公务员考试挺难的" → A"简单的说法是错误的"（否定前）；B"公务员考试挺难的"（阐述后）。<br>
+      <b>取舍判据（修正后）：看该句是否提供了"新信息"。</b><br>
+      　只是<b>反驳旧说</b>（没有新增事实）→ 选<b>否定前</b>；<br>
+      　<b>给出了新事实／新关系</b>（如"雅俗互动"）→ 选<b>阐述后</b>。<br>
+      <b>反例（2025 福建·雅俗）：</b>"实际上"紧接转折前（对立），按"靠前选否定"应选否定；但正确答案 D"存在<b>互动</b>关系"是<b>阐述后</b>——因为该句<b>提供了新关系（互动）</b>，不是单纯反驳。⇒ 位置判据不可靠，<b>以"是否提供新信息"为准</b>。
+    </div>
+  </section>
+
+<section>
+    <h2>第二步 ｜ 同义替换 <span class="tag">在重点部分里找"最接近"的选项</span></h2>
+    <div class="row2">
+      <div>
+        <h3>三把尺子（量语义距离）</h3>
+        <table>
+          <thead><tr><th style="width:66px;">维度</th><th>检查什么</th><th>典型错法</th></tr></thead>
+          <tbody>
+            <tr><td class="k">主体一致</td><td>说的是不是同一个对象</td><td>讲"基层人才"，选项说"医疗体系"</td></tr>
+            <tr><td class="k">程度一致</td><td>语气强弱是否匹配</td><td>原文"有待完善"，选项"亟需重建"</td></tr>
+            <tr><td class="k">范围一致</td><td>有没有放大或缩小</td><td>原文"部分县域"，选项"全国各地"</td></tr>
+          </tbody>
+        </table>
+        <div class="note" style="margin-top:6px;">
+          <b>比对对象是"文段重点部分"，不是整段文段。</b>拿选项和整段比对，会让干扰项也"有原文依据"。
+        </div>
+      </div>
+      <div>
+        <h3>六种替换手法（命题人怎么改写）</h3>
+        <div class="grid">
+          <div class="card"><b>近义词替换</b><span>刻不容缓 → 十分紧迫</span></div>
+          <div class="card"><b>句式转换</b><span>不是A而是B → 关键在于B</span></div>
+          <div class="card"><b>具体 → 概括</b><span>近百万自然村消失 → 村落大量消亡</span></div>
+          <div class="card"><b>抽象 → 具体</b><span>存在诸多短板 → 人才与资金不足</span></div>
+          <div class="card"><b>语气强化</b><span>不能忽视 → 应当高度重视（否定 → 肯定，语气加强）</span></div>
+          <div class="card"><b>因果调换</b><span>因A所以B → B的根源在于A</span></div>
+        </div>
+        <div class="note gray" style="margin-top:6px;">
+          <b>关键认知：</b>四个选项几乎都做了同义替换——<b>命题人不写"错"的选项，只写"对但不重要"的选项</b>。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 5 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 6 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>第二步 提升①</span>
+      <span>第 6 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>第二步 提升① ｜ 大意一致即可 <span class="tag">专治标题题</span></h2>
+    <div class="note">
+      <b>课件原话：</b>"大多数情况下，<b>不能要求中心句与正确答案的表述完全一致，大意一致即可。</b>"<br>
+      <b>内容层面（严 · 不可变）：</b>主体一致／程度一致／范围一致 —— 偏离任一条直接排除。<br>
+      <b>形式层面（松 · 可变）：</b>用词、句式、抽象层级、修辞 —— 允许不同。<br>
+      <b>结论：形式可以不一样，主体绝不能换人。</b>"表述不一样"不能作为排除理由。
+    </div>
+    <div class="row2" style="margin-top:7px;">
+      <div>
+        <h3>例（26 国行政执法 · 标题题）</h3>
+        <table>
+          <thead><tr><th style="width:120px;">中心句</th><th style="width:90px;">正确项 B</th><th>手法</th></tr></thead>
+          <tbody>
+            <tr><td>科学民主的<b>程序文本</b></td><td><b>程序内容</b>之基</td><td>抽象化＋比喻</td></tr>
+            <tr><td>民主从<b>理念转化为现实</b></td><td><b>实质</b>民主</td><td>概括</td></tr>
+            <tr><td><b>维护</b>民主之实的基本保证</td><td><b>筑牢</b>…之实</td><td>近义替换</td></tr>
+          </tbody>
+        </table>
+        <div class="note gray" style="margin-top:6px;">
+          三处字面<b>全不同</b>，主体／程度／范围<b>全吻合</b>——这就是"大意一致"。标题须凝练、常用对偶比喻，所以与中心句的字面差距<b>必然</b>更大。
+        </div>
+      </div>
+      <div>
+        <h3>配套的两个判读要点</h3>
+        <div class="note" style="margin-bottom:6px;">
+          <b>关系类型 ≠ 功能层级。</b>关系类型说"段<b>内部</b>几句怎么连接"（七种）；功能层级说"这一块<b>对全文</b>起什么作用"（11 种）。例中第二段内部是<b>并列</b>，对外是<b>解释说明</b>。<b>判重点永远看功能，不看关系类型。</b>
+        </div>
+        <div class="note gray">
+          <b>主体错位陷阱：</b>"以<b>他山之石</b>筑牢民主之实"——形式一样漂亮、字数一样，但主体从"程序文本"换成了"借鉴他国经验"（只是"一方面"里的具体做法）→ <b>直接排除</b>。
+        </div>
+      </div>
+    
+    <div class="note gray" style="margin-top:7px;">
+      <b>★ 摘要题 · 要虚不要实（摘要／标题类设问的高频坑）：</b>
+      当设问是"本文意在说明／可概括为／标题是"，答案要<b>偏虚、偏方向</b>，不要偏实、偏具体。<br>
+      <b>偏好虚（正确项）：</b>迈向／走向／推进／彰显／探索／构建／赋能／之路。<br>
+      <b>偏好实（多为干扰项）：</b>路径／方法／机制／体系／模式。<br>
+      <b>为什么：</b>摘要与标题需要<b>覆盖全篇、留出余地</b>，"路径／方法"过于具体，
+      往往只对应文中某一局部；而"推进……"能兜住全篇的倾向与方向。<br>
+      <b>配套铁律 · 主旨 ≠ 摘要：</b>同一文段，主旨题与摘要题答案<b>可能不同</b>。
+      主旨题要"贴住重点句的具体内容"，摘要题要"抽出来、虚一步"。
+      <br><b>实战例证（2024 宁夏 · 智慧治理）：</b>文段讲"理念／过程／目标相融合是智慧治理的重要路径"，
+      主旨题选"智能技术赋能的智慧治理路径"（实）；<b>摘要题选"迈向理念、过程与目标相融合的智慧治理"</b>（虚）——<b>一字之差，问法不同，答案不同。</b>
+    </div>
+</div>
+  </section>
+
+<section>
+    <h2>第二步 提升② ｜ 抓大放小、先大后小 <span class="tag">提升①的"下集"</span></h2>
+    <div class="grid">
+      <div class="card hot">
+        <b>大 ＝ 主题词</b>
+        <span>文段围绕的核心话题，通常是核心动名词（主谓宾）<br>一个文段只有一个主旨<br><b>正确选项必须包含它</b></span>
+      </div>
+      <div class="card">
+        <b>小 ＝ 表达形式</b>
+        <span>遣词用句、语序句式、修饰成分、修辞手法、抽象层级、正反说法<br><b>可以自由替换</b></span>
+      </div>
+    </div>
+    <div class="note" style="margin-top:7px;">
+      <b>①②的关系：</b>提升①说"大意一致即可"，提升②告诉你<b>什么算大意</b> —— <b>主题词一致，才算大意一致</b>；主题词不对，再像也是错的。
+    </div>
+  </section>
+
+<section>
+    <h2>第二步 提升③ ｜ 主题词优先用原词，但并非一定是原词 <span class="tag">对比择优</span></h2>
+    <div class="note">
+      <b>课件原话：</b>"主题词<b>优先考虑原词，但并非一定是文段原词</b>，且<b>适当扩大、缩小、替换并非一定错误</b>，一定要<b>对比择优</b>！"<br>
+      <b>Eg：</b>文化——文明　｜　技术——技艺　｜　音乐——艺术
+    </div>
+    <table style="margin-top:7px;">
+      <thead><tr><th style="width:150px;">变形</th><th style="width:110px;">Eg</th><th>可行与不可行</th></tr></thead>
+      <tbody>
+        <tr><td class="k">① 缩小（范围变窄）</td><td>技术 → 技艺</td><td>可行：原文重点确实只在一部分　｜　<b>不可行：把原文包含的对象排除了</b></td></tr>
+        <tr><td class="k">② 扩大（范围变宽）</td><td>音乐 → 艺术</td><td>可行：只是概括提炼　｜　<b>不可行：纳入了原文没有提过的对象</b></td></tr>
+        <tr><td class="k">③ 替换（近义换词）</td><td>文化 → 文明</td><td>可行：语义等价或更概括但仍指向同一话题　｜　不可行：换成了另一个话题</td></tr>
+      </tbody>
+    </table>
+    <div class="note" style="margin-top:7px;">
+      <b>判据：不改变"文段实际涵盖的对象范围"，就可行。</b>同一个主题词有一整排合法表达，"不是原词"本身不能作为排除理由。
+    </div>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 6 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 7 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>一句话口诀</span>
+      <span>第 7 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>一句话口诀</h2>
+    <div class="note">
+      转折看"但"后，因果看"结论"（倒装看原因），对策看"必须"，解释看"观点"，强调看"而是"，新旧看"如今"，并列先做包含测试（观点全归纳／分述取落点）。<br>
+      先按语义给句子排队（第一步①），排队时只信语义不信关联词（②），最后站到全篇高度重排一次（③）；选项只要<b>大意一致</b>即可（第二步①）—— 大意＝<b>主题词一致</b>（第二步②）。<b>三层尺度：句内 → 句间 → 全篇，答案是最高那层的第一名。</b><br>六种题型的一行判据总览，见第 <span class="pr" data-t="a-sucha">1</span> 页速查卡。
+    </div>
+  </section>
+
+<section>
+    <h2>干扰项五型 <span class="tag">区分"错"与"非重点"</span></h2>
+    <table>
+      <thead><tr><th style="width:100px;">类型</th><th style="width:240px;">特征</th><th>识别方法</th></tr></thead>
+      <tbody>
+        <tr><td class="k">非重点句照抄</td><td>原文出自转折前、原因、解释、背景</td><td>回原文标注该句属于关系的哪一侧</td></tr>
+        <tr><td class="k">只答一半</td><td>只说"问题／现象"，不含结论或对策</td><td>看是否包含关系中的重点侧</td></tr>
+        <tr><td class="k">以偏概全</td><td>并列<b>观点</b>只选其中一项（<b>分述</b>另论，见第 <span class="pr" data-t="a-relations">2</span> 页并列行）</td><td>并列观点必须"整体归纳"</td></tr>
+        <tr><td class="k">偷换概念</td><td>"作用有限""根本目的""减少依赖"等</td><td>原文没说 → 无中生有</td></tr>
+        <tr><td class="k">绝对化 / 因果倒置</td><td>一定、必然、唯一；把原因说成结果</td><td>对照原文语气；分辨"因为"和"所以"</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+<section>
+    <h2>做题流程 <span class="tag">照这个顺序走，不要跳步</span></h2>
+    <div class="row2">
+      <div>
+        <h3>第一步：寻找重点（花掉大半时间）</h3>
+        <ol class="steps">
+          <li><b>划信号词</b>——用七种关系定位切分点</li>
+          <li><b>贴功能标签</b>——背景／话题／问题／观点／对策／论证</li>
+          <li><b>画括号定管辖</b>——每个关联词"管到哪为止"</li>
+          <li><b>全篇重排序</b>——只看"提出观点／解决问题"那一句</li>
+          <li><b>自检</b>——删掉关联词后，<b>关系是否改变</b>？改变＝该词是重点信号；不变＝该词只是提醒。</li>
+        </ol>
+      </div>
+      <div>
+        <h3>第二步：同义替换（要快）</h3>
+        <ol class="steps">
+          <li><b>压句</b>——重点句压成一句核心语义（≤15 字）</li>
+          <li><b>先预判</b>——心里先想一个答案，再看选项</li>
+          <li><b>量三把尺</b>——主体、程度、范围</li>
+          <li><b>给对理由</b>——说"替换的是<b>非重点</b>"，而非"选项错了"</li>
+        </ol>
+        <div class="note" style="margin-top:6px;">
+          <b>绑定关系：</b>第一步错，必错；第一步对，第二步只是收尾。若第二步还在纠结，回去重排，别在选项里泡着。
+        </div>
+      </div>
+    </div>
+  </section>
+
+<section>
+    <h2>主题词 ｜ 定义与三种判断方法 <span class="tag">以（1）为主，综合（2）（3）</span></h2><span id="a-zhutici"></span>
+    <div class="note gray" style="margin-bottom:7px;">
+      <b>定义：</b>文段围绕的核心话题，通常是<b>核心动名词（主谓宾）</b>。注意不是孤零零一个名词，而是一个"主谓宾"式的核心语义单元（如"网络系统对公众不开放"），选项里可被压缩成"网络系统的开放性"。
+    </div>
+    <table>
+      <thead><tr><th style="width:30px;">#</th><th style="width:230px;">判断方法</th><th>特点与用途</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="k">（1）</td><td><b>中心句围绕的核心动名词</b>　——　主力方法</td><td>频次可能较低，但它是中心句的核心，<b>最稳</b></td></tr>
+        <tr><td class="k">（2）</td><td>每句话都围绕的相同话题</td><td>频次相对较高；<b>当文段结构、中心句不好把握时</b>，以此入手</td></tr>
+        <tr><td class="k">（3）</td><td>首句引出的话题（往往是主题<b>之一</b>）</td><td>用"排序"逻辑理解：先引出话题，后文才能围绕此话题展开</td></tr>
+      </tbody>
+    </table>
+    <div class="note" style="margin-top:7px;">
+      <b>权威判据：以（1）为主，综合（2）（3）来判断。</b>（2）（3）的用途是<b>校验</b>（1），不是替代（1）。
+    </div>
+    <div class="note gray" style="margin-top:6px;">
+      <span id="a-gnbq"></span><b>答疑　"首句有提示作用" 与 "新话题比老话题重要" 矛盾吗？——不矛盾。完整三情况（同一对象换角度 / 换对象但不反驳 / 换对象且反驳）见第 <span class="pr" data-t="a-sanqingkuang">9</span> 页。</b><br>
+      <b>判据一句话：后文讨论的"对象"还是不是开头那个。</b>换了对象 → 看第 <span class="pr" data-t="a-sanqingkuang">9</span> 页；没换 → "回扣开头"是必需的。<br>
+      <b>注：</b>若首句本身就是"提出观点"（总-分结构的"总"），提示与结论合一，它直接就是中心句 —— 判定依据永远是<b>功能标签</b>，不是"在第几句"。<br>
+      <b>要点：回扣的是"话题"，不是开头的细节</b> —— 仍是主题词问题。
+    </div>
+    <div class="heuristic" style="margin-top:6px;">
+      <span class="tagline">经验 · 有反例</span>
+      <b>出题人习惯（国考高频）：正确答案＝回扣开头引入的话题 ＋ 后文的重点内容。</b>两个选项都很像时，选那个<b>同时照应开头与后文</b>的。<br>
+      <b>注意：</b>这是<b>观察到的倾向，不是铁律</b>——它只做<b>候选项的提示</b>，最终仍由判据（主题词、功能、语义）裁决。
+    </div>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 7 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 8 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>解题方法 ｜ 正确答案需包含文段主题词</span>
+      <span>第 8 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>解题方法 ｜ 正确答案需包含文段主题词 <span class="tag">这是同义替换的依据</span></h2>
+    <table>
+      <thead><tr><th style="width:210px;">操作步骤</th><th>要点</th></tr></thead>
+      <tbody>
+        <tr><td class="k">① 找到文段重点部分</td><td>第一步"寻找重点"的成果：全篇排序后的第一名</td></tr>
+        <tr><td class="k">② 提炼其中最核心的词汇</td><td>即主题词，通常是一个"主谓宾"式核心语义单元</td></tr>
+        <tr class="hot"><td class="k">③ 先找含主题词的选项</td><td>主题词是<b>筛选器</b>：不含主题词的直接排除，不必细读</td></tr>
+        <tr class="hot"><td class="k">④ 验证没问题，直接锁定</td><td>再比"小"（表达形式）；用主体／程度／范围三把尺复核，其余排除</td></tr>
+      </tbody>
+    </table>
+    <div class="note" style="margin-top:7px;">
+      <b>这不是"逐项排除"，而是"先锁定再验证"</b> —— 四个选项里含主题词的通常只有一两个，先用主题词筛掉一半，效率差一倍。<br>
+      <b>与第三步"逐类排除"的关系：</b>主题词是<b>快筛</b>（先砍一半），三类是<b>兜底排序</b>（剩下两个怎么比）。<b>先筛后验、三类兜底</b>——两者不冲突，是同一流程的两段。
+    </div>
+  </section>
+
+<section>
+    <h2>两个例证 <span class="tag">为什么必须以（1）为主</span></h2>
+    <div class="row2">
+      <div class="note gray">
+        <b>例（桥梁／网络系统）：</b>"桥梁"与"网络系统"各出现两次，<b>频次打平</b> —— 方法（2）在这里失效。前两句全在讲桥梁，但桥梁只是<b>对照物</b>；主题词只能从中心句（"然而，多数网络系统对公众却是不开放的"）提炼：<b>网络系统 + 不开放</b>。
+      </div>
+      <div class="note gray">
+        <b>例 4（高寒生态修复）：</b>首句引出话题（人工修复 3–5 年 vs 自然演替几十年），第二句举例，第三句是中心句 → 主题词＝<b>管护 + 长期可持续性</b> → 正确项"保障后期管护与可持续性"。<br>
+        <b>干扰项</b>：A 取首句"人工修复 3–5 年"（铺垫）；B 取"自然演替几十年"（对照）；D 含"管护"但丢了"长期可持续性"（片面）。
+        <b>两个坑：</b>① 选首句字眼（"投资和建设周期"）＝ 只抓了话题入口；② 选项用原文出现过但被<b>否定</b>的词（"依靠自然恢复"）→ <b>出现 ≠ 支持</b>。
+      </div>
+    </div>
+  </section>
+
+<section>
+    <h2>第二步 的完整判据 ｜ 提升 ① ② ③ 三档宽容度 <span class="tag">合起来才完整</span></h2>
+    <table>
+      <thead><tr><th style="width:170px;">提升</th><th style="width:150px;">管什么</th><th>松紧</th></tr></thead>
+      <tbody>
+        <tr><td class="k">① 大意一致即可</td><td>表述形式</td><td><b>松</b>——用词、句式、修辞、抽象层级随便换</td></tr>
+        <tr class="hot"><td class="k">② 抓大放小</td><td>主题词必须保留</td><td><b>紧</b>——正确选项必须含主题词</td></tr>
+        <tr><td class="k">③ 变形有边界</td><td>主题词本身也可变</td><td><b>有条件地松</b>——可扩大／缩小／替换，但不能排除或新增对象</td></tr>
+      </tbody>
+    </table>
+    <div class="note" style="margin-top:7px;">
+      <b>一句话串起来：</b>话可以换着说（①），但主题词不能丢（②）；主题词也可以改名字（③），<b>但范围不能动</b>。<br>
+      即：<b>形式无边界地松，主题词有条件地松，对象范围绝对地紧。</b>（不是排除法，是<b>比较法</b>）
+    </div>
+  </section>
+
+<section>
+    <h2>例（残体之美）｜ 对比择优怎么比</h2><span id="a-canTi"></span>
+    <div class="note gray" style="margin-bottom:7px;">
+      <b>文段：</b>"一般来说，残破的物体总是不美的。<b>但</b>偏偏有那些古建筑、乃至日用品的残体被认为是美的，<b>又该如何解释呢？</b>"<br>
+      <b>中心句：</b>转折后的设问　　　<b>主题词：</b>残体 ＋ 被认为是美的（要解释的成因）
+    </div>
+    <table>
+      <thead><tr><th style="width:34px;">#</th><th style="width:230px;">选项</th><th>判定</th></tr></thead>
+      <tbody>
+        <tr><td class="k">A</td><td>如何欣赏古建筑</td><td>缩小＋偷换：① 原文还有"日用品"；② 问的是"为什么美"（成因），不是"怎么欣赏"</td></tr>
+        <tr class="hot"><td class="k">B</td><td>"废墟"何以是美的</td><td><b>正确</b>："废墟"替换"残体"（覆盖建筑与日用品残骸）；"何以是美的"对准"如何解释"</td></tr>
+        <tr><td class="k">C</td><td>何为建筑的残缺之美</td><td>范围缩小：把原文明确包含的"日用品残体"排除在外 → 只差"建筑"二字</td></tr>
+        <tr><td class="k">D</td><td>"世界遗产"的评选标准</td><td>无中生有：原文完全未提</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+<section>
+    <h2>第三步 ｜ 排除干扰项：三个类型 <span class="tag">对比择优的依据</span></h2><span id="a-sanleixing"></span>
+    <table>
+      <thead><tr><th style="width:120px;">类型</th><th style="width:270px;">判定标准</th><th>处理</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="k">类型①<br>一定不能选</td><td>与文意相悖　／　文段未提及　／　<b>无关对策</b></td><td>硬错，直接划掉，不必进对比</td></tr>
+        <tr class="hot"><td class="k">类型②<br>基本不能选</td><td>不含／缺少文段<b>主题词</b>；<b>非中心句（分述句）</b>的同义替换；并列<b>观点</b>中表述<b>片面</b>（<b>并列分述</b>另论，见第 <span class="pr" data-t="a-relations">2</span> 页）</td><td>对但不重要 —— 替换的是非重点，优先排除</td></tr>
+        <tr><td class="k">类型③<br>对比次选</td><td>主题词范围适当<b>扩大／缩小／替换</b>；<b>不明确选项</b>（较为笼统／表意模糊）</td><td>前两类都排完，才轮到它 —— 比"毛病更轻"</td></tr>
+      </tbody>
+    </table>
+    <div class="note" style="margin-top:7px;">
+      <b>顺序不能乱：</b>先排①（硬错）→ 再排②（对但不重要）→ 剩下来才比③。<b>所以"对比择优"不是比"谁对"，而是比"谁的毛病更轻"。</b>
+    </div>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 8 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 9 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>类型② 的完整清单</span>
+      <span>第 9 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>类型② 的完整清单 ｜ 干扰项从哪些位置取材 <span class="tag">三大类 · 十二个位置</span></h2>
+    <table>
+      <thead><tr><th style="width:180px;">位置</th><th>全部形态</th></tr></thead>
+      <tbody>
+        <tr><td class="k">① 关联词之前</td><td>转折前　·　结论前　·　程度词前　（<b>关联词之后才是中心</b>）</td></tr>
+        <tr><td class="k">② 分述句：中心句之前</td><td>定义引入　·　背景引入　·　对比引入　·　问题引入</td></tr>
+        <tr><td class="k">③ 分述句：中心句之后</td><td>解释　·　举例　·　意义　·　数据　·　多角度论述</td></tr>
+      </tbody>
+    </table>
+    <div class="note" style="margin-top:7px;">
+      <b>"贴原文"≠"是重点"：</b>取材位置不对，再像也要排除。这十二个位置就是干扰项的"原产地"。<br>
+      <b>举例的位置（思维提升①）：</b>标志词＝<b>比如／例如／譬如／就像／正如</b>；标志词<b>管辖范围内的一切</b>都属"举例"位置 —— 包括末句"<b>在这些作品中…</b>"这类<b>对例子的回指收束</b>。<b>例子内容一般不作答案。</b><br>
+      <b>反向判据：</b>句首是"在这些作品中／这些例子说明"→ <b>回指例子</b>（仍属举例）；句首是"因此／由此可见／总之"→ <b>引出结论</b>（可能是中心）。例（2025 国家·诗书画乐舞）：正确项 B"传统与现代：审美表达的异与同"出自观点句；A"青绿长裙"、C"人在画中游"取自<b>例子细节</b>；D"画与舞"把原文"诗书画乐舞"<b>缩小</b>了范围。<br>
+      <b>无标志词怎么识别例子（思维提升②）：</b>① 例子和解释<b>前</b>一般存在明显观点（可倒推）；② 前后<b>核心思想一致</b>；③ 观点与例子之间存在<b>大小包含关系</b>（观点＝大／上位概念，例子＝小／下位实例）。<br>
+      　<b>动作＝包含测试：</b>把可疑句的主体拿去问"它是不是前文那个概念的<b>一种</b>"。<br>
+      　例（2025 江苏·自动驾驶）：观点＝"在江苏，自动驾驶已成为创新技术<b>重塑物流运输产业</b>的重要载体"；随后三句并列分述（智慧重型卡车／港口集装箱卡车／物流园区物流车）<b>全是"自动驾驶应用"的下位</b> → 属分述。正确项 C"自动驾驶促进了<b>江苏</b>物流运输业的发展升级"；A 停在分述罗列、B 取自分述细节、D 主体下位化为"物流车"。
+    </div>
+  </section>
+
+<section>
+    <h2>全课程闭环 <span class="tag">3步走</span></h2>
+    <div class="note">
+      ① <b>寻找重点</b>（做减法：把不重要的划掉）→ ② <b>同义替换</b>（做匹配：用主题词筛、比范围、三把尺复核）→ ③ <b>排除干扰项</b>（做裁判：先硬错、再"对但不重要"、最后比谁更完整）<br>
+      <b>贯穿底线两条：</b>文段要看完整（局部 ≠ 整体）；不能过度依赖关联词（依据是语义）。
+    </div>
+  </section>
+
+<section>
+    <div class="note" style="margin-bottom:0;">
+    <span id="a-shouju"></span><b>(三) 重视首句 · 本节省流版　思维提升①：</b>首句的「<b>句子</b>」可能并不重要（前文引入），但首句引出的「<b>话题</b>」可能很重要 —— <b>看轻句子，看重话题</b>。<br>
+    <b>思维提升②：</b>后文若出现新话题新角度，一定值得关注；至于开头引出的话题，若后文没有进行全面反驳，通常也很重要。
+    </div>
+  </section>
+
+<section>
+    <h2>专题 ｜ 思维提升②的完整答案：新老话题的三种情况 <span class="tag">"首句有提示作用"与"新话题重要"不矛盾</span></h2><span id="a-sanqingkuang"></span>
+    <table>
+      <thead><tr><th style="width:52px;">情况</th><th style="width:236px;">后文怎么走</th><th>谁重要 · 答案特征</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="k">①<br>高频</td><td>后文围绕<b>同一话题</b>的某个<b>角度</b>继续深入（如围绕它提出对策）</td><td><b>该话题仍是重点</b> → 答案 ＝ 回扣开头的话题 ＋ 后文角度</td></tr>
+        <tr class="hot"><td class="k">②</td><td>后文提出<b>新话题</b>，但<b>没有反驳／推翻</b>前文观点</td><td>文段类似<b>并列结构</b>，<b>两个话题都重要</b> → 答案必须<b>两头照应</b>（这就是"回扣开头"的由来）</td></tr>
+        <tr><td class="k">③<br>低频</td><td>后文提出<b>新话题</b>，且<b>结束／反驳／推翻</b>了前文话题</td><td><b>新话题更重要</b> → 答案落在新话题。（话题的完全推翻极罕见，常见的是话题未变、只是相关观点态度变了）</td></tr>
+      </tbody>
+    </table>
+    <div class="note" style="margin-top:7px;">
+      <b>思维提升② 总结：</b>后文若出现<b>新话题新角度，一定值得关注</b>；至于开头引出的话题，<b>若后文没有进行全面反驳，通常也很重要</b>。<br>
+      <b>判据：</b>新话题是在<b>补充</b>旧话题，还是在<b>取代</b>它？<br>
+      <b>例证归类：</b>情况①（7 道）＝2021 线上教学、2022 土地规模经营、2023 统一大市场、2024 经济／依法治国／数字经济、2025 执法权限；情况②（4 道）＝2022 基层治理、2023 众包、2025 企业创新、<b>2023 上海</b>（近代上海）—— 这四道的答案都是"两头照应"。
+    </div>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 9 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 10 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>「回扣开头」国考例证速查</span>
+      <span>第 10 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>「回扣开头」国考例证速查 <span class="tag">十道真题，正确项都在"两头照应"</span></h2><span id="a-huiti"></span>
+    <table>
+      <thead><tr><th style="width:112px;">国考例证</th><th style="width:140px;">开头的话题</th><th style="width:170px;">后文的重点</th><th>正确答案</th></tr></thead>
+      <tbody>
+        <tr><td class="k">2021 线上教学</td><td>线上教学（在线教育）</td><td>推动社会力量参与资源供给</td><td>D. 在线教育的健康发展需要引入社会力量</td></tr>
+        <tr><td class="k">2022 基层治理</td><td>传统基层治理</td><td>区块链技术……</td><td>B. 区块链技术有助于推进基层治理改革</td></tr>
+        <tr><td class="k">2022 土地规模经营</td><td>土地适度规模经营</td><td>经营权共享（两种方式的共同点）</td><td>C. 经营权共享是土地适度规模经营的核心特征</td></tr>
+        <tr><td class="k">2023 众包</td><td>社会治理</td><td>众包 / 政府众包</td><td>B. 政府众包：公众参与社会治理新方式</td></tr>
+        <tr><td class="k">2023 统一大市场</td><td>全国统一大市场</td><td>潜在规模未转化为现实优势</td><td>C. 我国市场潜在规模优势还未转化为现实优势</td></tr>
+        <tr><td class="k">2024 经济高质量发展</td><td>经济高质量发展</td><td>释放消费潜力（"特别是"之后）</td><td>C. 释放消费潜力有利于推动经济高质量发展</td></tr>
+        <tr><td class="k">2024 全面依法治国</td><td>全面依法治国</td><td>加快建设现代公共法律服务体系</td><td>A. 全面依法治国，离不开现代公共法律服务体系建设</td></tr>
+        <tr><td class="k">2024 数字经济时代</td><td>数字经济时代</td><td>从协同治理角度保护劳动者权益</td><td>C. 数字经济时代劳动保障需加强法律体系协同</td></tr>
+        <tr><td class="k">2025 执法权限</td><td>基层治理 · 执法权限</td><td>精准赋权 / 动态调整执法权属</td><td>B. 围绕"精准赋权"，科学动态调整执法权属</td></tr>
+        <tr class="hot"><td class="k">2025 企业创新</td><td>企业</td><td>颠覆性技术创新</td><td>B. 颠覆性技术创新需重视并发挥企业的作用</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+<section>
+    <h2>四个坑 <span class="tag">"回扣开头"会踩的四种错</span></h2>
+    <div class="note">
+      ① 回扣的是<b>话题</b>，不是开头的<b>细节</b> —— 2022 的 C 项抓"公信力"（开头真出现过，但那是问题的表现）即此坑。<br>
+      ② <b>只抓后文新话题、不回扣开头</b>的选项要排除 —— 2023 众包 A 项、2025 企业创新 C 项（同一个坑，两年考了两次）。<br>
+      ③ <b>先看问法</b> —— 问"针对的<b>主要问题</b>"就答问题本身；问"意在说明"才偏向主张／对策（2023 统一大市场）。<br>
+      ④ <b>后文里还要再分一次轻重</b> —— "特别是／尤其／更"之后才是落点（2024 经济题的 D 项抓了<b>程度词之前</b>）。
+    </div>
+  </section>
+
+<section>
+    <h2>(四) 正确理解例子 ｜ 四条思维提升</h2>
+    <table>
+      <thead><tr><th style="width:36px;">#</th><th style="width:268px;">课件原话要点</th><th>展开与做法</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="k">①</td><td>有比较明显的标志一般是例子，<b>例子内容一般不作为答案</b>。</td><td>标志词：比如／例如／譬如／就像／正如。<b>标志词管辖范围内的一切</b>都属"举例"位置，包括末句对例子的<b>回指收束</b>（"在这些作品中…"）。</td></tr>
+        <tr class="hot"><td class="k">②</td><td>例子和解释<b>前</b>一般存在明显观点，前后核心思想一致，且观点与例子之间存在<b>大小包含关系</b>（<b>并非一定要有标志词才是例子</b>）。</td><td>观点＝大（上位概念），例子＝小（下位实例）。<b>动作＝包含测试</b>：拿可疑句的主体去问"它是不是前文那个概念的<b>一种</b>"。</td></tr>
+        <tr class="hot"><td class="k">③</td><td>若文段<b>通篇都是某个具体对象</b>，那么其可能<b>并非例子，而是论述主体本身</b>。</td><td>护栏条款：文段通篇围绕它 → 它就是<b>论述主体</b>（也是主题词），<b>不要因为"具体"就往上跳一级</b>。<br>例：肠胃…有的人紧张可能引发胃痉挛 → 主题词是「肠胃」，不是「疾病」。</td></tr>
+        <tr class="hot"><td class="k">④</td><td><b>例子一般是完成时态，对策一般并非例子。</b></td><td><b>完成态信号</b>（了／已经／曾经／取得了／一度）→ 一般是<b>例子</b>；<b>对策信号</b>（应该／应当／必须／需要／亟需）→ <b>不是例子</b>，可能是<b>中心句</b>。<br>例①：…小王就是因为善于背诵<b>取得了</b>较好的成绩 → 例子，非重点。<br>例②：…很多人因为善于背诵<b>取得了</b>不小的成就。作为备考公务员的同学…<b>也应该善于背诵</b> → 后半是<b>对策＝重点</b>。<br><b>逻辑：</b>例子是"已发生的事实"，对策是"尚未发生的要求"，二者不可能同类。<b>别因为对策句挨着例子、又在末尾，就把它当例子丢掉。</b><br><b>两句都用"一般"——真正判据是「时态」：</b>已发生（含<b>已实施的措施</b>，"某地已经推行了 X 改革"）→ 例子；尚未发生（要求／主张）→ 对策，可能是中心。<b>分例子和对策，不看内容看时态。</b></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+<section>
+    <h2>回指 vs 结论 <span class="tag">末句是"例子的收束"还是"独立的观点"</span></h2>
+    <table>
+      <thead><tr><th style="width:250px;">句首是什么</th><th style="width:150px;">性质</th><th>是不是中心</th></tr></thead>
+      <tbody>
+        <tr><td>在这些作品中／这些例子说明／上述案例</td><td><b>回指例子</b></td><td>仍属举例说明，<b>不是中心</b></td></tr>
+        <tr class="hot"><td>因此／由此可见／总之／说到底</td><td><b>引出结论</b></td><td>可能是中心，重点看它</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 10 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 11 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>(五) 对策类文段 · 知识树</span>
+      <span>第 11 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>(五) 对策类文段 · 知识树 ｜ 4 考点 + 5 思维提升 <span class="tag">一页全貌</span></h2><span id="a-duice"></span>
+    <div class="row2">
+      <div>
+        <h3>考点回顾（4 个）</h3>
+        <table>
+          <tbody>
+            <tr><td class="k">①</td><td><b>必考点</b>：凡表达"意思＝对策"的文段都是对策类文段。</td></tr>
+            <tr><td class="k">②</td><td><b>必要条件</b>：只有…才…；只有才中间更重要；<b>表达思想和对策是一回事</b>。</td></tr>
+            <tr><td class="k">③</td><td><b>理论要点</b>：必要条件/对策是重点；对策类文段选项优选对策，其重要性 > 问题、意义效果、解释、原因。</td></tr>
+            <tr><td class="k">④</td><td><b>四种出场</b>（权威清单见对策专节"实操提醒"）：1. <b>直接对策</b>；2. <b>标志词引导</b>（<b>最高频</b>）；3. <b>反面提</b>对策 → 反推；4. <b>只提问题</b> → 优选针对性对策；选项无好对策 → 退选「问题」。</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <h3>思维提升（5 条）</h3>
+        <table>
+          <tbody>
+            <tr><td class="k">①</td><td><b>内容 > 形式</b>：选提及对策内容本身的选项（不是选含"需要"标志词的）；若内容都存在，再考虑形式。</td></tr>
+            <tr><td class="k">②</td><td><b>对策 + 对象</b>：主题词 = 对策（做什么）+ 对象（谁去做／为了谁做）。</td></tr>
+            <tr><td class="k">③</td><td><b>宏观 vs 具体</b>：多层对策时选<b>最后那个最具体的</b>（经验 · 有反例，详见提升③）。情况 1（宏观＋并列具体展开）选最后；情况 2（宏观＋后文展开）：看后文信号（"比如"→中心在句 1；"重点／关键"→ 重点在后文；都没→ 结合文段和选项判断）。</td></tr>
+            <tr><td class="k">④</td><td><b>什么时候不选对策</b>：1. 文段不是对策类（既无问题也无对策）；2. 文段提了问题，但选项中没有好对策 → 不选对策，退而求其次。</td></tr>
+            <tr><td class="k">⑤</td><td><b>对策和问题的相关性（一体两面）</b>：根据问题可以反推对策，<b>表达思想和对策是一回事</b>。</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="note" style="margin-top:7px;">
+      <b>底层一句话（(五) 节总纲）</b>：<b>"表达思想和对策是一回事"</b> → 这条贯穿考点②、思维提升⑤、整体定位——可作为遇到对策类文段时的<b>第一反应</b>。
+    </div>
+  </section>
+
+<section>
+    <h2>(五) 对策类文段 ｜ 公考言语必考点 <span class="tag">对策 ＝ 必要条件 ＝ 重点</span></h2><span id="a-biaozhici"></span>
+    <table>
+      <thead><tr><th style="width:46px;">考点</th><th style="width:276px;">课件原话</th><th>展开与做法</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="k">①</td><td>对策类文段是<b>公考言语的必考点</b>。凡表达"表达意思＝对策"或"所提对策是一回事"的文段都是。</td><td>必出现<u>必要条件</u>句式：只有…才…／必须…／应该…／需要…。</td></tr>
+        <tr class="hot"><td class="k">②</td><td><b>只有…才…</b>（必要条件句式）的逻辑链：付出是回报的必要条件 ＝ 只有付出才能有回报 ＝ 想有回报<b>应该</b>付出。</td><td>重点始终是"必要动作"（付出），不是"收益结果"（回报）。<br><b>关注动作里那个限定语：</b>付出=必要动作；回报=结果。</td></tr>
+        <tr class="hot"><td class="k">③</td><td>必要条件／对策是重点，<b>对策类文段选项优选对策</b>，其重要性 > 问题、意义效果、解释、原因…</td><td>优选顺序表：<br>1. 对策（应该／需要／加强…）─<b>最优先</b><br>2. 问题（针对"主要问题"提问时适用）<br>3. 意义效果（次选）<br>4. 解释／原因（一般不作答案）<br>★但意义效果也能作答案 —— 某些"意在说明"型题的落点就是意义效果</td></tr>
+      </tbody>
+    </table>
+    <div class="note" style="margin-top:7px;">
+      <b>实操提醒：</b>对策类文段选项里，优先挑带"对策味"（应该／必须／需要／加强／推进／实施）的。选项里有对策就选对策，没有再考虑意义效果。问题类选项仅在问"针对的主要问题"时用。<br>
+      <b>★对策标志词同义词表（"亟待"等强语气词按表）：</b>
+      亟待 ＝ 迫切需要 ＝ 亟须 ＝ 亟需 ＝ 必须 ＝ 应该 ＝ 应当 ＝ 需要。
+      <b>一律当对策标志词处理</b>，看后面跟着的<b>动作</b>。<b>读音</b>：<b>jí dài</b>（去声去声）。<br>
+      
+      1. <b>直接对策</b>：文段里出现「应该／必须／需要」提出的动作（例 3.4）。<br>
+      2. <b>对策标志词引导</b>："需要采取／应该采取／我们亟需……"后才是动作（<b>最高频</b>）。<br>
+      3. <b>文段反面提对策</b>：只提错误做法（反面论证）→ 需反推对策。<br>
+      4. ★<b>只提问题不答对策</b>：文段含消极表述（挑战／瓶颈／威胁／难题／不足／缺陷／风险）→ <b>优选有针对性、能解决问题的对策</b>；若选项没有对策，则退而求其次选「问题」。<br>
+      例：人民群众的财产性收入偏弱，影响消费能力 → 答案 A. 增加人民群众财产性收入。B 表述问题（类型②）；C 偷换主体（财产性→劳动性）；D "仅从立法"缩小范围无中生有。<br>
+    </div>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 11 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 12 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>(五) 思维提升①②</span>
+      <span>第 12 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>(五) 思维提升①② ｜ 内容&gt;形式 · 对策＝形式＋内容</h2>
+    <table>
+      <thead><tr><th style="width:150px;">总公式</th><th>拆解</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="k">对策 ＝ 形式 ＋ 内容</td><td><b>形式</b>＝形式词（应该／必须／需要／亟待／亟须／亟需／应当／有必要，等价表见对策考点节）——只表态「要做」、<b>0 动作信息</b>（空快递单）；只有形式词 → <b>伪对策</b>。<br><b>内容</b>＝该怎么做＝动词串（四种形态见下表）——<b>考点永远落在内容上</b>。</td></tr>
+        <tr><td class="k">内容 ＝ 动作 ＋ 对象<br>（＋方式／限定）</td><td><b>动作</b>＝动词＋实义宾语，两种伪装：① 抽象占位（挖掘／融合／利用／体现／展示＋抽象名词，如"挖掘共鸣"）② 偷换动作结构（"从 A 到 B 的转变"压成"A 的 B 路径"）→ 一问「它告诉读者怎么做了吗」。<br><b>对象</b>＝对谁做／为谁做（名词）。</td></tr>
+        <tr><td class="k">生活例</td><td>"这扇门坏了，应该换一把锁"→ 对象＝门、动作＝换、内容＝换一把锁、形式＝应该、对策＝整句。</td></tr>
+      </tbody>
+    </table>
+    <div class="row2" style="margin-top:7px;">
+      <div>
+        <h3>提升① ｜ 内容 &gt; 形式（先筛内容，再比形式）</h3>
+        <table>
+          <tbody>
+            <tr class="hot"><td class="k">判定顺序</td><td>先用<b>内容</b>筛掉伪对策 → 剩下的都有真内容 → <b>再比形式</b>。</td></tr>
+            <tr><td class="k">伪对策</td><td>形式含对策词，内容仅"重要性／态度"，无具体动作／对象。</td></tr>
+            <tr><td class="k">真对策</td><td>不一定含对策词，但有<b>具体动作（加强／推进／建立）或动作对象、范围／方式</b>。</td></tr>
+            <tr><td class="k">课例</td><td>「考试很重要，<b>应该</b>加倍努力」：A"我们应该加倍努力"＝重复原话；C"加倍努力很重要"＝同义重复；<b>B 胜出（内容更实）</b>。</td></tr>
+            <tr><td class="k">对应关系</td><td>本课是"□内容"型伪对策；第三步类型①「无关对策」是"□内容且□形式"型干扰项。</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <h3>提升② ｜ 主题词 ＝ 对策（做什么）＋ 对象（对谁做）</h3>
+        <table>
+          <tbody>
+            <tr><td class="k">三个考点</td><td>① 脱动作（只有主题词、无动词）② 脱对象（主题词变／错）③ 对象与动作错位。</td></tr>
+            <tr class="hot"><td class="k">实操三提问</td><td>① 动词是什么 ② 对象是谁 ③ 二者对应吗——任一不通过 → 立即划掉。</td></tr>
+          </tbody>
+        </table>
+        <h3>「内容」的四种形态</h3>
+        <table>
+          <tbody>
+            <tr><td class="k">1. 动作</td><td>建立／加强／推进／实施／完善</td></tr>
+            <tr><td class="k">2. 动作＋对象</td><td>建立监测平台／完善法律体系</td></tr>
+            <tr><td class="k">3. 方式／范围／路径</td><td>从制度层面／在 XX 范围内／通过 XX 渠道</td></tr>
+            <tr><td class="k">4. 对象＋动作＋限定</td><td>为 XX 建立 XX／对 XX 加强 XX</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="heuristic" style="margin-top:7px;">
+      <span class="tagline">经验 · 有反例</span>
+      <b>一键判断法／词串长度：</b>拿选项写「应该＋X」，看词串是否重复／空洞——<b>词串越长（动作＋对象＋方式＋范围）越像真对策</b>：「挖掘」＜「挖掘资源」＜「挖掘民族文化资源」。词串过短多为伪对策。
+    </div>
+    <div class="note" style="margin-top:6px;">
+      <b>★「老话题＋对策」是高频答型（经验 · 有反例）：</b>开头话题＋后文对策 ＝ 几乎所有对策题的结构。判据：后文的<b>对象</b>换了吗？没换（最常见是换成对策角度）→ 老话题仍重要。答型＝<b>回扣开头的话题＋对策动作</b>。例：2022 四川（学术争议→正确态度与方法）／2025 江苏青铜器（青铜研究→亟待深入研究）／2024 山西（数字经济→法律体系协同）。联动：新老话题三种情况（第 <span class="pr" data-t="a-sanqingkuang">9</span> 页）。<br>
+      <b>对策标准句式三层：</b>上层＝面临问题／背景 → 中层＝<b>需要采取什么（标志词层，重要标志）</b> → 下层＝需要做什么。<br>
+      <b>七种关系 vs 出场方式：</b>七种关系是「哪里是重点」的排序依据；四种出场是「怎么选答案」的优选依据——合起来指向"问题 → 标志词 → 动作"。
+    </div>
+  </section>
+
+<section>
+    <h2>(五) 关联词补表 ｜ 为此 · 真伪动作高级形态</h2>
+    <div class="note" style="margin-top:0;">
+      <b>★关联词补表：因果复句结尾的"承接词"。</b><br>
+      <b>为此</b>（wéi cǐ）／ 鉴于此 ／ 基于此 ＝「由于这件事／由于这一原因」＝「为了这一目的」→ <b>回指前文、推出后文</b>。<br>
+      区别于「因为」「因此」「所以」——后者独立使用；前者是<b>承接词</b>，不能独立成句。<br>
+      ★<b>看到"为此"两字的三动作：</b>① 往前看一句（题干／背景／原因）② 认是什么功能（多为<b>问题／原因</b>）③ 往后看一句（<b>对策／结果</b>，重点）。<br>
+      例（2025 广西·文博展陈）：提出问题"很难满足海量游人需求" → <b>为此</b> → 提出对策"善用人工智能、虚拟现实……"。答案 A「拓展多空间＝善用」调整一下其他三个（挖掘共鸣／融合媒体／利用新视角）都仅态度词、无动作 → 伪对策。<br>
+      <b>★伪动作高级形态：偷换动作结构（双向过程变单向描述）。</b><br>
+      例（2024宁夏·智慧治理）：中心句"从智能技术赋能<b>到</b>技术融合<b>的转变</b>"含两个动作（赋能→融合）。C 项"智能技术赋能<b>的</b>智慧治理路径"被压缩为单向修饰 + 名词化"路径" → <b>偷换了"转变"这个核心动作</b>。<br>
+      判断口诀：拿选项，问"它告诉读者<b>怎么转变／怎么实现</b>了吗"。没有 → 伪动作。<br>
+      <b>★真动作 vs 伪动作高级形态表：</b><br>
+      动词抽象占位：挖掘／融合／利用／体现／展示 —— 后面只接一个抽象名词 = 伪动作。<br>
+      偷换动作结构：含主题词，但把"从 A 到 B 的转变"压缩成"A 的 B 路径"，丢掉核心动词。<br>
+      真动作：动作 + 对象 + 方式／路径 / 限定语（连续词串，如"以多模式拓展多空间"）。<br>
+    </div>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 12 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 13 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>(五) ｜ 思维提升 ③④⑤</span>
+      <span>第 13 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>(五) ｜ 思维提升 ③④⑤ <span class="tag">多层对策 · 不选对策 · 一体两面</span></h2>
+    <table>
+      <thead><tr><th style="width:120px;">提升③ 多层对策</th><th>后文信号 → 处理</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="k">情况一<br>宏观＋并列分述</td><td><b>选最后那个最具体的</b>（它把宏观对策"具体化"了）。<span style="color:var(--accent);">经验 · 有反例</span><br>例（2023 国考·适老化改造）：宏观"提升思想认识"＋并列分述（宣传引导／服务中心／转变观念）→ 答案 D「加强宣传引导，做到'心理无障碍'」。</td></tr>
+        <tr><td class="k">情况二①<br>后文有"比如／例如"</td><td>类似观点＋解释说明 → <b>中心在句 1</b>。<br>例（2023 广东·烈士纪念设施）："比如"扫码／VR → 答案 C"如何强化教育作用"；B 偷换"建设管理好"；D 偷换落点。</td></tr>
+        <tr><td class="k">情况二②<br>后文有"重点／关键在于"</td><td>层层递进 → <b>重点在后文</b>。</td></tr>
+        <tr><td class="k">情况二③<br>既无举例也无重点词</td><td>结合文段和选项判断（出题人不会同时出对应前后的两选项）。<br>例（2023 湖北·质检报告）→ 答案 D"让质检报告经得起质检"＝主题词＋动作。</td></tr>
+        <tr><td class="k">适用边界</td><td>①② 解决"看到一条对策时怎么选"，③ 解决"看到好几条对策时怎么选"。</td></tr>
+      </tbody>
+    </table>
+    <table style="margin-top:7px;">
+      <thead><tr><th style="width:120px;">提升④ 什么时候不选对策</th><th>规则与例证</th></tr></thead>
+      <tbody>
+        <tr><td class="k">1. 文段不是对策类</td><td>既没有问题也没有对策 → 选作者观点／评价／意义，<b>不选对策</b>。</td></tr>
+        <tr class="hot"><td class="k">2. 有问题、无好对策</td><td>选项中没有针对性对策 → 退而选"问题描述"或"问题＋虚动作（补短板／有待／需要）"。<br>例（2024 重庆·新农人）：全文仅提问题 → 答案 B"需补短板，否则创业难成"；A 模糊、D 口号召句。<br>反例（2024 黑龙江·知识产权）：只提问题，但 D 给出三个动作的<b>真对策</b> → <b>仍选对策</b>。</td></tr>
+        <tr><td class="k">与前三的关系</td><td>①②③ ＝「默认有真对策时」怎么选；④ ＝「文段或选项里没对策时」怎么办。</td></tr>
+              
+</tbody>
+    </table>
+    <table style="margin-top:7px;">
+      <thead><tr><th style="width:120px;">提升⑤ 一体两面</th><th>判断规则</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="k">底层一句话</td><td>对策与问题不是两个独立概念，是<b>同一件事的两面</b>（饿了→要吃饭；生病了→要治病）。</td></tr>
+        <tr><td class="k">① 问题＋对策</td><td>→ 选<b>对策</b>。</td></tr>
+        <tr><td class="k">② 问题、没对策</td><td>→ 选<b>问题</b>（见提升④）。</td></tr>
+        <tr><td class="k">③ 疑问＋后文作答</td><td>→ 选<b>答案</b>。例（2024 国考·个人信息保护）：句 2 问"能否连带追究"，句 3 答"可以" → B"应当依法追究下游违法者赔偿责任"。</td></tr>
+      </tbody>
+    </table>
+    <div class="note gray" style="margin-top:6px;">
+      <b>一句判断：</b>看到"应该／必须／需要"先问"它告诉你怎么做吗"——没说动作＝伪动作；文段根本没对策 → 不选对策（提升④）。
+    </div>
+  </section>
+
+<section>
+    <h2>(七) 因果文段 ｜ 考点回顾 <span class="tag">结论之后是重点</span></h2><span id="a-yinquo"></span><span id="a-biaozhi"></span>
+    <table>
+      <thead><tr><th style="width:120px;">类别</th><th style="width:330px;">标志词</th><th>性质与强弱</th></tr></thead>
+      <tbody>
+        <tr><td class="k">典型标志<br>（成对出现）</td><td class="mono">因为……所以……　／　由于……因此……</td><td>因果复句的完整形态：前因后果，<b>重点在"所以／因此"之后</b></td></tr>
+        <tr class="hot"><td class="k">结论标志 1</td><td class="mono">所以　因此　因而　故而　故</td><td><b>强因果结论</b> —— 最典型、最硬，见到基本可直接定位结论</td></tr>
+        <tr class="hot"><td class="k">结论标志 2</td><td class="mono">于是　可见　看来</td><td><b>推论</b> —— 由前文推出，语气弱于第 1 类，但仍是结论</td></tr>
+        <tr class="hot"><td class="k">结论标志 3</td><td class="mono">这种情况下　可以说　换言之　对此<br>有鉴于此　总之　换句话说　简而言之</td><td><b>总结／换言</b> —— <b>内部强弱不一，不能一视同仁</b>：<br>「总之／简而言之」多为<b>全文结论（强）</b>；<br>「换言之／换句话说」是<b>同义重述（弱）</b>；<br>「有鉴于此／对此」偏<b>承接</b>。</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+<section>
+    <h2>理论要点 · 与错误选项特征 <span class="tag">课件原话</span></h2>
+    <div class="note">
+      <b>理论要点：</b>① <b>结论之后是重点</b>；② <b>尾句出现结论词 —— 重点关注</b>。<br>
+      <b>典型错误选项特征：</b><b>结论前的内容</b> —— 这正是第 <span class="pr" data-t="a-sanleixing">8</span> 页类型②「非中心句（分述句）的同义替换」在因果文段里的具体形态。
+    </div>
+    <div class="note gray" style="margin-top:6px;">
+      <b>⚠ 与主题词答疑的张力（已按仲裁表处理，答疑在第 <span class="pr" data-t="a-gnbq">7</span> 页）：</b>课件说"尾句出现结论词<b>重点关注</b>"，答疑说"判定依据永远是<b>功能标签</b>，不是在<b>第几句</b>"——两者不矛盾：<br>
+      课件用的是"<b>关注</b>"（提醒你去看），不是"<b>判定</b>"（决定答案）。<br>
+      按第 <span class="pr" data-t="a-zhongcai">1</span> 页仲裁表：<b>位置只是线索 ＜ 功能层级 ＜ 语义内容</b>。位置帮你<b>找到候选</b>，功能和语义才<b>裁决</b>。
+    </div>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 13 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 14 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>思维提升① ｜ 答案可以是"因 + 果"结构</span>
+      <span>第 14 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>思维提升① ｜ 答案可以是"因 + 果"结构 <span class="tag">反套路：别因它像"非重点"就排除</span></h2>
+    <table>
+      <thead><tr><th style="width:96px;">项</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td class="k">适用情况</td><td>当文段出现<b>原因、意义论述</b>的时候</td></tr>
+        <tr><td class="k">考察理由</td><td><b>反套路</b> —— 不要因为它像"非重点"就排除</td></tr>
+        <tr class="hot"><td class="k">选项特点</td><td><b>结论 + 原因／为什么 + 结论</b> —— 关键是它体现了<b>"果"</b>；至于"因"<b>可有可无</b>。</td></tr>
+      </tbody>
+    </table>
+    <div class="note" style="margin-top:7px;">
+      <b>课件例：</b>考试难度越来越高，原因在于考试的人数越来越多，因此<b>应该认真听课刷题</b>。<br>
+      <b>答案设置：</b>① 应该认真听课刷题（<b>纯果</b>）　② 应该认真听课刷题<b>的原因</b>（<b>果 + 因</b>）—— <b>两者都能选，只要含"果"</b>。<br>
+      <b>例证（2019 北京）：</b>"废墟<b>何以</b>是美的"——「何以」预设了"废墟是美的"这个事实，所以它＝<b>「是美的」（果）＋「何以」（因）</b>，是典型的"果 + 因"结构。
+    </div>
+    <div class="note" style="margin-top:6px;border-left-color:var(--accent);">
+      <b>★ 与上一节「典型错误选项特征：结论前的内容」合起来 → 一条精确分界线：</b><br>
+      <b>❌ 只有"因"（不含果）→ 错</b>；<b>✅ "果"或"果 + 因"→ 对</b>。<br>
+      <b>判据不是"有没有原因"，而是"有没有果"。</b>
+    </div>
+    <div class="note gray" style="margin-top:6px;">
+      <b>⚠ "因"可有可无的边界（课件没说，但例题要求）：</b>当"因"只是<b>附带提及</b>→ 可无；<br>
+      当"因"是<b>文段主体论述</b>（如例6 的"全新解释"占 2/3 篇幅）→ <b>"因"不可缺</b>，漏了就错。
+    </div>
+  </section>
+
+<section>
+    <h2>(七) 思维提升② ｜ 层层递进 <span class="tag">重在开头和结果，特别是结果</span></h2>
+    <table>
+      <thead><tr><th style="width:96px;">项</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td class="k">适用情况</td><td>文段<b>层次较为复杂、过程描述较多</b>（链式推进：A 需要 B，B 需要 C……）</td></tr>
+        <tr class="hot"><td class="k">做题思维</td><td><b>首尾兼顾抓重点，特别是结果。</b></td></tr>
+      </tbody>
+    </table>
+    <div class="note" style="margin-top:6px;">
+      <b>课件例：</b>好的成绩需要好的心态，好的心态需要好的身体，好的身体需要好的休息，好的休息需要好的睡眠。<br>
+      <b>链条：</b>成绩 ← 心态 ← 身体 ← 休息 ← <b>睡眠</b>。<br>
+      <b>中间三环（心态／身体／休息）都只是"过桥"，没有信息量</b>；真正有份量的只有<b>两端的落点</b>——尤以<b>尾部的"好的睡眠"</b>为要。
+    </div>
+  </section>
+
+<section>
+    <h2>(七) 思维提升③ ｜ 结合上下文 <span class="tag">哪怕尾句有结论词，也不建议只看尾句</span></h2>
+    <table>
+      <thead><tr><th style="width:96px;">项</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="k">原话</td><td>哪怕尾句有结论词，也不建议只看尾句，<b>一定要结合上下文</b>。</td></tr>
+        <tr><td class="k">为什么</td><td>"尾句 ＋ 结论词"只是<b>提示你去重点看</b>；但<b>结论到底是什么</b>，必须<b>回到那句话的内容里读</b>。</td></tr>
+      </tbody>
+    </table>
+    <div class="note" style="margin-top:6px;">
+      <b>课件例：</b>"<b>所以</b>，赵老师你真是太让我惊讶了！"——选项 A"赵老师很厉害"／B"赵老师很差劲"，<b>根本选不出来</b>。<br>
+      因为"<b>太让我惊讶了</b>"<b>既可褒也可贬</b>——只看尾句无法判断，必须回到上文。<br>
+      <b>三种危险：</b>结论后的内容可能 ① <b>有歧义</b>（太让我惊讶了）② <b>过于抽象</b>（"有利于医学实践"）③ <b>指代不明</b>（"这样""这种""这就意味着"）。
+    </div>
+    <div class="note gray" style="margin-top:6px;">
+      <b>与 (七)-1 的关系：</b>(七)-1 说"<b>结论之后是重点，尾句出现结论词重点关注</b>"——那是叫你<b>去关注</b>；<br>
+      本条说"<b>不能只看尾句</b>"——那是叫你<b>别只看位置</b>。<br>
+      <b>两句合起来 ＝ 位置是线索，语义才是依据</b>（与第 <span class="pr" data-t="a-zhongcai">1</span> 页仲裁表一致：位置 ＜ 功能 ＜ 语义）。
+    </div>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 14 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 15 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>(七) 思维提升③</span>
+      <span>第 15 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>(七) 思维提升③ · 例题 <span class="tag">慕课 / 叙事医学 / 脑衰老</span></h2>
+    <table style="font-size:10px;">
+      <thead><tr><th style="width:112px;">例题</th><th style="width:38px;">答案</th><th>结构 · 考点</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="k">2020 国考<br>慕课</td><td class="k">B</td>
+        <td>①背景：信息技术与高教融合衍生在线开放课程　＋　②铺垫："六年来…<b>就必须创新发展</b>，把慕课建设作为战略先手棋"　＋　③<b>【结论】</b>"<b>这就意味着</b>，慕课的建设与发展<b>必然离不开高校的参与和支持</b>、学校与社会的共同协力"。<br>
+        B"强调<b>高校</b>应在慕课发展中发挥重要作用"＝③<b>同义替换</b> ✓<br>
+        A／D 取 ①②（背景现状）；<b>C"高校需重视高级人才的培养和储备"＝偷换主体关系</b>——②里出现过"高层次人才的主要供给者"，C 把"慕课离不开高校"偷换成"高校要培养人才"。</td></tr>
+        <tr class="hot"><td class="k">例11<br>2022 山西<br>叙事医学</td><td class="k">A</td>
+        <td>①<b>【引出话题】</b>叙事医学／叙事能力是什么；要求医生倾听病人及家属叙事　＋　②<b>【讲述其作用】</b>"<b>这样</b>，医生才可以获取更多决策信息…<b>最后和患方共同作出</b>…诊疗选择"。<br>
+        A"叙事医学有助于<b>医患共同决策</b>"＝②<b>同义替换</b> ✓<br>
+        B"化解<b>医疗分歧</b>"、C"避免<b>技术至上</b>误区"＝<b>无中生有</b>；D"有利于当前<b>医学实践</b>"＝<b>过于笼统</b>（把具体的"共同决策"泛化）。</td></tr>
+        <tr class="hot"><td class="k">例12<br>2024 河北<br>脑衰老</td><td class="k">D</td>
+        <td>①<b>【关于脑衰老的一些成果】</b>神经科学揭示脑衰老多层级特征；<b>此外</b>新技术新方法使研究内容丰富　＋　②<b>【话题来到对抗衰老】</b>运动可改善脑衰老的生物学特征　＋　③<b>【结论】</b>"<b>因此</b>，临床实践中<b>运动干预</b>可作为补充策略，改善…<b>脑健康</b>"。<br>
+        D"<b>运动影响脑健康</b>：运动疗法有前景"＝③<b>同义替换</b> ✓<br>
+        A"运动促进<b>脑生长</b>"、C"运动改变<b>脑结构</b>"＝<b>无中生有</b>（原文说"生物学特征及生理功能"）；<br>
+        <b>B"运动干预脑衰老：新进展与再认识"＝取 ① 的"研究成果"（背景），不是结论</b>。</td></tr>
+      </tbody>
+    </table>
+    <div class="note" style="margin-top:7px;">
+      <b>三题共同的干扰项死法：</b>① <b>取背景</b>（慕课 A／D、脑衰老 B）；② <b>无中生有</b>（叙事医学 B／C、脑衰老 A／C）；③ <b>泛化或偷换主体关系</b>（慕课 C、叙事医学 D）。<br>
+      <b>三题共同的正确路径：</b>锁定带结论词的那句 → <b>把那句话的内容读实</b>（"离不开高校的参与""和患方共同作出""运动干预改善脑健康"）→ 找同义替换最贴的那个。
+    </div>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 15 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 16 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>链条题例题速查</span>
+      <span>第 16 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>链条题例题速查 ｜ 例6–例10＋行政执法 <span class="tag">"因 + 果"结构与"层层递进"</span></h2><span id="a-ex-lianT"></span>
+    <table>
+      <thead><tr><th style="width:118px;">例题</th><th style="width:42px;">答案</th><th>结构 · 考点</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="k">例6<br>2023 国考<br>双面月球</td><td class="k">C</td><td>①<b>【提出结果】</b>月球有两面（一面平坦／一面凹凸遍布撞击坑），"为何具有截然不同的两副面孔"是谜团　＋　②<b>【解释原因】</b>全新解释：数十亿年前巨大撞击 → 巨大热量 → 月幔熔化 → 稀土与放射性生热元素被携带到对称月面 → 克里普岩 → 熔岩流 → 火山平原。<br><b>结构 ＝ 果（双面月球）＋ 因（一次撞击）</b>。<br>C"双面月球：一次撞击，两种结局"＝<b>完整的"果：因"</b> ✓<br>A 只取<b>果</b>（两副面孔）＋非核心细节"两种材质"，<b>丢了文段主体"原因"</b>；B 取"熔岩流"＝<b>原因链的中间环节</b>＋"亟待开发的宝藏"无中生有；D 取"放射性生热元素"＝<b>中间环节</b>＋"化妆师"无中生有。</td></tr>
+        <tr><td class="k">例7<br>2021 四川<br>蜜蜂</td><td class="k">C</td><td>①<b>【原因分析】</b>咖啡因刺激蜜蜂蘑菇体（与气味学习记忆有关）→ 使蜜蜂深刻记住柑橘和咖啡花朵　＋　②<b>【结果】</b>所以蜜蜂离不开这种特殊味道的花蜜。<b>结构 ＝ 因（咖啡因→记忆）＋ 果（离不开花蜜）</b>。<br>C"蜜蜂<b>为何</b>'单恋一枝花'"＝<b>果 ＋ 为何</b> ✓<br>A"花蜜与咖啡因"＝<b>两个名词的拼盘</b>，无因果骨架；B"难以抗拒的<b>咖啡因</b>"＝<b>主体错位</b>（主体是蜜蜂）＋缺因；D"蜜蜂<b>学习和记忆</b>的奥秘"＝<b>原因链的中间环节</b>，丢了果。</td></tr>
+        <tr><td class="k">例8<br>2023 山东<br>春阳社</td><td class="k">A</td><td>①<b>【背景】</b>成立之初成分复杂，首演成"中西大杂烩"，不是王钟声的初衷　＋　②<b>【故】</b>调整方向，动机线索＝借"创设音乐学校"之名筹募办学经费　＋　③<b>【总结前文】</b>"可以这样说"——<b>春阳社解散的更深层原因</b>是王钟声要实现其以演剧开通民智、改良社会的宏大理想。<br>A"春阳社<b>因何</b>解散"＝<b>果 ＋ 因何</b> ✓<br>B"春阳社与旧时代"＝泛泛无骨架；C"<b>新式演剧</b>的悲剧"＝<b>主体泛化</b>＋"悲剧"无中生有；D"以演剧改良社会"＝<b>原因链里的一个环节</b>，丢了果。</td></tr>
+        <tr><td class="k">例9<br>2025 重庆<br>冬小麦</td><td class="k">D</td><td>①<b>【引出话题】</b>早期季节体系的发展演变与农事周期紧密联系　＋　②<b>【殷商之前的情况】</b>"二时"观念围绕粟、黍等农事活动产生　＋　③<b>【得出结论】</b>殷商以来<b>对冬小麦的推广种植</b>推动了"四时"观念的萌生，<b>所以</b>"四时"的产生是对"二时"细化的结果，<b>而冬小麦的推广…成为契机</b>。<br><b>链条：二时（旧）→ 冬小麦（推动力）→ 四时（新）</b>。<br>D"<b>冬小麦</b>的推广种植与<b>先秦"四时"观念的产生</b>"＝<b>因（起点）＋ 果（终点）</b> ✓<br>A"社会时间独立存在"＝无中生有；B"四时与二时的<b>联系</b>"＝只取中间那段递进，<b>丢了推动力</b>；C"冬小麦…的<b>重要地位</b>"＝<b>只取因</b>，丢了果。</td></tr>
+        <tr><td class="k">例10<br>2022 重庆<br>西风带</td><td class="k">B</td>
+        <td>①<b>【介绍】</b>西风带波动时向南凹＝"槽"、向北凸＝"脊"　＋　②<b>【引出话题】</b>当"脊"向北发展、被冷空气截断后形成闭合暖中心＝"<b>阻塞高压</b>"　＋　③<b>【指代前文，得出结论】</b>"这种"阻塞高压破坏西风带环流，<b>从而给冷空气的南下打开了"通道"</b>。<br>
+        <b>链条：槽／脊（背景）→ 阻塞高压（中间概念）→ 冷空气南下（结果）</b>。<br>
+        <b>四个选项句式完全相同</b>（都是"XX 是如何……的"），<b>唯一的区分度就是"链条位置"</b>：A 取句 1 背景；D 取句 1 背景；<b>C 取句 2＝中间环节（最强干扰，因为句 2 整段都在讲阻塞高压如何形成）</b>；<b>B 取句 3 的结果</b> ✓</td></tr>
+        <tr><td class="k">26 国考<br>行政执法<br>（回忆）</td><td class="k">A</td>
+        <td>①<b>【背景】</b>西风带是什么、由赤道暖空气偏转形成　＋　②<b>【机制】</b>像"皮筋儿"，松紧取决于<b>南北温差</b>　＋　③<b>【变化】</b>全球变暖 → 温差减小 → 西风带变弱　＋　④<b>【结果】</b>极涡南下 → 波动增强 → <b>中纬度天气更极端、急剧降温</b>。<br>
+        <b>链条：西风带（背景）→ 温差机制 → 全球变暖 → 西风带变弱 → 极涡南下 → 极端寒潮（结果）</b>。<br>
+        <b>四个选项又是同一句式（"为何／如何"）</b>：A 取<b>结果</b>（句 4）✓；B 取<b>背景</b>（句 1）；C 取<b>中间概念</b>（西风带本身）＋"持久"无中生有；D 取<b>中间机制</b>（句 2 的温差）。</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 16 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 17 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>本节例题 · 规律</span>
+      <span>第 17 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>本节例题 · 规律 ｜ 链条两端 · 疑问词 · 起点可省 <span class="tag">例6–例10</span></h2>
+    <div class="note" style="margin-top:0;border-left-color:var(--accent);">
+      <b>★ 因果链题的关键：取"链条的起点（总因）"，不取中间环节。</b><br>
+      本题链条：<b>撞击</b>（总因）→ 热量 → 月幔熔化 → 元素携带 → 克里普岩 → <u>熔岩流</u> → <u>火山平原</u>（结果）。<br>
+      B 抓的是"熔岩流"、D 抓的是"放射性生热元素"——<b>都在链条中段</b>；只有 C 抓住了起点"一次撞击"。
+    </div>
+    <div class="heuristic" style="margin-top:6px;">
+      <span class="tagline">经验 · 有反例</span>
+      <b>★★ 五题同构 → 一条可套用的统一规律（例6 / 例7 / 例8 / 例9 / 课件例）：</b><br>      <b>因果 ／ 递进链式文段，答案取「链条的起点（最初动因）＋ 链条的终点（最终落点）」——中间环节一律不作答案。</b><br>
+      <b>因果文段标题题，正确答案的典型形态 ＝「果 ＋ 为何／因何／何以」。</b><br>
+      <b>为什么：</b>这三个疑问词<b>自带因果结构</b>——它<b>把"果"作为前提</b>（既成事实），<b>把"因"作为追问</b>。选了它，<b>果和因就都有了</b>。<br>
+      <table style="margin-top:4px;">
+        <thead><tr><th style="width:92px;">例题</th><th style="width:96px;">终点／果</th><th style="width:106px;">起点／因</th><th>正确答案的形态</th><th style="width:150px;">干扰项抓的"中间环节"</th></tr></thead>
+        <tbody>
+          <tr><td class="k">例6 双面月球</td><td>双面月球</td><td>一次撞击</td><td>双面月球<b>：</b>一次撞击，两种结局</td><td>熔岩流／放射性生热元素</td></tr>
+          <tr><td class="k">例7 蜜蜂</td><td>离不开这种花蜜</td><td>咖啡因→记忆</td><td>蜜蜂<b>为何</b>"单恋一枝花"</td><td>学习和记忆</td></tr>
+          <tr><td class="k">例8 春阳社</td><td>解散</td><td>王钟声的理想</td><td>春阳社<b>因何</b>解散</td><td>以演剧改良社会</td></tr>
+          <tr><td class="k">例9 冬小麦</td><td><b>冬小麦推广</b></td><td><b>四时观念</b></td><td>冬小麦的推广与"四时"观念的产生</td><td>二时→四时的"联系"</td></tr>
+          <tr><td class="k">课件例 睡眠</td><td><b>好的睡眠</b></td><td><b>好的成绩</b></td><td>两端之一，<b>尾优先</b></td><td>心态／身体／休息</td></tr>
+          <tr><td class="k">例10 西风带</td><td><b>冷空气南下</b></td><td>（槽／脊＝<b>背景</b>）</td><td>冷空气是如何南下的</td><td><b>阻塞高压如何形成</b>／西风带／槽和脊</td></tr>
+          <tr><td class="k">26 国考 行政执法<br>西风带与寒潮</td><td><b>极端寒潮</b></td><td>（西风带／温差＝<b>背景·机制</b>）</td><td>为何中纬度有极端寒潮</td><td>为何形成西风带（背景）／风力为何巨大持久（中间）／风力为何与温差有关（机制）</td></tr>
+        </tbody>
+      </table>
+      <b>两类干扰项：</b>① <b>只写"因"的中间环节</b>（熔岩流／学习和记忆／以演剧改良社会）→ <b>丢了果</b>；② <b>无因果的名词拼盘</b>（花蜜与咖啡因／春阳社与旧时代）→ <b>没有骨架</b>；③ <b>只取一端</b>（例9 的 C 只取因）；④ <b>取背景或中间概念</b>（例10 的 A／D 取背景、C 取中间环节）。<br>
+      <b>★ 起点（因）什么时候可以省？</b><br>
+      · <b>因是文段主体论述</b>时（例6 的"全新解释"、例7 的原因分析、例8 的"更深层原因"、例9 的冬小麦）→ <b>必取</b>；<br>
+      · 因只是<b>引入性背景</b>时（例10 的"槽／脊"仅两三句泛泛介绍）→ <b>可省</b>，此时<b>只取终点（结果）</b>。<br>
+      <b>判据一句话：看"因"占了多少篇幅、是不是作者真正在论证的东西。</b><br>
+      <b>★★ "为何 X／如何 X"选项的判据（例10 与 26 国考行政执法都考这个）：</b><br>
+      只问一句：<b>X 是文段的最终落点吗？</b>　· X ＝ <b>最终结果</b> → <b>选</b>；　· X ＝ <b>背景／中间概念／中间机制</b> → <b>不选</b>。<br>
+      <b>命题人手法：把四个选项造成同一句式（都写"为何／如何"），让句式失去区分度——唯一的区分度就是"链条位置"。</b>
+    </div>
+  </section>
+
+<section>
+    <h2>与卡上已有内容的挂接 <span class="tag">这一节是第 <span class="pr" data-t="a-relations">2</span> 页"因果关系"的专项扩展</span></h2>
+    <table>
+      <thead><tr><th style="width:250px;">卡上已有</th><th>(七) 节补充 / 印证</th></tr></thead>
+      <tbody>
+        <tr><td>第 <span class="pr" data-t="a-relations">2</span> 页：因果关系 → 重点在"结论／结果"</td><td>补上结论标志词的<b>三分类清单</b></td></tr>
+        <tr><td>第 <span class="pr" data-t="a-relations">2</span> 页：倒装"之所以…是因为…"以<b>原因</b>为重点</td><td>未提及，<b>仍然有效</b>（倒装是例外条款）</td></tr>
+        <tr><td>第 <span class="pr" data-t="a-guanxia">5</span> 页：关联词管辖范围（所以／因此管全篇）</td><td>印证：第 1 类结论词多为<b>全篇级</b>管辖</td></tr>
+        <tr><td>第 <span class="pr" data-t="a-sanleixing">8</span> 页类型②：非中心句（分述句）的同义替换</td><td>印证："结论前的内容"＝典型错误选项</td></tr>
+      </tbody>
+    </table>
+    <div class="note" style="margin-top:7px;">
+      <b>本节例题见上（例6 · 2023 国考 · 双面月球）。</b>后续例题按五步模板拆解后继续补入本节，并同步例题速查总表（第 <span class="pr" data-t="a-ex-main">18</span> 页起）。
+    </div>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 17 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 18 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>例题速查（一）</span>
+      <span>第 18 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>例题速查（一） <span class="tag">逐题取材判定（持续增补）</span></h2><span id="a-ex-main"></span>
+    <table style="font-size:11px;">
+      <thead><tr><th style="width:118px;">例题</th><th style="width:42px;">答案</th><th>结构 · 考点</th></tr></thead>
+      <tbody>
+                <tr><td class="k">例5<br>2023 国考<br>（保护办法）</td><td class="k">D</td><td>中心句＝<b>提出问题</b>（"保护办法仍未出台"）。干扰项把类型①三种变体凑齐：A 相悖、B 未提及、C <b>无关对策</b></td></tr>
+        <tr class="hot"><td class="k">例6<br>2024 天津<br>（群体规范）</td><td class="k">C</td><td>中心句＝首句（"<b>并无胁迫</b>下服从某种群体规范"）。A <b>缺主题词</b>（笼统成"受影响"）、B 解释部分、D <b>举例部分</b></td></tr>
+        <tr class="hot"><td class="k">例7<br>2024 青海<br>（临床试验）</td><td class="k">D<span style="color:var(--p0,#A32B14);">†已更正</span></td><td>中心句＝"<b>然而</b>科研人员提醒"之后（对人体还需临床试验）→ 落点＝"研究还需进一步的实验探索"。<b>A 转折之前</b>（把"被宣传"当结论）、<b>B 尾句补充论证</b>、C 首句引入。<span style="color:var(--p0,#A32B14);">※ 原记 B，经题库解析交叉核验更正为 D（详见错题讲解页说明）。</span></td></tr>
+        <tr><td class="k">例8<br>2023 山东<br>（生命力来源）</td><td class="k">D<span style="color:var(--p0,#A32B14);">†已更正</span></td><td><b>并列文段</b>（一方面／另一方面）→ 整体概括＝"新时代翻拍经典影视作品的意义"；<b>C 只覆盖①（文化传承）／A 只贴②的"生命力"</b>（均片面）、B <b>不明确选项</b>。<span style="color:var(--p0,#A32B14);">※ 原记 A（讲义口径"生命力的来源"），经华图在线等题库解析核验为 D（详见错题讲解页说明）。</span></td></tr>
+        <tr><td class="k">例9<br>2024 山西<br>（文化艺术课）</td><td class="k">D</td><td>中心句＝末句<b>对策</b>（"应该定位为独立于语言技能课之外的中国文化艺术核心课程"）。A/B 笼统、C 现状非中心</td></tr>
+
+        <tr><td class="k">2022 国考<br>（基层治理·区块链）</td><td class="k">B</td><td>（新话题不推翻前文）→ 两头照应：回扣“基层治理”＋“区块链技术”。中心句＝末句对策（“借助区块链技术可以…突破认知固化和思维僵化”）。A 取句 3 论证句、<b>C 抓“公信力”且把“社会公信”偷换成“政府公信力”</b>（坑①）、D 取句 1 问题侧</td></tr>
+        <tr><td class="k">2025 国家<br>诗书画乐舞</td><td class="k">B</td><td>第一段【提出观点】＋ 第二段【举例说明】。A"青绿长裙"、C"人在画中游"＝<b>例子细节</b>；D"画与舞"把"诗书画乐舞"<b>缩小</b>了范围</td></tr>
+        <tr><td class="k">2025 江苏<br>自动驾驶</td><td class="k">C</td><td>观点 ＋ <b>三段并列分述</b>（都是"自动驾驶应用"的下位）。A 停在分述罗列；B 取自分述细节；D 主体<b>下位化</b>为"物流车"</td></tr>
+        <tr><td class="k">2023 上海<br>近代上海</td><td class="k">D</td><td>①引出对象 ＋ ②③两条并列规律 → <b>情况二：两头照应</b>。A 取材①前半句；B 把"高于"弱化为"有关"；C 只覆盖③（<b>并列片面</b>）</td></tr>
+        <tr><td class="k">2024 山东<br>知识产权</td><td class="k">C<span style="color:var(--p0,#A32B14);">†待核</span></td><td>观点 ＋ <b>整段数据</b>（＝数据举例论证）。A 主体错位成"知识产权企业"；B 取自数据里的分句；D <b>丢了"助力高质量发展"这个落点</b></td></tr>
+        <tr><td class="k">2023 国考<br>古典名画</td><td class="k">C</td><td>①提出观点 ＋ ②<b>解释说明</b>（历史陈述＝完成时）＋ ③<b>借鉴古人经验提出对策</b>。落点在③"名画想要真正'活'化，<b>还需要</b>借助跨界融合"。A 取②的细节；B"由来已久"是历史；D 泛化丢了"古典名画"</td></tr>
+        <tr><td class="k">2023 国考<br>"高精尖"产业</td><td class="k">D<span style="color:var(--p0,#A32B14);">†待核</span></td><td>①<b>强调作用</b>（铺垫）＋ ②<b>引出新话题并提问</b>（京津冀仅承接一般产业不够）＋ ③<b>提出对策</b>（"迫切需要发展"）。D 两头照应；A 丢"京津冀"；B"城市群建设"偷换＋"长远目标"无中生有；C <b>范围扩大</b>（京津冀→我国）</td></tr>
+        <tr><td class="k">2020 四川<br>花草植物</td><td class="k">B</td><td>①<b>提出观点</b>（"中国古典艺术缠绕着对花草植物的敏感"）＋ ②<b>举例说明</b>（蒹葭／荇菜／桃之夭夭／《诗经》植物意象）。A 只取铺垫"农业文明影响"丢了"花草植物"。★印证 (四)提升②（包含关系）：判断不靠例子（② 全是植物不作为答案），纠结时靠例子（"几乎首首离不开植物"反向印证"敏感"的对象＝植物）</td></tr>
+        <tr><td class="k">2025 浙江<br>传统旅游</td><td class="k">B</td><td>①<b>背景引入</b>（"现在"＝新旧对比）＋ ②举例 ＋ ③<b>提出对策</b>（"这就要求……加大'非热点时段'的硬件设施和软性服务的整体供给能力"）＋ ④举例。答案 B"传统旅游的价值仍待进一步挖掘"＝①回扣＋③落点。A 停在背景；C <b>丢了"非热点时段"这个细节限定语</b>；D 把"服务升级"（举例里的效果）当中心</td></tr>
+        <tr><td class="k">财产性收入<br>（课件例）</td><td class="k">A</td><td>纯问题型短文段：<b>财产性收入偏弱</b>，影响消费能力。识别消极表述「偏弱」→ 优选<b>针对问题</b>的对策。A"增加财产性收入"直接针对偏弱；B 表述问题（类型②）；C 偷换主体（财产性 → 劳动性）；D "仅从立法" 缩小范围无中生有</td></tr>
+        <tr><td class="k">2022 江苏<br>獬豸</td><td class="k">C</td><td>①<b>引出话题</b>（獬豸典故）＋ ②<b>提出观点</b>（公平正义是司法的灵魂／推进依法治国<b>要</b>……<b>贯穿</b>立法／执法／司法／守法全过程）。C"法治建设<b>贯穿</b>于法制工作全过程"＝②后半的核心动作；A 取①丢了"公平正义"；B、D 同义重复句 2 前半、无动作 → <b>(五) 思维提升①「内容>形式」</b>典型坑</td></tr>
+        </tbody>
+    </table>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 18 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 19 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>例题速查（二）</span>
+      <span>第 19 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>例题速查（二）<span class="tag">逐题取材判定</span></h2><span id="a-ex-main2"></span>
+    <table style="font-size:10.5px;">
+      <thead><tr><th style="width:118px;">例题</th><th style="width:42px;">答案</th><th>结构 · 考点</th></tr></thead>
+      <tbody>
+        <tr><td class="k">2025 江苏<br>青铜器密码</td><td class="k">B</td><td>①<b>【例子引入】</b>（何尊铭文典故）＋ ②<b>【提出对策】</b>（<b>亟待</b>破译的"青铜密码"还有<b>很多</b>→消极表述 → <b>需要</b>拓宽视野 / 多种方法 / 进一步推动学科发展）。B"青铜器<b>亟待</b>进一步深入研究"含核心动作（深入研究）；A 取消极表述无动作；C 取句 1 例子且偷换主体（找）；D 仅重复态度"价值重要" → <b>四个选项三伪对策</b>，唯一含动作的是 B</td></tr>
+        <tr><td class="k">2025 广西<br>文博展陈</td><td class="k">A</td><td>①<b>【提出问题】</b>传统方式受场地／时间／文物特性限制，难以满足海量需求 → <b>为此</b>（承接词，回指问题）→ ②<b>【提出对策】</b>善用人工智能／虚拟现实等技术推动数字化／沉浸式转化。答案 A"拓展多空间＝善用"动作；B"挖掘共鸣"／C"融合媒介"／D"利用视角"均仅态度词、无动作 → 与青铜器题为同类伪对策</td></tr>
+        <tr><td class="k">2025 广西<br>文博·轮播</td><td class="k">A</td><td><b>★同题轮播</b>。老师在 A 上重新画圈以强调：A"拓展多空间"与"为此"后面对策里的"善用人工智能／虚拟现实"对应。</td></tr>
+        <tr><td class="k">2021 甘肃<br>民间艺人</td><td class="k">A</td><td>①引出话题＋②③现象原因＋④点出矛盾（传承 vs 收入）＋⑤<b>转折"而"＋"我们需要思考的是"提对策</b>（提出问题→分析问题→解决问题）。答案 A"激发文化自觉意识"＝⑤"提升民间艺人的文化自觉意识"同义替换（动作＋对象对应中心句）。C 三重错：取材于<b>让步半句"无可厚非"＋条件状语"在保证基本生活…的基础上"</b>；"保证基本生活"（底线）偷换成"提高收入"（增长）；丢主题词"文化自觉"。B／D＝问题表述（有问题＋有对策→选对策）。<b>★新坑：对策句里"在…基础上"是条件状语≠对策本身；转折前的让步半句更不能选——答案只取形式词后的动词＋宾语</b></td></tr>
+              <tr><td class="k">2024 宁夏<br>智慧治理</td><td class="k">A</td><td>①<b>引出话题</b>（智慧治理时代）＋ ②<b>提出问题</b>（理论认识不足／主动适应不够／过度依赖智能技术）＋ ③<b>提出对策</b>（解决智慧治理问题，<b>需要</b>从智能技术赋能<b>到</b>技术融合<b>的转变</b>，理念／过程／目标融合是路径 → <b>真实行动</b>）。答案 A"迈向技术融合的智慧治理"含主题词＋核心动作。B 重复表述未阐释；C 偷动作（从赋能变成赋能修饰路）→ <b>伪动作高级形态</b>；D 停在问题描述</td></tr>
+        <tr><td class="k">2023 广东<br>烈士纪念设施</td><td class="k">C</td><td>①<b>提出观点</b>（宏观对策"将教育作用发挥好"）＋ ②<b>举例说明</b>（"比如"扫码／VR）。<b>情况二 ①</b> → 中心在句 1。答案 C"如何强化烈士纪念设施的教育作用"含主题词与重落点"教育作用"。B 偷换前提"建设管理好"为答案；D 偷换"建设"为落点</td></tr>
+        <tr><td class="k">2023 湖北<br>质检报告</td><td class="k">D</td><td>①<b>引出话题</b>（质检报告＝"体检证／安全证／信用证"）＋ ②<b>反例</b>（商家伪造 + 认证机构虚假 + 不意味不需要质检报告）＋ ③<b>提出观点</b>（宏观对策"更加重视质检报告……法治轨道"）。<b>情况二 ③</b>（无举例／无重点词）→ 看主题词。答案 D"让质检报告经得起质检"含主题词＋动作；A 描述问题无主题词；B 偷换对象；C 仅描述问题</td></tr>
+        <tr><td class="k">2024 重庆<br>新农人</td><td class="k">B</td><td>①<b>引出话题</b>（新农人）＋ ②<b>提出问题</b>（物理返乡但社会关系"异乡人"）+ ③<b>举例说明</b>。★<b>全文无对策</b> → 思维提升④应用场景 → <b>不选对策</b>。答案 B"需<b>补短板</b>，否则创业难成"含主题词+虚动作"补短板"；A"沟通不足"模糊；C"具备理念"丢转折</td></tr>
+        <tr><td class="k">2024 黑龙江<br>知识产权</td><td class="k">D</td><td>①-② 提出问题（侵权链条化生产 / 销售 / 跨区）→ ③<b>提出执法问题</b>（管辖限制＋调查取证难题）。★<b>无对策类</b>。但 D 给出了<b>真对策</b>（"上下联动 / 区域协作 / 全链条执法机制" 三个动作覆盖两个难题）→ 选对策。A 信息化（无针对性）；B 偷换"行政执法"→"立法"；C 只解决调查取证一个层级</td></tr>
+                <tr><td class="k">2022 国考<br>（土地规模经营·经营权共享）</td><td class="k">C</td><td><b>分—总结构</b>：①背景＋②并列分述＋③中心（“这两种方式都形成了…承包经营权的共享”）。主题词＝<b>经营权共享</b>＋<b>土地适度规模经营</b>；A 背景、B 无中生有、D 偷换“经营权”→“权属”</td></tr>
+</tbody>
+    </table>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 19 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 20 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>例题速查（三）</span>
+      <span>第 20 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>例题速查（三）<span class="tag">逐题取材判定</span></h2>
+    <table style="font-size:10.5px;">
+      <thead><tr><th style="width:118px;">例题</th><th style="width:42px;">答案</th><th>结构 · 考点</th></tr></thead>
+      <tbody>
+        <tr><td class="k">2025 国考<br>基层执法权限</td><td class="k">B</td><td>①<b>引出话题</b>（必要条件句）＋ ②<b>提出问题</b>（权限不足／看不准管不着）→ ③<b>结论+并列提对策</b>（A路完善执法目录动态调整 / B路完善基准库+指导目录）。答案 B"看准赋权"对应句 3 A 路；A 仅态度词；C 偷换概念（动态调整→权限下放）；D"落实落细"是态度词</td></tr>
+        <tr><td class="k">2024 国考<br>个人信息保护</td><td class="k">B</td><td>①<b>引出话题</b>（案件结构复杂）＋ ②<b>提出疑问</b>（连带责任争议）→ ③<b>答疑问</b>（可依法追究各侵权人的连带责任）→ ★<b>答案与疑问一体两面</b>。答案 B"应当依法追究下游违法者赔偿责任"是疑问的答案。A/C/D 均仅形式词（强化／在法定原则指导下／明确），无具体动作</td></tr>
+        <tr><td class="k">2025 福建<br>雅俗文化</td><td class="k">D</td><td>①<b>介绍雅俗</b>（社会影响深刻而狭窄 / 肤浅而广）＋ ②<b>提出观点</b>（<b>实际上</b>雅中有俗、俗中有雅、由俗到雅、由雅到俗）→ ③<b>举例说明</b>（《论语》被世俗传诵／《诗经》由民谣变儒家经典）。★<b>事实上型转折</b>：「实际上」引导的事实与句 1「雅俗特征不同 / 对立」矛盾 → 转折 → 中心在句 2。答案 D「存在互动关系」含核心动词"互动"。A 丢了「互动」、B 仅取前半、C 仅取影响</td></tr>
+<tr><td class="k">2023 青海<br>饮酒健康</td><td class="k">B</td><td>①<b>引出话题</b>（喝酒有害）＋ ②<b>长期饮酒</b>有害（灰质白质／痴呆）→ ③<b>提问</b>（<b>不过</b>，偶尔饮酒也有害吗？）＋ ④<b>答疑问</b>（最新研究给出<b>肯定答案</b>：第一次醉酒也改变大脑神经元形态，影响伴随终生）。★答案两种形态都齐：<b>否定前</b>（句 2 "长期饮酒"局限被反驳）＋ <b>阐述后</b>（句 4 "偶尔饮酒也有害"）。B"纠正饮酒危害的<b>错误认识</b>"同时涵盖。A 停在句 2（转折前）被反驳；C 偷换"饮食习惯"；D 仅综述</td></tr>
+        <tr><td class="k">2020 浙江<br>城乡二元</td><td class="k">C</td><td>①<b>提出问题</b>（<b>城乡二元</b>发展格局 → 要素配置不均衡 → 优质资源向城市集中 → 农村产业萎缩）＋ ②<b>提出对策</b>（建立健全<b>城乡融合发展机制</b>，推动要素自由平等交换，才能真正形成乡村产业兴旺基础）＋ ③<b>举例</b>（事实上，农村三产融合发展好的地方 = 城乡融合发展程度高）。★「事实上」是<b>顺承</b>（不是转折），句 3 是例证。答案 C「与城乡融合的发展水平息息相关」含主题词 + 对策动作；B 太局部；D 只讲问题；A 取材例证</td></tr>
+        <tr><td class="k">2023 吉林<br>灵活就业</td><td class="k">A</td><td>①<b>引出某观点</b>（<b>还有一种论调认为</b>，灵活就业门槛低／年轻人是短视行为）→ ②<b>转折后提出作者观点</b>（<b>但事实上</b>，进入门槛不高，<b>但</b>留存门槛并不低，<b>也需要</b>技能支撑，并不意味着"低能"）。★答案双齐：A「并非所有灵活就业都是低门槛」——"留存门槛不低"（<b>阐述后</b>）＋"并非所有"（<b>否定前</b>）。B 仅态度词；C 偷换"在职越久"；D 偷换"过度忧虑"</td></tr>
+        <tr><td class="k"><b>答疑</b><br>二元辨析</td><td class="k">/</td><td><b>二元</b> ＝ 并存 + 不对等。常见为「问题背景」，不是答案。<br>含"二元 / 不均衡 / 不平衡"的选项只是<b>问题描述</b> → 停在问题；<br>含"融合 / 突破 / 协调发展"的选项是<b>纠错二元</b> → 可能是答案。<br>判据："这是问题描述还是纠错"？描述 = 否；纠错 = 是。</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 20 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 21 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>考点 → 例题反查表</span>
+      <span>第 21 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>考点 → 例题反查表 <span class="tag">复习某考点时，直达对应例题</span></h2>
+    <table style="font-size:10.5px;">
+      <thead><tr><th style="width:150px;">考点</th><th>代表例题</th><th style="width:88px;">位置</th></tr></thead>
+      <tbody>
+        <tr><td class="k">伪对策（形式词无动作）</td><td>2025 青铜器密码／2025 文博展陈／2024 个人信息保护／2025 执法权限</td><td class="k">第 <span class="pr" data-t="a-ex-main">18</span>–<span class="pr" data-t="a-ex-main2">19</span> 页</td></tr>
+        <tr><td class="k">多层对策选具体</td><td>2023 适老化改造／2023 烈士纪念设施／2023 质检报告</td><td class="k">第 <span class="pr" data-t="a-ex-main2">19</span> 页</td></tr>
+        <tr><td class="k">只提问题 → 退选</td><td>2024 新农人／2024 黑龙江知识产权</td><td class="k">第 <span class="pr" data-t="a-ex-main2">19</span>、<span class="pr" data-t="a-ex-fanli">22</span> 页</td></tr>
+        <tr><td class="k">回扣开头两头照应</td><td>2021 线上教学 等 九道国考例证</td><td class="k">第 <span class="pr" data-t="a-huiti">10</span> 页</td></tr>
+        <tr><td class="k">例子不作答案／包含测试</td><td>2025 诗书画乐舞／2025 自动驾驶／2020 花草植物</td><td class="k">第 <span class="pr" data-t="a-ex-main">18</span> 页</td></tr>
+        <tr><td class="k">新老话题三情况</td><td>2023 近代上海（情况②）等</td><td class="k">第 <span class="pr" data-t="a-sanqingkuang">9</span> 页</td></tr>
+        <tr><td class="k">"事实上"转折/顺承</td><td>2025 雅俗文化（转折）／2020 城乡二元（顺承）</td><td class="k">第 <span class="pr" data-t="a-ex-main2">19</span> 页</td></tr>
+        <tr><td class="k">答案两形态（否定/阐述）</td><td>2023 饮酒健康／2023 灵活就业</td><td class="k">第 <span class="pr" data-t="a-ex-main2">19</span> 页</td></tr>
+        <tr><td class="k">因果链取两端</td><td>例6 双面月球／例7 蜜蜂／例8 春阳社／例9 冬小麦／例10 西风带</td><td class="k">第 <span class="pr" data-t="a-ex-lianT">16</span> 页</td></tr>
+        <tr><td class="k">并列观点整体归纳</td><td>例8 生命力来源／残体之美</td><td class="k">第 <span class="pr" data-t="a-ex-main">18</span>、<span class="pr" data-t="a-canTi">8</span> 页</td></tr>
+        <tr><td class="k">对比择优/主题词变形</td><td>残体之美（"废墟"何以是美的）</td><td class="k">第 <span class="pr" data-t="a-canTi">8</span> 页</td></tr>
+        <tr><td class="k">晦涩：高频词/主体关系</td><td>例1 大模型／例3 莲子心／例4 Cas9</td><td class="k">第 <span class="pr" data-t="a-ex-huishe">23</span>、<span class="pr" data-t="a-ex-huishe2">23</span> 页</td></tr>
+        <tr><td class="k">细节判断死法</td><td>例5–例12（偷换概念占半数）</td><td class="k">第 <span class="pr" data-t="a-ex-xijie">26</span> 页</td></tr>
+        <tr><td class="k">语句填空承上启下</td><td>例2 钻石雨／例3 立案登记／例4 工业品下乡</td><td class="k">第 <span class="pr" data-t="a-ex-yuju">27</span> 页</td></tr>
+        <tr><td class="k">接语选择</td><td>例8 城市治理／例9 快递包装／例12 变型／例13 全球治理</td><td class="k">第 <span class="pr" data-t="a-ex-jieyu">30</span> 页</td></tr>
+        <tr><td class="k">排序 · 非首句三特征</td><td>例1 临近空间（④定义 vs ③环境）／例6 化学（"他们"）／例8 动物（"相比之下"）</td><td class="k">第 <span class="pr" data-t="a-ex-paixu">32</span> 页</td></tr>
+        <tr><td class="k">排序 · 指代词相连</td><td>例1 ⑥①"这一有利因素"／例4 ⑤①"他们"</td><td class="k">第 <span class="pr" data-t="a-ex-paixu">32</span> 页</td></tr>
+        <tr><td class="k">排序 · 引出话题先行</td><td>例2 协调世界时／例3 SMCHD1／例9 慢性肾病</td><td class="k">第 <span class="pr" data-t="a-ex-paixu">32</span> 页</td></tr>
+        <tr><td class="k">排序 · 先后逻辑</td><td>例5 古→今／例7 问题→对策／例8 问→答</td><td class="k">第 <span class="pr" data-t="a-ex-paixu">32</span> 页</td></tr>
+        <tr><td class="k">填空 · 近义并列</td><td>例1 集思广益／例3 洞若观火／例5 守正创新／例7 未雨绸缪</td><td class="k">第 <span class="pr" data-t="a-ex-tk">35</span> 页</td></tr>
+        <tr><td class="k">填空 · 反义并列</td><td>例9 按图索骥／例10 改进文风／例13 好高骛远</td><td class="k">第 <span class="pr" data-t="a-ex-tk">35</span> 页</td></tr>
+        <tr><td class="k">填空 · 句内呼应与语境</td><td>例18 扑朔迷离／例21 广泛·志同道合／例22 波动性</td><td class="k">第 <span class="pr" data-t="a-ex-tk2">36</span> 页</td></tr>
+        <tr><td class="k">填空 · 中心理解化</td><td>例30 终局性／例31 凝练／例32 密集</td><td class="k">第 <span class="pr" data-t="a-ex-tk3">37</span> 页</td></tr>
+        <tr><td class="k">填空 · 空与空关联</td><td>例34 黯然失色／例35 攥指成拳／例37 因噎废食</td><td class="k">第 <span class="pr" data-t="a-ex-tk3">37</span> 页</td></tr>
+        <tr><td class="k">填空 · 相对性</td><td>例42 界定·相辅相成／例43 壮士断腕</td><td class="k">第 <span class="pr" data-t="a-ex-tk4">38</span> 页</td></tr>
+        <tr><td class="k">填空 · 热词宠词</td><td>例44 弥合数字鸿沟／例47 应运而生</td><td class="k">第 <span class="pr" data-t="a-ex-tk4">38</span> 页</td></tr>
+        <tr><td class="k">填空 · 并列总结（组合拳拆分）</td><td>例62 开源节流</td><td class="k">第 <span class="pr" data-t="a-ex-tk6">39</span> 页</td></tr>
+        <tr><td class="k">填空 · 分组／语义丰富</td><td>例49 13 分组／例53 211 分组／例59 锚定／例60†</td><td class="k">第 <span class="pr" data-t="a-ex-tk5">39</span> 页</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 21 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 22 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>反例 ｜ 边界</span>
+      <span>第 22 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>反例 ｜ 边界 <span class="tag">违反规则但答案正确的题 —— 规则的"软肋"在这里</span></h2><span id="a-ex-fanli"></span>
+    <div class="note" style="margin-bottom:7px;">
+      <b>为什么要有这一区：</b>前面所有例题都在<b>证明规则成立</b>，这一区专门收<b>规则被打破但答案仍正确</b>的题。<b>它们的存在说明该规则有边界，不是铁律。</b>这才是卡片能自我纠错的地方。
+    </div>
+    <table>
+      <thead><tr><th style="width:118px;">例题</th><th style="width:42px;">答案</th><th>它打破了哪条规则 · 说明规则有边界</th></tr></thead>
+      <tbody>
+        <tr><td class="k">2025 福建<br>雅俗文化</td><td class="k">D</td><td>打破<b>"'其实/事实上'靠前＝选否定前"</b>——"实际上"紧接转折前（对立），但答案是<b>阐述后</b>（互动）。<b>边界：取舍看"是否提供新信息"，不看位置。</b></td></tr>
+        <tr><td class="k">2020 浙江<br>城乡二元</td><td class="k">C</td><td>打破<b>"事实上＝转折"</b>——"事实上"引导的事实与前文<b>顺承</b>，不构成转折。<b>边界：事实与前文矛盾才是转折；顺承则不是。</b></td></tr>
+        <tr><td class="k">2024 重庆<br>新农人</td><td class="k">B</td><td>打破<b>"文段提了问题 → 优选对策"</b>——文段只有问题（"异乡人"），选项没有真对策 → 退而选"问题＋虚动作"（B"补短板"）。<b>边界：没有真对策可选时，"问题＋虚动作"也是合法答案。</b></td></tr>
+        <tr><td class="k">2024 黑龙江<br>知识产权</td><td class="k">D</td><td>打破<b>"文段没对策就选问题"</b>——文段只提问题，但 D 给出了<b>三个动作的完整真对策</b>。<b>边界：选项里有真对策时仍选对策，不看文段是否给。</b></td></tr>
+        <tr><td class="k">2025 江苏<br>青铜器密码</td><td class="k">B</td><td>打破<b>"含'亟待'的选项＝形式词对"</b>——四个选项都含形式词，但只有 B 含<b>实质动作</b>。<b>边界：对策的真伪看内容（动作+对象），不看形式。</b></td></tr>
+      </tbody>
+    </table>
+    <div class="note" style="margin-top:7px;">
+      <b>这一区只收"答案正确但违反某条规则"的题。</b>每收一道，就在那条规则上标一个边界。<b>它是这张卡唯一能自我纠错的地方。</b><br><b>扩容约定：</b>逻辑填空的热词宠词／选项分组／语义丰富均为自称"有反例"的启发式——凡做题发现违反它们但答案正确的题，一律入本区（现 0 条）。
+    </div>
+  </section>
+
+<section>
+    <h2>(八) 晦涩文段 <span class="tag">读不懂时，只能靠主题词</span></h2><span id="a-huishe"></span>
+    <h3>晦涩文段的常见表述形式（为什么会晦涩）</h3>
+    <table>
+      <thead><tr><th style="width:150px;">形式</th><th style="width:150px;">特征</th><th>课件例</th></tr></thead>
+      <tbody>
+        <tr><td class="k">① 拥有较为<b>晦涩的词汇</b></td><td>大量<b>专业术语</b></td><td>莲子心发育过程中，多数叶绿素生物合成结构基因的表达是显著上调的……LPOR 是被子植物参与这一反应的关键酶；莲子心中不存在 DPOR 编码基因……</td></tr>
+        <tr><td class="k">② 表达较为"<b>宽泛</b>"不通俗</td><td><b>抽象概念堆叠</b></td><td>实现技术要素高效配置是高标准市场体系建设的<b>战略使命</b>……由于市场管理与创新管理的部门分割，技术要素市场化改革必然要求……<b>着力解决深层次的体制机制障碍</b>……</td></tr>
+      </tbody>
+    </table>
+    <div class="heuristic" style="margin-top:6px;">
+      <span class="tagline">经验 · 有反例</span>
+      <b>思维提升①：晦涩文段重视主题词的提示作用，特别是高频词和首句引出的话题。</b><br>
+      <b>为什么：</b>晦涩文段<b>读不懂内容</b> → <b>不能再靠语义判断</b> → 只能靠<b>主题词的"提示作用"</b>来定位中心。<b>这是晦涩文段唯一可靠的方法。</b><br>
+      <b>两个抓手：</b>① <b>高频词</b>（出现次数最多的名词——作者反复说的一定是重点）；② <b>首句引出的话题</b>。<br>
+      <b>正确选项的特征：同时覆盖主要高频词</b>。
+    </div>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 22 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 23 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>(八) 晦涩文段</span>
+      <span>第 23 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>(八) 晦涩文段 · 例题 <span class="tag">例1 大模型 / 例2 制造与服务融合</span></h2><span id="a-ex-huishe"></span>
+    <table style="font-size:10px;">
+      <thead><tr><th style="width:112px;">例题</th><th style="width:38px;">答案</th><th>高频词 · 结构 · 考点</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="k">例1<br>2024 国考<br>大模型</td><td class="k">A</td>
+        <td>①<b>【提出观点】</b>大模型赋能，生成式人工智能正在引发新一轮智能化浪潮　＋　②<b>【解释说明】</b>大模型增强人工智能的通用性 → 渗透到越来越多领域 → 成为新基座 → 带来深刻变革 → 强大的创新潜能使其成为<b>全球竞争的焦点</b>。<br>
+        <b>高频词：大模型（5 次）、人工智能（5 次）、生成式人工智能（3 次）</b>。<br>
+        A"<b>人工智能</b>在<b>大模型</b>赋能下正在快速发展"＝<b>唯一同时含两个高频词</b> ✓<br>
+        B 缺"大模型"＋"<b>势在必行</b>"是无中生有的对策（原文是陈述不是主张）；C"<b>亟待挖掘</b>"同为无中生有的对策；<b>D 把"竞争"的焦点偷换成"研究"的焦点</b>。<br>
+        ★<b>C／D 用"生成式人工智能"（子概念）替换高频的"人工智能"（上位概念）。</b></td></tr>
+        <tr class="hot"><td class="k">例2<br>2022 浙江<br>制造与服务融合</td><td class="k">D</td>
+        <td>①<b>【引出话题】</b>制造与服务融合是智能制造的重要内容之一　＋　②本文从<b>工业互联网</b>的商业／使用／功能／实现四视角建立了<b>制造与服务融合</b>的技术体系，提出生态位／供应链／大数据／物联网驱动的融合方法　＋　③<b>【并列提出观点】</b>本文构建的技术体系深化了<b>工业互联网</b>在制造业与服务业中的应用，为技术创新奠定了基础。<br>
+        <b>高频词：制造与服务融合（5 次）、工业互联网（2 次）</b>。<br>
+        D"<b>基于工业互联网</b>的<b>制造与服务融合</b>技术"＝<b>唯一同时含两个高频词</b> ✓<br>
+        A 丢"工业互联网"＋"协同机制"原文未提；<b>B"四轮驱动"＝自造简称</b>（原文是"生态位／供应链／大数据／物联网<b>驱动</b>"）；C 只有"工业互联网"，<b>丢了更高频的"制造与服务融合"</b>。</td></tr>
+      </tbody>
+    </table>
+    <div class="note" style="margin-top:7px;border-left-color:var(--accent);">
+      <b>★ 标题题特有陷阱：自造简称不能做标题。</b><br>
+      "四轮驱动""三驾马车"这类<b>概括性简称</b>，如果<b>原文没有</b>就不能用——<b>标题要用规范表述</b>。<br>
+      <b>★ 另一个高频陷阱：用子概念替换上位概念</b>（例1 的"生成式人工智能" vs 高频的"人工智能"）——<b>范围一收窄，就不是中心话题了</b>。
+    </div>
+  </section>
+
+<section>
+    <h2>(八) 思维提升② ｜ 两者关系 <span class="tag">重视多者之间的关系（特别是二者）</span></h2>
+    <table>
+      <thead><tr><th style="width:150px;">提升①（高频词）</th><th>提升②（两者关系）</th></tr></thead>
+      <tbody>
+        <tr><td>解决"<b>主体是什么</b>"</td><td>解决"<b>主体之间是什么关系</b>"</td></tr>
+      </tbody>
+    </table>
+    <div class="note" style="margin-top:6px;">
+      <b>晦涩文段读不懂？先数"有几个主体"，再看"它们是什么关系"。</b><br>
+      <b>选项判定三问：</b>① <b>主体带全了吗？</b>（只带一个主体 → 缺关系 → 排除）② <b>关系方向对吗？</b>（"依赖光"写成"不依赖"、关系对换 → 排除）③ <b>主体被偷换了吗？</b>（"莲子心"变"莲子" → 排除）。
+    </div>
+  </section>
+
+<section>
+    <h2>(八) 思维提升② · 例题 <span class="tag">例3 莲子心 / 例4 Cas9 与 PAM</span></h2><span id="a-ex-huishe2"></span>
+    <table style="font-size:10px;">
+      <thead><tr><th style="width:112px;">例题</th><th style="width:38px;">答案</th><th>主体 · 关系 · 考点</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="k">例3<br>2023 四川<br>莲子心</td><td class="k">C</td>
+        <td>主体：<b>莲子心</b>（3 次）、叶绿素、LPOR、DPOR、光。<br>
+        <b>关系：</b>被子植物用 LPOR（<b>唯一需要光</b>）；一些裸子植物和微生物用 DPOR（<b>不依赖光</b>）；<b>莲子心不存在 DPOR、只有两个 LPOR</b> → <b>莲子心的叶绿素合成需要光</b>。<br>
+        C"<b>莲子心</b>的叶绿素合成<b>需要光</b>参与"＝主体＋关系＋对象全带 ✓<br>
+        A"叶绿素的形成有两种不同的模式"＝只讲模式，<b>丢了主体"莲子心"</b>；<b>B"裸子植物依赖光"＝关系方向反了</b>（原文是"不依赖光"）；<b>D"莲子"有"裸子植物的"两个编码基因＝主体偷换（莲子心→莲子）＋张冠李戴</b>（两个 LPOR 不是裸子植物的）。</td></tr>
+        <tr class="hot"><td class="k">例4<br>2023 浙江<br>Cas9 与 PAM</td><td class="k">D</td>
+        <td>主体：<b>Cas9</b>（3 次）、<b>PAM 识别序列</b>（2 次）、水稻（1 次）。<br>
+        <b>关系：</b>Cas9 基因组编辑需要识别 PAM（NGG 序列）；<b>PAM 的存在极大限制了 Cas9 的打靶序列选择</b>。<br>
+        D"<b>PAM 识别序列</b>对<b>Cas9 基因组编辑</b>时的影响"＝<b>两个主体 ＋ 关系方向全带</b> ✓<br>
+        A"PAM 的<b>特点和作用</b>"＝只有 PAM 一个主体，丢了 Cas9；B"<b>Cas9</b> 基因编辑方法的特殊性"＝只有 Cas9，丢了 PAM；<b>C"Cas9 对水稻"＝关系换对</b>（原文是 PAM→Cas9）。<br>
+        <b>★ 三个干扰项的死法正好三全：丢一个主体／丢另一个主体／关系换对。</b></td></tr>
+      </tbody>
+    </table>
+    <div class="note" style="margin-top:7px;border-left-color:var(--accent);">
+      <b>★ "二者关系"的两种典型表述：</b><br>
+      · "<b>A 需要 B</b>"（例3：莲子心 需要光）<br>
+      · "<b>A 对 B 的影响</b>"（例4：PAM 对 Cas9）<br>
+      <b>晦涩文段看到这类句式，主体和关系一起抓——正确答案必须把两个主体和关系方向全部带全。</b>
+    </div>
+  </section>
+
+<section>
+    <h2>(八) 晦涩文段 · 总结 <span class="tag">省流版</span></h2>
+    <table style="font-size:10.5px;">
+      <tbody>
+        <tr><td class="k">晦涩的两种形式</td><td>① <b>拥有较为晦涩的词汇</b>（大量专业术语）；② <b>表达较为"宽泛"不通俗</b>（抽象概念堆叠）</td></tr>
+        <tr class="hot"><td class="k">思维提升①</td><td>晦涩文段重视<b>主题词的提示作用</b>，特别是<b>高频词</b>和<b>首句引出的话题</b>。</td></tr>
+        <tr class="hot"><td class="k">思维提升②</td><td>晦涩文段重视<b>多者之间的关系</b>（特别是<b>二者</b>）。</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 23 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 24 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>二、细节判断题</span>
+      <span>第 24 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>二、细节判断题 ｜ 题型总览 <span class="tag">与中心理解读法相反</span></h2><span id="a-xijie"></span>
+    <div class="note">
+      <b>老师的总结（红笔）：</b>细节判断题 ＝ 判断"<b>对错</b>" ＋ 判断"<b>有无</b>"——与中心理解是<b>完全不同的题型</b>。<br>
+      <b>题量与时间：</b>国联考 2~4 题，<b>90s 以内</b>——时间紧，<b>必须掌握快速技巧</b>。<br>
+      <b>提问方式：</b>"以下对文段理解<b>正确／不正确、符合／不符合</b>、<b>可以（不能）得知／推出</b>"——<b>审题很重要，一定要仔细</b>。
+    </div>
+    <table style="font-size:10.5px;margin-top:6px;">
+      <thead><tr><th style="width:140px;">项</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td class="k">本质区别</td><td>一个<b>找重点</b>，一个<b>看对／错、有／无</b>。</td></tr>
+        <tr><td class="k">基本方法</td><td>选项和文段<b>一一对应</b>。</td></tr>
+        <tr class="hot"><td class="k">同义替换</td><td>中心理解里是"找答案的手段"；细节判断里"<b>过度替换</b>"恰恰是陷阱（偷换概念）。</td></tr>
+        <tr><td class="k">★思维转换</td><td>用中心理解的"找同义替换"本能做细节判断，<b>会害你选错</b>——<b>先分清题型</b>再决定用什么读法。</td></tr>
+      </tbody>
+    </table>
+    <h3>做题四步（②③④要"灵活处理"，具体方法见下方各提升）</h3>
+    <table style="font-size:10.5px;">
+      <thead><tr><th style="width:150px;">步骤</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="k">① 审题</td><td>1. <b>什么题？</b>中心理解 OR 细节判断（<b>先分辨题型再动手</b>）　2. <b>选"是"还是选"非"？</b>——提了还是没提　3. <b>创新考法：</b>"能够解释／<b>无法解释</b>下列哪一问题"</td></tr>
+        <tr><td class="k">② 确定做题顺序</td><td>→ 见「思维提升① 做题顺序」：晦涩难懂 → 先看选项；通俗易懂 → <b>先读文段</b>（人文社科"选是"题强烈建议）</td></tr>
+        <tr><td class="k">③ 选项怎么看</td><td>→ 见「思维提升② 快速技巧」（优先验证）＋「思维提升③ 抓选项关键信息」（陌生字词）</td></tr>
+        <tr><td class="k">④ 常见干扰项</td><td>→ 见「4 类错误选项」表：无中生有／偷换概念／偷换逻辑／与文意相悖</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+<section>
+    <h2>二、细节判断题 ｜ 4 类错误选项 <span class="tag">选项识别框架</span></h2>
+    <table style="font-size:10.5px;">
+      <thead><tr><th style="width:32px;">#</th><th style="width:170px;">类型</th><th>典型手法</th></tr></thead>
+      <tbody>
+        <tr><td class="k">1</td><td><b>无中生有</b></td><td>原文<b>没提</b>的事，选项说成肯定事实。</td></tr>
+        <tr class="hot"><td class="k">2</td><td><b>偷换概念</b>（替换／混搭）</td><td>把 A 的<b>主语／谓语／宾语</b>换给 B；或把 A ＋ B 的概念<b>拼成</b>A＋B 的混合体。</td></tr>
+        <tr class="hot"><td class="k">3</td><td><b>偷换逻辑</b></td><td><b>强加因果</b>（A,B 写成"因为 A 所以 B"）／<b>因果倒置</b>（A 致 B 写成 B 致 A）／<b>并列偷换</b>（A 并列 B 写成 A 主体／B 核心）。</td></tr>
+        <tr><td class="k">4</td><td><b>与文意相悖</b></td><td>表述方向与原文<b>相反</b>（积极变消极、褒变贬）。</td></tr>
+      </tbody>
+    </table>
+    <div class="note" style="margin-top:6px;">
+      <b>三种偷换逻辑的口诀：</b>　<br>
+      · 文段 A,B → 选项"<b>因为 A 所以 B</b>" ＝ <b>强加因果</b>　<br>
+      · 文段 A 导致 B → 选项 B 导致 A ＝ <b>因果倒置</b>　<br>
+      · 文段 A 同时 B → 选项 A 是主体／B 是核心 ＝ <b>并列偷换</b>
+    </div>
+  </section>
+
+<section>
+    <h2>二、细节判断题 ｜ 思维提升① <span class="tag">做题顺序（建议）</span></h2>
+    <div class="note">
+      <b>只是建议，要灵活处理。</b>
+      <table style="margin-top:4px;">
+        <thead><tr><th style="width:170px;">从</th><th>建议</th></tr></thead>
+        <tbody>
+          <tr><td class="k">① 文段特征</td><td><b>晦涩难懂</b>（科技说明类）→ <b>先看选项</b>，再回文段比对；<br><b>通俗易懂</b>（人文社科类）→ <b>先读文段</b>，再看选项——<b>人文社科"选是"题，强烈建议先读文段！</b></td></tr>
+          <tr><td class="k">② 选项特征</td><td><b>选项字数短、差异明显、有明显优先验证点</b>→ <b>可先从选项入手</b>。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 24 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 25 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>二、细节判断题</span>
+      <span>第 25 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>二、细节判断题 ｜ 思维提升② <span class="tag">快速解题技巧</span></h2>
+    <div class="heuristic">
+      <span class="tagline">经验 · 有反例</span>
+      <b>原则：</b>有些选项可以<b>优先验证</b>——<b>考虑</b>优先验证，<b>并非直接锁定答案</b>。<br>
+      <table style="margin-top:4px;">
+        <thead><tr><th style="width:200px;">优先验证</th><th>标志词</th></tr></thead>
+        <tbody>
+          <tr><td class="k">1. 绝对表述 vs 相对表述</td><td><b>绝对</b>：一定、必定、都……<br><b>相对</b>：可能、也许、往往、大概、<b>之一</b>、不完全、并非绝对……</td></tr>
+          <tr><td class="k">2. 对比项</td><td>A 高于／优于 B、利大于弊、A 比 B 更……、后来居上……</td></tr>
+          <tr><td class="k">3. 与实际不符／相符</td><td>判断它是否合常识、合现实。</td></tr>
+        </tbody>
+      </table>
+      <b>★ 总结</b>：<br>
+      · <b>选"说法正确"的题</b> → 优先验证：<b>表述温和、符合常识</b>的选项；<br>
+      · <b>选"说法错误"的题</b> → 优先验证：<b>表述绝对、对比项、不符合常识</b>的选项。
+    </div>
+  </section>
+
+<section>
+    <h2>二、细节判断题 ｜ 思维提升③ <span class="tag">如何抓取选项关键信息</span></h2>
+    <div class="note">
+      <b>看选项里"较为特殊的字词"——</b>其他选项没有、<b>只有这个选项有</b>的字词。<br>
+      例（2023 安徽·学业负担）：A"主客观综合因素"／B"历史与现实逻辑"／C"社会各个层面的深度影响"／D"推动基础教育发展"——<br>
+      D"推动基础教育发展"被证伪，因为原文只谈"学业负担"本身，没谈它"推动发展"。<br>
+      <b>口诀：</b>某选项独有的<b>陌生字词</b>往往是<b>被偷换的对象</b>。
+    </div>
+  </section>
+
+<section>
+    <h2>二、细节判断题 ｜ 思维提升④ <span class="tag">几个常见误区</span></h2>
+    <table style="font-size:10.5px;">
+      <thead><tr><th style="width:170px;">误区</th><th>典型错例</th><th>判定</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="k">1. 片面选项可不可以选？</td><td>"我爱言语"也"爱数资"——"我爱言语"／"我只爱言语"／"我最爱言语"：<b>三个都片面，全错</b>。</td><td><b>不可以选</b></td></tr>
+        <tr class="hot"><td class="k">2. 范围适度扩大／缩小可不可以选？</td><td>"张老师是湖北人"——"张老师是中国人"；<br>"老师需要了解学生的心理"——"言语老师需要了解学生的心理"。</td><td><b>不可以选</b></td></tr>
+        <tr class="hot"><td class="k">3. 适度联想的选项可不可以选？</td><td>"张老师感冒了很难受，难以专心上课"——"张老师感冒了对生活造成了极大困扰"。</td><td><b>不可以选</b></td></tr>
+      </tbody>
+    </table>
+    <div class="note" style="margin-top:6px;">
+      <b>★ 总结：细节判断题没有任何"差不多就行"的余地——必须选项和原文<b>精确对应</b>。</b>
+    </div>
+    <h3>思维拔高 ｜ 细节判断也需要对比择优</h3>
+    <div class="note">
+      <b>★ 思路一定要扭转！！！</b><br>
+      · <b>选正确：</b>不是说它<b>没有任何问题</b>，而是：<b>问题最不明显</b>的选项／<b>表述与文段最接近</b>的选项。<br>
+      · <b>选错误：</b>不是说<b>只有它有问题</b>，而是：<b>问题最明显</b>的选项／<b>表述与文段极不符</b>的选项。<br>
+      例（2020 江苏·海底石油）正确率：选项 B"大陆架的石油储量超过世界石油储量三分之一"（原文用"约"，选项去掉"约"→ 表述绝对）；D"全世界约半数的国家进行了海底石油勘探"（原文说"100 多个"，D 偷换成"约半数"且方向不对）。
+    </div>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 25 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 26 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>二、细节判断题</span>
+      <span>第 26 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>二、细节判断题 ｜ 例题 <span class="tag">例5–例12</span></h2><span id="a-ex-xijie"></span>
+    <table style="font-size:10px;">
+      <thead><tr><th style="width:120px;">例题</th><th style="width:38px;">答案</th><th>考点 · 错误类型 · 死法</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="k">例5<br>2024 国考<br>微型机器人</td><td class="k">C</td>
+        <td><b>题型：选"不相符"</b>。<br>A"鳞片结构与穿山甲类似"——原文"受其启发，设计重叠鳞片设计"→ 包含；<br>B"具有灵活机动的移动能力"——原文"灵活无碍地移动"→ 包含；<br><b>C"文化支装能力已在临床中得到验证"</b>——原文是"概念验证实验"，<b>偷换概念（验证≠临床）</b>；<br>D"可用在微创手术中进行止血"——原文"包括在难以触及区域进行癌症热疗或止血"→ 包含。</td></tr>
+        <tr class="hot"><td class="k">例6<br>2023 青海<br>陌生人社会<br><span style="color:var(--muted);font-size:9.5px;">正确率 89%</span></td><td class="k">D</td>
+        <td><b>题型：选"正确"</b>（人文社科类）。<br>A"现代社会会依照差序格局"——<b>偷换概念（差序格局是熟人社会的概念）</b>；<br>B"市场经济需要习俗礼节"——<b>偷换（原文说规则法律取代了礼俗）</b>；<br>C"熟人社会是…社会网络"——原文<b>未提熟人社会的具体定义</b>，<b>无中生有</b>；<br><b>D"现代社会人际关系的维系更依赖规约和法律"</b>＝末句同义替换 ✓</td></tr>
+        <tr class="hot"><td class="k">例7<br>2021 广东选调<br>睡眠与脑脊液<br><span style="color:var(--muted);font-size:9.5px;">正确率 67%</span></td><td class="k">C</td>
+        <td><b>题型：选"理解最准确"</b>。<br>A"只有睡着后才分泌脑脊液"＝偷换概念（"脑脊液进入"≠"分泌"）；<br>B"清醒时血液含量无法降低"——原文"醒着的时候…血量下降不到足够低"，是"不够低"不是"不能降"；<br><b>D"β淀粉样蛋白影响精神状态"</b>——原文说"熬夜、失眠让人头脑昏沉"是因为<b>淀粉样蛋白没被清除</b>，是"代谢副产品的堆积影响精神"，不是"淀粉样蛋白本身影响"。</td></tr>
+        <tr class="hot"><td class="k">例8<br>2022 江苏<br>数字孪生<br><span style="color:var(--muted);font-size:9.5px;">正确率 82%</span></td><td class="k">B</td>
+        <td><b>题型：选"不符"</b>。<br>A"本质是真实物体的数字化模型"——原文"物理空间中的对象在虚拟空间中的数字模型"→ 包含；<br><b>B"是制造领域研发出的最新技术"</b>——原文"<b>不是全新技术</b>，而是建模仿真技术在制造领域的新发展之一"，<b>偷换概念（最新≠新发展之一）</b>；<br>C"与物理对象间保持动态的关联"——"通过传感器随时获取真实物体的数据，并随之一起演变"→ 包含；<br>D"因模型与真实物体的关系得名"——"像是真实物体的孪生兄弟，因而得名"→ 包含。</td></tr>
+        <tr class="hot"><td class="k">例9<br>2025 安徽<br>设施农业</td><td class="k">D</td>
+        <td><b>题型：选"相符"</b>。<br>A"应用广泛、供给充足"——<b>偷换逻辑（因果倒置）</b>：原文"主要粮食品种供给充足"≠"设施农业使"供给充足；<br>B"现代经营管理方式构建了多元食物供给体系"——<b>偷换概念</b>：原文说"现代设施农业包含…现代经营管理方式"，是"要素之一"，不是"构建者"；<br>C"解决育秧难问题，须建设工厂化育秧设施"——<b>无中生有</b>（原文没提"育秧难"）；<br><b>D"现代设施农业可以突破资源、环境的制约"</b>＝末句同义替换 ✓</td></tr>
+        <tr class="hot"><td class="k">例10<br>26 国行政执法<br>气压与情绪</td><td class="k">D</td>
+        <td><b>题型：选"正确"</b>（科技说明类，晦涩→<b>先看选项</b>）。<br>A"交感神经负责放松状态"——<b>偷换</b>（原文副交感负责"放松模式"）；<br>B"气压变化时人的前庭神经最先感知"——<b>与文意相悖</b>：原文"半规管感知气压变化"<b>→</b>再传前庭神经，最先感知的是<b>半规管</b>；<br>C"副交感神经过度活跃使人产生焦虑"——<b>偷换</b>（原文"交感神经过度活跃→产生焦虑感"）；<br><b>D"气压变化通过下丘脑影响人的精神状态"</b>＝"半规管→前庭→<u>下丘脑</u>→自主神经紊乱→精神状态不佳"链条的<u>整条</u>。</td></tr>
+        <tr class="hot"><td class="k">例11<br>2025 江苏<br>司法建议</td><td class="k">C</td>
+        <td><b>题型：选"不符"</b>。<br>A"适用范围正在逐步地扩大"——"适用范围不断拓展"→ 包含；<br>B"不会弱化司法机关的权威"——"进一步提升法院的权威"→ 包含；<br><b>C"可有效避免社会矛盾产生"</b>——原文"预防纠纷<b>再次</b>发生"，<b>偷换概念（避免≠预防再次发生）</b>；<br>D"是一种更柔性的治理方式"——"司法的人文关怀"→ 包含。</td></tr>
+        <tr class="hot"><td class="k">例12<br>2026 四川<br>额尔齐斯河</td><td class="k">D</td>
+        <td><b>题型：选"提及了哪一信息"</b>。<br>A"额尔齐流出国境的位置"——原文说"西行流出国境"，未具体讲<b>位置</b>；<br>B"阿拉克别克河河流的长度"——原文<b>未提长度</b>，<b>无中生有</b>；<br>C"乌伦古湖所在地的气候类型"——原文<b>未提气候</b>，<b>无中生有</b>；<br><b>D"哈巴河的发源地"</b>＝原文"其支流哈巴河<b>发源于哈萨克斯坦境内</b>" ✓</td></tr>
+      </tbody>
+    </table>
+    <div class="note" style="margin-top:6px;">
+      <b>8 题共同的死法分布：</b>① <b>偷换概念</b>（含范围扩大缩小） 7 次（例5 C、例6 A／B、例7 A、例8 B、例9 B、例11 C）；② <b>偷换逻辑</b> 1 次（例9 A 因果倒置）；③ <b>无中生有</b> 4 次（例6 C、例9 C、例12 B／C）；④ <b>与文意相悖</b> 1 次（例10 B）。<br>
+      <b>★ 偷换概念是细节判断题最高频的死法（7/13 ≈ 54%）</b>——大部分错误都是<b>原话不变、换个说法</b>（"分泌"≠"进入"、"避免"≠"预防再次"、"最新"≠"新发展之一"、副交感≠交感）。
+    </div>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 26 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 27 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>三、语句填空题</span>
+      <span>第 27 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>三、语句填空题 ｜ 考点回顾 <span class="tag">新题型 · 看话题衔接</span></h2><span id="a-yuju"></span>
+    <div class="note">
+      <b>题量</b>：2 题左右。　<b>问法</b>："填入画横线部分最恰当的一项是……"<br>
+      <b>理论要点：话题一致、衔接得当。</b>
+      <table style="margin-top:4px;">
+        <thead><tr><th style="width:230px;">横线形态</th><th>重点看</th></tr></thead>
+        <tbody>
+          <tr><td class="k">（1）横线为<b>分句</b></td><td>优先注重<b>句内</b>话题衔接</td></tr>
+          <tr><td class="k">（2）横线为<b>完整语句</b></td><td>注重<b>句子之间</b>的话题关联</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>③ 三种情况（按横线位置分）</h3>
+    <table style="font-size:10.5px;">
+      <thead><tr><th style="width:150px;">位置</th><th style="width:230px;">功能</th><th>说明与例</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="k">（一）横线在<b>结尾</b></td><td>① <b>总结前文</b><br>② <b>提出对策</b></td><td>例："好的成绩需要好的心态…好的睡眠。"</td></tr>
+        <tr class="hot"><td class="k">（二）横线在<b>开头</b></td><td>① <b>概括后文</b><br>② <b>话题引入</b></td><td>例："____。但是我怕闹肚子，犹豫再三，我喝了一杯白开水。"（A 今天天气真好／B 我想喝一杯奶茶）</td></tr>
+        <tr class="hot"><td class="k">（三）横线在<b>中间</b></td><td>注意与上下文的联系；<b>把握好主题词</b>，保证文段话题的一致性</td><td><b>最高频</b>，也是本节重点（见思维提升②）</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+<section>
+    <h2>三、语句填空 · 思维提升① <span class="tag">语感陷阱，不要跳文段</span></h2>
+    <div class="note">
+      <b>陷阱所在：</b>横线处往往<b>读起来"很顺"</b>，凭语感一选就中招——<b>必须先读完整个文段</b>再判断。<br>
+      <b>判断动作：</b>横线是<b>分句</b>→ 先看<b>句内</b>衔接（前后半句是否同一话题）；横线是<b>完整语句</b>→ 先看<b>句子之间</b>的话题关联。
+    </div>
+    <table style="font-size:10px;">
+      <thead><tr><th style="width:112px;">例题</th><th style="width:38px;">答案</th><th>结构 · 考点</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="k">例1<br>2023 广东<br>农村生态文明</td><td class="k">B</td>
+        <td>①<b>【提出观点】</b>农村生态文明建设，____。　②<b>【解释】</b>一是必须加速由高耗能高污染的粗放型农业向清洁循环的集约型农业转变…二是促进农业资源循环利用…<br>
+        <b>横线在中间 → 承上启下；后文"一是…二是…"两条并列，都在讲"绿色循环"</b>。<br>
+        B"<b>必须大力推进绿色循环农业发展</b>"＝概括后文两条 ✓<br>
+        A"必须与<b>美丽乡村</b>建设紧密结合"——后文未提美丽乡村；C"必须充分利用<b>科技研发</b>"——只对应"一是"里的一个细节；D"必须树立'绿水青山就是金山银山'的<b>价值导向</b>"——是对策方向，非后文内容。</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+<section>
+    <h2>三、语句填空 · 思维提升② <span class="tag">横线在中间：承上启下</span></h2><span id="a-ex-yuju"></span>
+    <div class="note">
+      <b>优先级：承上启下（最优）　＞　侧重承上（次选）　＞　侧重启下（次选）</b><br>
+      <b>为什么"承上启下"最优？</b>因为<b>同时满足两个方向的衔接</b>——它天然是"话题的转折枢纽"。<br>
+      <b>动作：</b>把横线前后各读一句，判断横线是"两端都接"还是"只接一头"。
+    </div>
+    <table style="font-size:10px;">
+      <thead><tr><th style="width:112px;">例题</th><th style="width:38px;">答案</th><th>结构 · 考点</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="k">例2<br>2024 辽宁<br>钻石雨<br><span style="color:var(--muted);font-size:9.5px;">正确率 62%</span></td><td class="k">B</td>
+        <td>①地上水循环 → 下雨属于<b>物理变化</b>　②____　③星球雷电分解甲烷 → 钻石雨属于<b>化学变化</b>。<br>
+        B"下'钻石雨'和地球上空下雨<b>在本质上不同</b>"＝<b>承上</b>（物理变化）＋<b>启下</b>（化学变化）✓<br>
+        A"想在地球上见到'钻石雨'是不可能的"——后文没有讨论"能否见到" ✗</td></tr>
+        <tr class="hot"><td class="k">例3<br>2023 国考<br>立案登记制<br><span style="color:var(--muted);font-size:9.5px;">正确率 50%</span></td><td class="k">A</td>
+        <td>①"有案必立"仅指<b>符合法定立案条件</b>的案件 → 所以____　②<b>【质疑】</b>"设立立案标准＝设置门槛，难以保障诉权"　③<b>【回答】</b>任何权利都有限度，只有符合标准才能实现。<br>
+        A"推行立案登记制<b>并不意味着"是案就立"</b>"＝<b>承上</b>（"有案必立"有条件）＋<b>启下</b>（引出"对此"的质疑）✓<br>
+        B"不能将'立案难'与司法公正简单关联"——话题偏；C"明确立案标准才能保障合法权益"——与"质疑"方向相反（质疑是<b>质疑</b>标准，A 是<b>先立论</b>再被质疑）；D"司法资源作为公共产品的有限性"——尾句才出现，太后 ✗</td></tr>
+        <tr class="hot"><td class="k">例4<br>2024 山东<br>工业品下乡</td><td class="k">B</td>
+        <td>①<b>【背景】</b>高品质工业品从"稀罕物"变"必需品"　②<b>【提出观点】</b>工业品下乡不意味着"积压品下乡"，不能拿质次价廉商品糊弄消费者，____　③<b>【举例论证】</b>重设计洗衣机外壳（解决生锈）、推宽电压冰箱　④<b>【观点】</b>惠民生、增福祉是政策初衷。<br>
+        B"<b>高品质满足农村地区消费者实际需求</b>才是硬道理"＝③的<b>话题上位概括</b> ✓<br>
+        A"要深入调研农村消费群体"——后文没有"调研"；C"要统筹兼顾，破解难题，激发企业<b>积极性</b>"——后文没有"破解难题"；D"充分发挥乡村消费市场的重要作用"——话题不搭。</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 27 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 28 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>三、语句填空</span>
+      <span>第 28 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>三、语句填空 · 思维提升③④ <span class="tag">话题可能不完整 / 文言文选项</span></h2>
+    <div class="note">
+      <b>思维提升③：单看横线处，是不是必然有完整的核心话题？</b><br>
+      <b>不一定。</b>横线常常<b>没有主语、没有完整主谓</b>——因为它<b>承接了上文的话题</b>。此时<b>不能要求"横线本身话题完整"</b>，要看<b>它和上下文是否连贯</b>。<br>
+      <b>动作：</b>把横线代入上下文读一遍——<b>能顺畅接上就是对的</b>，不必要求它自身"像个完整句子"。
+    </div>
+    <div class="note" style="margin-top:6px;">
+      <b>思维提升④：文言文相关的语句填空</b><br>
+      ① <b>出题人的难度控制</b>——不会让四个选项都很难理解；<br>
+      ② 注意<b>衔接紧密的语句，可能起到解释作用</b>（后句在给前句做注解）。
+    </div>
+    <table style="font-size:10px;">
+      <thead><tr><th style="width:112px;">例题</th><th style="width:38px;">答案</th><th>结构 · 考点</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="k">例5<br>2022 国家<br>文化遗产</td><td class="k">D</td>
+        <td>①依托数字文化开发是焕发新活力的重要手段　②但科技应用<b>应有边界</b>，即____　③<b>一旦两者冲突，理应遵循"保护优先"原则</b>　④打造沉浸式场景…其目的无可非议…须慎重。<br>
+        D"<b>不能对资源本身及其价值造成破坏或产生不良影响</b>"＝③"保护优先原则"正是对它的<b>解释</b> ✓<br>
+        B"要把握好<b>真实性和娱乐性</b>之间的尺度"——后文从未出现"真实性""娱乐性"这一对 ✗</td></tr>
+        <tr class="hot"><td class="k">例6<br>2024 国考<br>良法与立法</td><td class="k">A</td>
+        <td>①良法是善治的前提（"良法"很重要）　②____　③<b>发挥好人大及其常委会在立法工作中的主导作用</b>，坚持尊重客观规律、为了人民依靠人民、严格依照法定权限程序，推进科学立法民主立法依法立法。<br>
+        A"要抓住<b>提高立法质量</b>这个关键"＝③整段都是"如何提高立法质量" ✓<br>
+        B"人大要统筹运用<b>法定监督方式</b>"——③讲的是"立法"不是"监督"；C"<b>法律体系</b>须与时俱进"——③不在谈体系；D"治国理政要保障人民当家作主"——话题过大 ✗</td></tr>
+        <tr class="hot"><td class="k">例7<br>2023 国考<br>人类命运共同体<br><b>（文言文）</b></td><td class="k">C<span style="color:var(--muted);font-size:9.5px;">（推断）</span></td>
+        <td>①构建人类命运共同体是各国人民前途所在　②____　③<b>只有各国行天下之大道，和睦相处、合作共赢，繁荣才能持久，安全才有保障</b>。<br>
+        C"<b>万物并育而不相害，道并行而不相悖</b>"（万物互不妨害，各自规律互不冲突）＝③"和睦相处、合作共赢"＋"繁荣才持久"的<b>文言对应</b> ✓<br>
+        A"河海不择细流，故能就其深"（容纳、包容）；B"<b>大道之行也，天下为公</b>"（"天下为公"＝为公，后文讲的是各国<b>合作</b>不是"为公"）；D"芳林新叶催陈叶，流水前波让后波"（新事物代替旧事物，与文段无关）。<br>
+        <span style="color:var(--muted);">※ 本题 PPT 未标答案，此为按逻辑推断，建议对照原课件核对。</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+<section>
+    <h2>三、语句填空 · 总结 <span class="tag">省流版</span></h2>
+    <table style="font-size:10.5px;">
+      <tbody>
+        <tr><td class="k">理论要点</td><td><b>话题一致、衔接得当</b>。横线为<b>分句</b>→ 注重<b>句内</b>衔接；横线为<b>完整语句</b>→ 注重<b>句子之间</b>的话题关联。</td></tr>
+        <tr><td class="k">三种位置</td><td><b>结尾</b>→ 总结前文／提出对策；<b>开头</b>→ 概括后文／话题引入；<b>中间</b>→ 注意上下联系、把握主题词（<b>最高频</b>）。</td></tr>
+        <tr class="hot"><td class="k">思维提升①</td><td><b>语感陷阱，不要跳文段</b>——读起来顺 ≠ 对。</td></tr>
+        <tr class="hot"><td class="k">思维提升②</td><td>中间横线：<b>承上启下（最优）</b> ＞ 侧重承上 ＞ 侧重启下。</td></tr>
+        <tr class="hot"><td class="k">思维提升③</td><td><b>横线处未必有完整的核心话题</b>——它承接上文，不必自身"像个完整句子"。</td></tr>
+        <tr class="hot"><td class="k">思维提升④</td><td><b>文言文选项</b>：① 难度控制（不会四个都难）② 后句可能是对横线的<b>解释</b>。</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 28 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 29 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>四、接语选择题</span>
+      <span>第 29 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>四、接语选择题 ｜ 考点回顾 <span class="tag">新题型 · 看话题延展</span></h2><span id="a-jieyu"></span>
+    <div class="note">
+      <b>题量</b>：国联考 1~2 题；<b>难度</b>：整体不大。<br>
+      <b>问法</b>："作者接下来最有可能讲述的是……"／"这是一篇文章的开头／引言／序言／前言，这篇文章最可能介绍的是（标题是）"<br>
+      <b>理论要点：</b>① <b>通读全文，重点关注文段谈论的核心话题</b>　② <b>核心话题保持一致与连贯</b>，对比选项确定答案。<br>
+      <b>干扰选项：</b>① <b>与文段谈论的话题不一致，不连贯</b>　② <b>尾句之前已经具体论述过的内容</b>。
+    </div>
+    <div class="note" style="margin-top:6px;border-left-color:var(--accent);">
+      <b>★ 思维提升①：题型本质——答案怎么构成？</b><br>
+      <b>答案 ＝ 文段提及的核心话题 ＋ 文段未论述的新内容</b>。<br>
+      <b>动作：先做一遍中心理解 → 找到核心话题 → 再把"已具体论述过的、衔接不紧密的"排除。</b>
+    </div>
+    <div class="note" style="margin-top:6px;">
+      <b>★ 思维提升②：三种常考形式</b><br>
+      <b>1. 文段引出重点话题 + 后文具体展开</b>（<b>常考</b>）<br>
+      <span style="color:var(--muted);">"这个话题我们讨论了很长时间都没有结果，但是别急，这个事情小明比较擅长……"</span><br>
+      <b>2. 文段提出关键问题 + 后文分析问题／对策</b>（<b>常考</b>）<br>
+      <span style="color:var(--muted);">"我们经济发展取得了巨大成就，不过在民生方面还存在很多问题需要解决……"</span><br>
+      <b>3. 文段并列列出多个对象，只论述了其中一个 + 后文按顺序论述下一个</b>（<b>不常考，最难</b>）<br>
+      <span style="color:var(--muted);">"这个问题我有两种解法，一种是几何法，一种是向量法。关于几何法……"→ 后文讲向量法</span>
+    </div>
+    <div class="heuristic" style="margin-top:6px;">
+      <span class="tagline">经验 · 有反例</span>
+      <b>★ 思维提升③：是否只看尾句？</b><br>
+      ① <b>整体来说，并非所有题只看尾句就能解题</b>——<b>建议看完整</b>；<br>
+      ② <b>概率来说，分总结构的文段更常见</b>，可以重点关注尾句。
+    </div>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 29 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 30 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>四、接语选择</span>
+      <span>第 30 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>四、接语选择 · 思维提升④与例题 <span class="tag">变型考查 + 例8–例13</span></h2><span id="a-ex-jieyu"></span>
+    <div class="note" style="margin-top:0;">
+      <b>思维提升④：变型考查——"接下来最不可能谈的是"</b><br>
+      问法变成<b>排除</b>，但判据不变：<b>与文段话题不一致</b> 或 <b>尾句之前已经具体论述过</b>。
+    </div>
+    <table style="font-size:10px;">
+      <thead><tr><th style="width:112px;">例题</th><th style="width:38px;">答案</th><th>结构 · 考点</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="k">例8<br>2025 陕西<br>城市治理</td><td class="k">D</td>
+        <td>①<b>【引出话题】</b>群众日常与城市治理息息相关　②<b>【提出要求】</b>提升城市治理精细化水平　③<b>【背景】</b>由增量建设转为存量提质改造　④<b>【具体展开】</b>燃气管网实时监测、红绿灯配时、公园绿地布局等都<b>考验着城市治理精细化水平</b>。<br>
+        核心话题 ＝ <b>城市治理精细化水平</b>。D"如何提升城市治理的精细化水平"＝话题 ＋ 未论述的<b>方法</b> ✓<br>
+        A"智能化带来的新问题"——话题偏；B"城市软硬件<b>增量</b>建设"——③刚说过"转为存量提质改造与增量结构调整<b>并重</b>"，B 只说增量；C"与百姓的关联性"——①已论述过。</td></tr>
+        <tr class="hot"><td class="k">例9<br>2024 深圳<br>快递过度包装</td><td class="k">A</td>
+        <td>①<b>【引出话题】</b>过度包装不全是卖家的错　②卖家角度：包装材料是真金白银买的，<b>无收益还增成本</b>　③<b>【提出观点】</b>表面是环保观念问题，更深一层是<b>快递行业的内部管理问题</b>　④<b>【解释】</b>"野蛮快递"不放心 → 商家想取信、消费者想要安慰 → 双方一拍即合。<br>
+        核心话题 ＝ <b>快递行业内部管理</b>。A"缓解过度包装的关键在于<b>快递企业</b>"＝行业内部 ✓<br>
+        B"从<b>执法层面</b>予以规范"——那是外部监管，不是"内部管理"；C"资源浪费和环境污染"——全文未提；D"追求浮夸的消费理念"——停在"表面"那层，③已<b>否定</b>这一层。</td></tr>
+        <tr class="hot"><td class="k">例10<br>2024 国考<br>电阻抗成像</td><td class="k">A</td>
+        <td>①<b>【引出话题】</b>医学电阻抗成像技术　②原理与价值　③<b>【转折】</b>然而实现<b>高质量的图像重建</b>是巨大挑战，获取功能影像大数据在临床上也极其困难。<br>
+        ③"然而"后是<b>重点</b>，核心话题 ＝ <b>图像重建的挑战</b>。A"对医学图像<b>重建方法</b>的探索"＝话题 ＋ 解决之道 ✓<br>
+        B"共享功能影像大数据的<b>意义</b>"——③说"获取困难"，没说"共享的意义"；C"技术的实际应用"——②已论述；D"图像对疾病诊疗的重要作用"——②已论述。</td></tr>
+        <tr class="hot"><td class="k">例11<br>2024 国考<br>适老型诉讼</td><td class="k">B</td>
+        <td>①<b>【引出话题】</b>程序性公正是实体性公正的前提　②<b>【提出问题】</b>老年人存在程序障碍，影响判决公正　③<b>【提出对策】</b>建立适老型诉讼服务机制<b>将有助于</b>提升参与质量、改善沟通效率…最终提升审判质效。<br>
+        ③讲的是机制<b>的作用</b>，后文该讲<b>怎么建</b>。B"建立适老型诉讼服务机制的<b>路径</b>" ✓<br>
+        A"机制的<b>法治意义</b>"——作用已讲完；C"当前老年人诉讼参与问题及困境"——②已讲过；D"对适老型<b>普法宣传教育</b>的新探索"——话题偏。</td></tr>
+        <tr class="hot"><td class="k">例12<br>2025 浙江<br>产业链现代化<br><b>（变型）</b></td><td class="k">D</td>
+        <td><b>问法变为"接下来应该<b>不会</b>重点谈论"。</b><br>
+        ①<b>【引出并介绍】</b>产业链的定义、涵盖环节　②<b>【强调新话题】</b>"产业链现代化"的实质＝使产业链具备高端链接能力、自主可控能力、全球资源配置能力和国际竞争力。<br>
+        A"衡量<b>产业链现代化水平</b>的标准"／B"提升<b>产业链现代化水平</b>的途径"／C"产业链现代化<b>与经济发展目标</b>的关系"——都紧扣②的核心话题，<b>可能谈</b>；<br>
+        <b>D"社会分工推动产业链组织深化的过程"</b>——讲的是"<b>社会分工</b>"，且落在①的"链条式关联形态"，<b>话题不一致</b> ✗</td></tr>
+        <tr class="hot"><td class="k">例13<br>2021 国考<br>全球治理体系</td><td class="k">A</td>
+        <td>①<b>【背景】</b>全球治理体系的由来　②<b>【提出问题】</b>两方面（未适应新情况亟需改革／先发国家主导、资本中心逻辑贯穿）　＋　③<b>【尾句·对策】</b>“因此…<b>必须正视上述两方面</b>”。<br>
+        核心话题 ＝ <b>全球治理体系改革</b>；尾句是<b>要求句</b> → 下文接“怎么办＝路径”。A“我国参与<b>全球治理体系改革</b>的路径”＝话题 ＋ 未论述的新内容 ✓<br>
+        B“人类命运共同体理念的形成与发展”——<b>话题偏</b>（尾句重心是“正视上述两方面”）；C“机遇与挑战”——“机遇”全文未提、“挑战”②已论述；D“制度缺陷”＝<b>“上述两方面”</b>，尾句之前已具体论述过。</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+<section>
+    <h2>四、接语选择题 · 总结 <span class="tag">省流版</span></h2>
+    <table style="font-size:10.5px;">
+      <tbody>
+        <tr><td class="k">答案构成</td><td><b>文段提及的核心话题 ＋ 文段未论述的新内容</b>（先做一遍中心理解，再排除已论述过的）。</td></tr>
+        <tr><td class="k">干扰项</td><td>① 与文段话题不一致、不连贯；② <b>尾句之前已经具体论述过</b>的内容。</td></tr>
+        <tr class="hot"><td class="k">三种常考形式</td><td>① 引出话题 ＋ 后文具体展开（<b>常考</b>）② 提出问题 ＋ 后文分析／对策（<b>常考</b>）③ 并列多对象只讲其一 ＋ 后文讲下一个（<b>最难</b>）。</td></tr>
+        <tr class="hot"><td class="k">是否只看尾句</td><td><b>不是所有题</b>——建议看完整；<b>分总结构</b>更常见，可重点关注尾句。</td></tr>
+        <tr class="hot"><td class="k">变型考查</td><td>"接下来最<b>不可能</b>谈的是"——判据不变（话题不一致／已论述过）。</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 30 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 31 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>五、语句排序题</span>
+      <span>第 31 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>五、语句排序题 ｜ 两大原则 <span class="tag">先明规则，再动手</span></h2>
+    <span id="a-paixu"></span>
+    <table>
+      <thead><tr><th style="width:120px;">原则</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="k">原则一<br>从选项差别入手</td><td>不通读硬排——先看四个选项的排列差异（首句不同／相邻顺序不同／尾句不同），<b>差异处就是解题线索</b>。</td></tr>
+        <tr class="hot"><td class="k">原则二<br>排除法解题</td><td>并非直接选答案，而是根据提示信息逐项排除。<b>有且仅有两个排除角度：① 先后顺序；② 是否紧密相连。</b></td></tr>
+      </tbody>
+    </table>
+    <div class="heuristic" style="margin-top:7px;">
+      <span class="tagline">经验 · 有反例</span>
+      <b>难度定位：</b>排序题整体难度较大，<b>不建议投入过多重心</b>——中心理解基础扎实更值钱。两个排除角度不排先后，结合题目特点灵活运用。
+    </div>
+  </section>
+
+<section>
+    <h2>排序 · 排除角度① 先后顺序 ｜ 行文逻辑＋日常逻辑</h2>
+    <table>
+      <thead><tr><th style="width:90px;">角度</th><th style="width:190px;">判断依据</th><th>典型形态</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="k">行文逻辑</td><td>观点 ＋ 解释说明</td><td><b>越简略概括越在前，越详细具体越在后</b></td></tr>
+        <tr><td class="k">行文逻辑</td><td>提出疑问 ＋ 回答问题</td><td>问在前，答在后</td></tr>
+        <tr><td class="k">行文逻辑</td><td>问题 ＋ 对策</td><td>先提问题，后给对策</td></tr>
+        <tr class="hot"><td class="k">日常逻辑</td><td>时间顺序</td><td>具体时间点（2017／2018 年）、朝代（唐宋元明清）、时间词（过去／后来／现在／将来）</td></tr>
+        <tr><td class="k">日常逻辑</td><td>行动先后、事情发展脉络</td><td>先思路后行动（树立目标 → 实现）；发展顺序（笔试 → 面试 → 政审）；从小处看 → 往大处说</td></tr>
+      </tbody>
+    </table>
+    <h3>排除角度② 紧密相连 ｜ 四看</h3>
+    <table>
+      <thead><tr><th style="width:110px;">四看</th><th>怎么用</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="k">① 看指代词</td><td>这／那／他／其／该／此、这些／那些／他们／它们——<b>往前寻找指代对象，话题保持一致</b>，两句相连</td></tr>
+        <tr class="hot"><td class="k">② 看关联词</td><td>转折（然而／但是）：前后<b>话题相关且语义相反</b>；并列（同时／此外）：前后<b>话题语义相关</b>——相连</td></tr>
+        <tr><td class="k">③ 看例子</td><td>看到例子（就像／正如），<b>往前寻找观点一致的句子</b>——观点＋例子相连</td></tr>
+        <tr><td class="k">④ 看特殊信息</td><td>文段中<b>仅出现两次</b>的内容，概率上适合放在一起</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+<section>
+    <h2>排序 · 三步走 <span class="tag">对比首句 → 找线索排除 → 验证</span></h2>
+    <div class="flow">
+      <div class="step on"><b>第一步 对比首句</b><span>判断谁适合作首句<br>（并非必须看出来）</span></div>
+      <div class="arrow">▶</div>
+      <div class="step on"><b>第二步 找线索排除</b><span>从文段找指代/关联/例子/时间线索<br>或从选项差异（首尾句）入手</span></div>
+      <div class="arrow">▶</div>
+      <div class="step off"><b>第三步 验证</b><span>绝大多数题不需要<br>验证<b>逻辑性</b>而非通顺性</span></div>
+    </div>
+    <div class="row2" style="margin-top:7px;">
+      <div>
+        <h3>三类一定不作首句（非首句特征）</h3>
+        <table>
+          <tbody>
+            <tr class="hot"><td class="k">① 指代不清</td><td>这、那、他、其、该、此、当时 等开头</td></tr>
+            <tr class="hot"><td class="k">② 关联词后半</td><td>则、也、仍然／依然是、才 等单独出现</td></tr>
+            <tr class="hot"><td class="k">③ 明确举例</td><td>比如、例如、就像；具体而言、换句话说</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <h3>答疑四问</h3>
+        <table>
+          <tbody>
+            <tr><td class="k">会倒序吗？</td><td><b>基本不会</b>——违背排序题基本出题原则</td></tr>
+            <tr><td class="k">配套关联词？</td><td>并非一定紧密相连，严谨说只能判<b>先后</b></td></tr>
+            <tr><td class="k">隔句指代？</td><td>可能出现但不常见，<b>不要因噎废食</b></td></tr>
+            <tr><td class="k">引出话题？</td><td>下定义／引出话题的句子，要在<b>所有提及该话题的句子之前</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="note" style="margin-top:6px;">
+      <b>省流版：</b>选项差异入手 → 排除只有"先后＋相连"两角度 → 首句三不选（指代不清／关联词后半／明确举例）→ 引出话题者在最先 → 剩两项比首尾句差异 → 不必强行验证。
+    </div>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 31 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 32 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>语句排序 · 例题速查</span>
+      <span>第 32 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>语句排序 · 例题速查 <span class="tag">9 题逐题判定</span></h2>
+    <span id="a-ex-paixu"></span>
+    <table style="font-size:10px;">
+      <thead><tr><th style="width:96px;">例题</th><th style="width:36px;">答案</th><th>线索 · 排除过程</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="k">例1<br>2024 山西<br>临近空间</td><td class="k">B</td><td>④下定义引出话题 vs ③说工作环境 → 先④后③，排除 A/C；①"这一有利因素"指代 → ⑥①相连，锁定 B</td></tr>
+        <tr><td class="k">例2<br>26 国行政<br>协调世界时</td><td class="k">C</td><td>③引出世界时、④引出协调世界时，⑤先下定义 → ③在④⑤前，排除 A/B；②"它"指代协调世界时 → 锁定 C</td></tr>
+        <tr><td class="k">例3<br>2023 福建<br>SMCHD1</td><td class="k">C</td><td>①②首句难判 → 不强行判；⑥"该研究集中在…蛋白上"引出 SMCHD1 → ⑥在②⑤前，锁定 C</td></tr>
+        <tr class="hot"><td class="k">例4<br>2024 广西<br>规则与孩子</td><td class="k">D</td><td>③提观点、④论证 → 先③后④，排除 A；①"他们"指代"不好的孩子" → ⑤①相连，排除 B/C</td></tr>
+        <tr><td class="k">例5<br>2025 天津<br>生态文明</td><td class="k">D</td><td>①④古 vs ③⑤今 → 先古后今，排除 B/C；尾句④（文明底蕴）在前、③（对策）在后 → 排除 A</td></tr>
+        <tr><td class="k">例6<br>2023 重庆<br>化学自动化</td><td class="k">B</td><td>①"他们"指代不明不作首句，排除 C；⑤"长期以来"→③"目前"，排除 A；④转折后观点与③句意一致 → ④在③前，锁定 B</td></tr>
+        <tr class="hot"><td class="k">例7<br>2024 山东<br>乡村旅游</td><td class="k">B</td><td>④是对②的递进 → 先②后④，排除 C/D；⑤问题→①对策；尾句按"问题③-对策⑥-意义④" → 锁定 B</td></tr>
+        <tr><td class="k">例8<br>2023 辽宁<br>气候与动物</td><td class="k">D</td><td>②"相比之下"类指代不明不作首句，排除 B；④提出问题、①⑤回答 → ④开头，锁定 D</td></tr>
+        <tr><td class="k">例9<br>2026 四川<br>慢性肾病</td><td class="k">B</td><td>⑤引出肾脏、⑥引出慢性肾病，首句可保留；④"就是慢性肾脏病"引出话题 → ④在⑥前，直接锁定 B</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+<section>
+    <h2>六、逻辑填空题 ｜ 解题思路 <span class="tag">语境分析为王 × 词语辨析为器</span></h2>
+    <span id="a-tiankong"></span>
+    <table>
+      <thead><tr><th style="width:130px;">考什么</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="k">① 语境分析<br>（本质）</td><td>把握文段，以及<b>横线与文段之间的逻辑关系</b>——意思是逻辑填空的灵魂，<b>并非完全靠语感</b>。</td></tr>
+        <tr><td class="k">② 词语辨析</td><td>区分词语的角度：基本释义、搭配对象、程度轻重、感情色彩、使用语境、宠词陪跑词、词义侧重（七角度见下页）。</td></tr>
+      </tbody>
+    </table>
+    <div class="note" style="margin-top:7px;">
+      <b>★ 搭配的定位（最易迷信的点）：</b>搭配考察词语使用的<b>合理性</b>，但<b>并非最重要——一定以文段意思优先</b>。<br>
+      例：封闭的环境很可能____文化的活力（消磨／释放）→ 语境要"削弱活力" → <b>消磨</b>（"释放活力"搭配常见但方向反）。<br>
+      例：研判未来 5 年乃至 30 年发展趋势……____采取应对措施（大刀阔斧／未雨绸缪）→ 语境是"提前" → <b>未雨绸缪</b>。
+    </div>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 32 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 33 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>逻辑填空 ｜ 词语辨析的七个角度</span>
+      <span>第 33 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>逻辑填空 ｜ 词语辨析的七个角度 <span class="tag">考"意思的正确性＋使用的合理性"，逐对积累</span></h2><span id="a-bianxi"></span>
+    <table style="font-size:10px;">
+      <thead><tr><th style="width:76px;">角度</th><th>核心辨析对（⭐️＝高频）</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="k">① 搭配对象</td><td><b>骇人听闻</b>（真事）vs <b>耸人听闻／危言耸听</b>（捏造）；<b>授予</b>（奖励荣誉）vs <b>给予</b>（宽泛）；<b>喜闻乐见</b>（以人为主体）vs <b>深入人心</b>（以思想理论为主体）</td></tr>
+        <tr><td class="k">② 程度轻重</td><td>⭐️<b>息息相关</b>（呼吸相关联，关系密切）／千丝万缕；⭐️<b>休戚相关／休戚与共</b>（利益共同体，福祸相关）；唇亡齿寒；如影随形</td></tr>
+        <tr><td class="k">③ 感情色彩</td><td><b>蔚然成风</b>（积极）vs <b>风靡一时</b>（中性）vs <b>大行其道</b>（多贬）</td></tr>
+        <tr class="hot"><td class="k">④ 使用语境</td><td>⭐️<b>相得益彰</b>（两独立事物配合，1+1＞2）vs <b>相辅相成</b>（缺一不可）；<b>水乳交融</b>（常形容党群关系）；<b>交相辉映</b>（多指景色光亮，不太形容两者关系）；<b>取长补短</b>（文段须有明确长短处）</td></tr>
+        <tr class="hot"><td class="k">⑤ 宠词陪跑</td><td>⭐️<b>独善其身</b>、⭐️<b>应运而生</b>、⭐️<b>相得益彰</b>、南辕北辙、互为表里、无与伦比——出题人偏爱的"正确答案词"</td></tr>
+        <tr><td class="k">⑥ 实词搭配</td><td><b>凝结／凝聚</b>（多搭抽象精神思想）vs 聚集 vs 粘合；<b>汇聚</b>（四方汇来）vs <b>融合</b>／整合——实词对比难度更大，更考固定搭配</td></tr>
+        <tr><td class="k">⑦ 词义侧重</td><td><b>遏制</b>（压制过程）vs <b>遏止</b>（使停止）；<b>坦言</b>（直说己见）vs <b>预言</b>（预判未来）；<b>保持</b>（使继续存在）vs <b>维持</b>（使不改变）——需主动思考</td></tr>
+      </tbody>
+    </table>
+    <div class="note gray" style="margin-top:6px;">
+      <b>与附录的关系：</b>本表管"<b>辨析取舍</b>"，附录词汇表（第 <span class="pr" data-t="a-fulu">40</span> 页）管"<b>防读反</b>"——两处互为补充，新词对只入一处、另一处留指针（蔚然成风／不可或缺／不以为然已在两处出现）。
+    </div>
+  </section>
+
+<section>
+    <h2>逻辑填空 ｜ 呼应一 ｜ 句内呼应 <span class="tag">横线所在句子的前后提示</span></h2>
+    <div class="note">
+      <b>规则：</b>注意横线所在句子的意思，通过<b>横线前后的提示</b>推测横线处所表达的意思。<br>
+      <b>高频考法：</b>出现"<b>____，xxxxxxxx</b>"标志（横线后接逗号展开）→ <b>重点关注横线后的内容信息</b>。<br>
+      例（2024 四川）：如此____的工程布局，堪称人类水利史上的奇迹（匠心独具／巧夺天工）→ 后文"工程布局…奇迹" → <b>巧夺天工</b>。
+    </div>
+  </section>
+
+<section>
+    <h2>逻辑填空 ｜ 呼应二 ｜ 并列关系 <span class="tag">最高频考法在此</span></h2><span id="a-binglie"></span>
+    <table>
+      <thead><tr><th style="width:116px;">并列类型</th><th style="width:200px;">标志</th><th>考法与要点</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="k">① 近义并列<br>（最高频）</td><td>"、""，""和"引导的双并列</td><td>语义<b>相近</b>、感情色彩相近（不必完全一致）。<b>注意：近义并列不存在重复！</b>逗号一般只在前后均为成语时才引导近义并列</td></tr>
+        <tr class="hot"><td class="k">② 反义并列</td><td>不是…而是…／多一些…少一些…／既不能…也不能…／要…不要…</td><td>语义<b>相反相对</b>。如：要科学，不要愚昧</td></tr>
+        <tr><td class="k">③ 同句式并列</td><td>相同句式连用</td><td>可近可反，<b>视文段整体感情有无变化</b>。如：好的书籍净化心灵，坏的书籍残害灵魂</td></tr>
+        <tr><td class="k">④ 三并列</td><td>甲、____、丙</td><td>据给定两词的关系推断横线；<b>遇到三并列尽量从别处入手</b>（经验）</td></tr>
+        <tr><td class="k">⑤ 或／且／并</td><td>或、且、并引导</td><td>语义一般<b>不重复</b>，只是表不同。如：痛并快乐</td></tr>
+      </tbody>
+    </table>
+    <div class="note" style="margin-top:7px;">
+      <b>★ 并列中的"局部"与"整体"：</b>并列词成对出现（倾向性、____）——填什么先看<b>与它并列的词</b>，更要<b>结合前后句看整体</b>。<br>
+      例（2022 天津）：对待带有<b>倾向性、普遍性</b>的问题（搭配"动辄全部清除"）；另一句"监测……倾向性问题"则配<b>苗头性</b>——同一空位，语境不同答案不同。<br>
+      <b>操作：遇到并列不要急——先分清并列类型，再"局部"结合"整体"。</b>
+    </div>
+  </section>
+
+<section>
+    <h2>逻辑填空 ｜ 呼应三 ｜ 中心理解化 <span class="tag">建立对文段整体、而非局部的理解</span></h2><span id="a-zxhua"></span>
+    <div class="row2">
+      <div class="note">
+        <b>思路 1 ｜ 重视文段完整语句：</b>特别是<b>首句的完整语句</b>，可能起提纲挈领的作用——先读完整句再下手。<br><br>
+        <b>思路 2 ｜ 重视文段主题词：</b>优先考虑和<b>文段主题对应的选项</b>（与中心理解的主题词法同源，见第 <span class="pr" data-t="a-zhutici">7</span> 页）。
+      </div>
+      <div class="note gray">
+        <b>例（2024 国考·守正创新）：</b>中心思想＝<b>"守正不能不创新，创新不能不守正"</b>——三空都服务这个整体：<br>
+        守正不是<b>墨守成规</b>、循规蹈矩；创新也不是凭空幻想、<b>恣意妄为</b>；只有守正才能恪守正道、<b>固本强基</b> → D。<br>
+        只看局部（如"循规蹈矩"的并列）会错选——整体理解是唯一解。
+      </div>
+    </div>
+  </section>
+
+<section>
+    <h2>逻辑填空 ｜ 呼应四 ｜ 空与空的关联 <span class="tag">多空题的隐藏线索</span></h2>
+    <div class="note">
+      <b>考点：</b>除了横线与文段的对应之外，<b>横线与横线之间</b>也可能存在巧妙关联——<br>
+      ① 空与空在意思上<b>相近或相反</b>；② 常见于<b>转折文段、并列文段</b>；③ <b>祈使句文段</b>也可能出现：要…不能…；必须…杜绝…<br>
+      例（2025 国考）：防空导弹不再____，而是"<b>攥指成拳</b>"——空与"攥指成拳"反义 → <b>单打独斗</b>；"只能命中单一目标"的境地 → <b>孤掌难鸣</b> → D。<br>
+      例（2023 国考）：只追求短期利益做出____的事情／避免"____"现象——两空同指"只顾眼前、损害长远" → <b>竭泽而渔／杀鸡取卵</b> → D。
+    </div>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 33 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 34 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>逻辑填空 ｜ 词语区别的相对性，而非绝对性</span>
+      <span>第 34 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>逻辑填空 ｜ 词语区别的相对性，而非绝对性 <span class="tag">同一对词，此题辨析、彼题并列</span></h2><span id="a-xiangdui"></span>
+    <div class="note">
+      <b>原则：</b>辨析容易走极端（生硬死板、不会因题而异）——<b>同样的两个词，可能在这道题需要辨析取舍，在另一道题就是近义并列答案。</b><br>
+      例："漂亮"的近义词是帅气还是美丽？——<b>看跟谁比</b>（vs 帅气 → 美丽；vs 丑陋 → 漂亮本身）。<br>
+      <b>高频易混对（相对性示例）：</b>居安思危 ↔ 未雨绸缪；相辅相成 ↔ 相得益彰；并行不悖 ↔ 相辅相成——有时辨析取舍，有时近义并列。<br>
+      <b>动作：由松到紧</b>——先排除明显不合语境的，再对剩余项精细辨析（对比择优）。
+    </div>
+    <h3>附 ｜ 忧患意识成语族（积累）</h3>
+    <table style="font-size:10.5px;">
+      <tbody>
+        <tr><td class="k">居安思危／安不忘虞</td><td>安定环境中想到可能的危难</td></tr>
+        <tr class="hot"><td class="k">未雨绸缪／防患未然／曲突徙薪</td><td><b>事先</b>采取措施防止灾祸</td></tr>
+        <tr><td class="k">防微杜渐</td><td>坏事刚露<b>苗头</b>就制止</td></tr>
+        <tr><td class="k">亡羊补牢</td><td><b>出问题后</b>补救，免再受损失</td></tr>
+        <tr><td class="k">江心补漏</td><td>临紧急关头才补救，<b>为时已晚</b></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+<section>
+    <h2>逻辑填空 ｜ 应试策略 ｜ 多空从哪入手 ＋ 纠结时信什么 <span class="tag">先解决"从哪下手"，再解决"怎么收尾"</span></h2>
+    <div class="row2">
+      <div>
+        <h3>多空题入手三建议</h3>
+        <table>
+          <tbody>
+            <tr class="hot"><td class="k">① 不必每空都辨析</td><td>从<b>选项差异较大</b>的空入手（意思有明显区别）</td></tr>
+            <tr class="hot"><td class="k">② 从提示明确处入手</td><td>从<b>文段提示信息更明确、更具体</b>的空入手（有明显关联关系）</td></tr>
+            <tr><td class="k">③ 混搭先看成语</td><td>成语比实词<b>更容易辨析</b>——没有头绪先从成语空入手</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <h3>纠结时：热词 · 宠词 · 常见用法</h3>
+        <div class="heuristic">
+          <span class="tagline">经验 · 有反例</span>
+          两个选项语境上都说得通时——<b>相信热词（官方常用）、宠词（出题人偏爱）、常见用法</b>。<br>
+          例：弥合数字鸿沟（人民网常用）；敬畏生命；凝聚＋抽象精神思想；应运而生（适应时机而产生）；诱发疾病；锚定目标（热词）。<br><b>边界：</b>与"语境为王"冲突时，仍以语境为准——仲裁表：启发式 ＜ 判据（第 <span class="pr" data-t="a-zhongcai">1</span> 页）。
+        </div>
+      </div>
+    </div>
+  </section>
+
+<section>
+    <h2>逻辑填空 ｜ 出题人视角 ｜ 选项设置 <span class="tag">纠结时的辅助思路——不作主方法</span></h2><span id="a-chutiren"></span>
+    <table>
+      <thead><tr><th style="width:128px;">机制</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="k">① 干扰项：<br>文段有对应</td><td>干扰项往往与文段的<b>非对应部分</b>对应得很合适——"对应得上"不一定是答案，要看对应的是不是<b>本空</b>的语境。例（2023 陕西，正确率 61%）：编译工作"寂寞的"写照——<b>夜以继日†推断</b>对应"悠长的夜晚"方正确，"兢兢业业"只对应"岗位"。例（2023 内蒙古，正确率 44%）：知名度有、市场反响一般 → 缺的是<b>营销†推断</b>，不是宣传。</td></tr>
+        <tr class="hot"><td class="k">② 干扰项：<br>选项有共性</td><td>四个选项<b>外形相似／意义相似／性质相似</b>——共性说明该维度不是考点，别在共性上浪费时间。</td></tr>
+        <tr class="hot"><td class="k">③ 选项分组思维</td><td><b>13 分组／211 分组</b>较多（"优选多数"：在多数一组里选最贴的）；<b>22 分组</b>可能提供做题思路；211 特殊情况"一正一邪"——用明显错误的选项反推正确答案。</td></tr>
+        <tr><td class="k">④ 语义丰富原则</td><td>纠结时<b>优选语义更丰富</b>的选项（字形拆分或语义拆分）。例：顺应（顺着趋势适应）＞符合／适应；锚定（锁定并专注）＞确定；丰沛（多用于雨水物产）＞充足；生成（具体：模型／组织）vs 形成（抽象：局势／趋势）。</td></tr>
+      </tbody>
+    </table>
+    <div class="note gray" style="margin-top:7px;">
+      <b>定位：</b>本节全部是<b>启发式</b>——平时仍按正常思路做题，"纠结"之时才用它辅助取舍。
+    </div>
+  </section>
+
+<section>
+    <h2>逻辑填空 · 省流版 <span class="tag">一表回顾（六）全章</span></h2>
+    <table style="font-size:10.5px;">
+      <tbody>
+        <tr><td class="k">解题总思路</td><td><b>语境分析为王</b>（横线与文段的逻辑关系），<b>词语辨析为器</b>（七角度：搭配对象／程度／色彩／语境／宠词／实词搭配／侧重）。搭配只管合理性，<b>文段意思优先</b>。</td></tr>
+        <tr class="hot"><td class="k">四种呼应</td><td>① <b>句内呼应</b>（横线后提示）② <b>并列</b>（近义·反义·同句式·三并列·或且并）③ <b>中心理解化</b>（整体理解＋主题词）④ <b>空与空关联</b>（相近相反；转折／并列／祈使句文段）。</td></tr>
+        <tr><td class="k">一条原则</td><td>词语区别是<b>相对的</b>——同一对词此题辨析、彼题并列；动作"由松到紧"。</td></tr>
+        <tr><td class="k">应试策略</td><td>多空从差异大／提示明确／成语空入手；纠结时信<b>热词、宠词、常见用法</b>；出题人视角（文段有对应／选项分组／语义丰富）只做辅助。</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 34 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 35 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>逻辑填空 · 例题速查（一）</span>
+      <span>第 35 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>逻辑填空 · 例题速查（一）<span class="tag">并列关系 · 近义与反义（例1–13 · 按考点聚类）</span></h2>
+    <span id="a-ex-tk"></span>
+    <table style="font-size:10px;">
+      <thead><tr><th style="width:96px;">例题</th><th style="width:36px;">答案</th><th>考点 · 判定</th></tr></thead>
+      <tbody>
+<tr><td class="k">例1<br>2024 国考<br>协商民主</td><td class="k">A</td><td>近义并列：广开言路、<b>集思广益</b>；畅所欲言、<b>各抒己见</b></td></tr>
+<tr><td class="k">例2<br>2024 国考<br>战场善疑</td><td class="k">A</td><td>近义并列：对军事行动<b>洞若观火</b> ↔ 结构体系心知肚明</td></tr>
+<tr><td class="k">例3<br>2022 福建<br>柔性电子</td><td class="k">A</td><td>近义并列：可感知、可<b>显示</b>、可对话（物自身能力链）。"不再是<b>通过</b>平面屏幕"否定的只是<b>中介</b>——功能（显示）转移到物体自身（柔性显示×"非规则平面"呼应"柔性电子技术"）。B 触摸／D 操控＝<b>视角错位</b>（人对物的动作，非物自身能力，且非智能化增量）；第二空"要做到这一点"→<b>大有可为</b>（迫在眉睫：无紧迫信息／永无止境：与"要做到"矛盾／前途无量：注释限"一个人"）。<b>★原误记 B，已修正</b></td></tr>
+<tr><td class="k">例4<br>2024 深圳<br>刀刃向内</td><td class="k">B†推断</td><td>近义并列：不<b>掩耳盗铃</b>，不文过饰非（都指自我掩饰）；隐恶扬善针对他人</td></tr>
+<tr><td class="k">例5<br>2024 国考<br>守正创新</td><td class="k">A</td><td>近义并列：守正不是<b>陈陈相因</b>、循规蹈矩；凭空幻想、<b>纸上谈兵</b>；恪守正道、<b>正本清源</b></td></tr>
+<tr><td class="k">例6<br>2024 深圳<br>精专读书<br><span style="color:var(--muted);font-size:9.5px;">†推断</span></td><td class="k">C†推断</td><td>近义并列：穿凿附会、<b>雕章琢句</b>（照应"章句"）；苦心孤诣…<b>去粗取精</b>（照应"会意"）——PPT 未标答案，建议核对</td></tr>
+<tr><td class="k">例7<br>2021 江苏<br>小概率事件</td><td class="k">C</td><td>近义并列+搭配：重在<b>未雨绸缪</b>、防患于未然；<b>化解</b>风险（消解多搭愁闷）；<b>汲取</b>经验</td></tr>
+<tr><td class="k">例8<br>2023 山东<br>底线思维</td><td class="k">A</td><td>近义并列：居安思危、<b>未雨绸缪</b>；风高浪急甚至<b>惊涛骇浪</b>；<b>统筹</b>发展和安全（官方热词）</td></tr>
+<tr><td class="k">例9<br>2025 云南<br>新物种</td><td class="k">D</td><td>反义并列：并非<b>按图索骥</b>（照线索找），而是意外之喜</td></tr>
+<tr><td class="k">例10<br>2025 国考<br>改进文风</td><td class="k">B</td><td>反义并列：讲思考的话不讲<b>照本宣科</b>；讲有感而发不讲<b>无病呻吟</b>；通俗明白…<b>深入浅出</b></td></tr>
+<tr><td class="k">例11<br>2022 江苏<br>都市圈</td><td class="k">C</td><td>反义并列：城区超大集聚 vs 郊区中小集聚→<b>错位</b>；互相补充→<b>相得益彰</b>；尽显<b>魅力</b></td></tr>
+<tr><td class="k">例12<br>2021 国考<br>盐与历史</td><td class="k">B</td><td>反义并列：今天轻而易举"理所当然" vs 古代"<b>稀缺</b>"之物；贯穿历史→<b>至关重要</b></td></tr>
+<tr><td class="k">例13<br>2025 国考<br>稳中求进</td><td class="k">C</td><td>反义并列：既不能<b>好高骛远</b>，也不能因循守旧（朝令夕改＝多变；寅吃卯粮＝透支）</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 35 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 36 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>逻辑填空 · 例题速查（二）</span>
+      <span>第 36 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>逻辑填空 · 例题速查（二）<span class="tag">并列·局部整体 ＋ 句内呼应与语境辨析（例14–29 · 按考点聚类）</span></h2>
+    <span id="a-ex-tk2"></span>
+    <table style="font-size:10px;">
+      <thead><tr><th style="width:96px;">例题</th><th style="width:36px;">答案</th><th>考点 · 判定</th></tr></thead>
+      <tbody>
+<tr><td class="k">例14<br>2020 国考<br>测谎仪</td><td class="k">B</td><td>局部+整体：①"结果<b>可靠</b>"（操作解析得当→有效发现；"合理／科学"不描述结果的可信度）；②<b>有备而来</b>与"擅长控制情绪"并列<b>互补</b>（事先准备×临场控情）——C 不露声色<b>不对症</b>（测谎仪测呼吸／脉搏／血压，不测"说话和脸色"）、D 从容不迫与"擅长控制情绪"<b>语义重复</b>；③"<b>较量</b>"＝比本领比实力（抗衡多搭"与…相抗衡"、对决偏赛事语境、博弈原指下棋）。<b>★原误记 C，已修正</b></td></tr>
+<tr><td class="k">例15<br>2023 国考<br>冰川消融</td><td class="k">A</td><td>三并列（从别处入手）+语义：变化快速、显著、最具<b>指示性</b>（冰川＝气候指示器）；<b>缓解</b>冰川消融（避免／防止语义过绝对）</td></tr>
+<tr class="hot"><td class="k">例16<br>2022 江苏<br>山民故事</td><td class="k">A</td><td>词义侧重：____情深意切→<b>娓娓道来</b>（谈得动听≠说个完）；徜徉花海（陶醉）；引得读者<b>会心一笑</b>。B 滔滔不绝含贬；C 寄身用于人；D 闯入过重</td></tr>
+<tr><td class="k">例17<br>2025 四川<br>恐龙足迹</td><td class="k">D</td><td>语境+搭配：被踩塌的物质所<b>掩埋</b>；足迹变形难以<b>识别</b>；条件<b>严苛</b>（不多不少）。A 甄别指辨真伪；C 刁钻指狡诈；B 淹没多搭水／声音</td></tr>
+<tr class="hot"><td class="k">例18<br>2022 四川<br>品德为本<br><span style="color:var(--muted);font-size:9.5px;">正确率 71%</span></td><td class="k">C</td><td>句内呼应：面对变局要明辨是非→<b>扑朔迷离</b>；心怀感恩→<b>饮水思源</b>；勇于担当→<b>责无旁贷</b></td></tr>
+<tr><td class="k">例19<br>2023 江苏<br>科创策源地</td><td class="k">C†推断</td><td>固定搭配：<b>摘取＋桂冠</b>；水乳交融之后→<b>相得益彰</b>（1+1＞2）；交相辉映多指景色</td></tr>
+<tr><td class="k">例20<br>2024 江苏<br>北极南极</td><td class="k">C</td><td>转折语境：寒冷干燥是常态，"却别有洞天"→<b>人迹罕至</b>；迷人景象→<b>心驰神往</b>（心旷神怡需"游览后"，此处未至）</td></tr>
+<tr><td class="k">例21<br>2025 四川<br>感恩知己</td><td class="k">C</td><td>句内呼应：感恩对象"遍布各时段场合"→<b>广泛</b>；知己"声应气求"→<b>志同道合</b>（休戚与共＝利益共同体）</td></tr>
+<tr><td class="k">例22<br>2025 国考<br>储能系统</td><td class="k">A</td><td>句内呼应：用电需求"时多时少"→<b>波动性</b>；能量的产生和使用不一定<b>同步</b>（2022 国考同款语境）</td></tr>
+<tr><td class="k">例23<br>2025 内蒙古<br>鸟类种群</td><td class="k">C</td><td>句内呼应：摧毁鸟类种群→<b>多样性</b>影响；岛屿原本<b>人迹罕至</b>；失去生态功能→<b>连锁性</b>影响</td></tr>
+<tr><td class="k">例24<br>2022 四川<br>短视行为</td><td class="k">A</td><td>对应+搭配："短平快"忽视长期投入→<b>急功近利</b>；存在"卡脖子"<b>隐患</b>（存在／消除隐患）</td></tr>
+<tr><td class="k">例25<br>2022 山东<br>回忆录</td><td class="k">A</td><td>句内呼应：选择性记忆→主观<b>筛选</b>；趋利避害的天性→<b>扬长避短</b></td></tr>
+<tr><td class="k">例26<br>2023 吉林<br>文化术语</td><td class="k">A</td><td>语境：把文化精髓<b>昭示</b>世人；靠他者误读的内容→<b>以讹传讹</b></td></tr>
+<tr><td class="k">例27<br>2021 四川<br>AI 与就业</td><td class="k">B</td><td>语境：不必过于<b>焦虑</b>；<b>创造</b>出新岗位；面对新挑战→<b>未雨绸缪</b></td></tr>
+<tr><td class="k">例28<br>2025 内蒙古<br>生命教育</td><td class="k">D</td><td>句内呼应：①"<b>神秘感</b>"＝祛魅——与"开展讨论／从健康角度认识风险／从科学角度知晓原理"（都指向"了解、知晓"）呼应；"危害性"除不掉、"娱乐性"非去除对象、"虚幻性"方向反（它是真实的）；②"生命的唯一性"→<b>敬畏感</b>（敬＋畏，面对"极限诱惑"不敢冒险；崇敬感缺"畏"、崇拜感多用于人物）。<b>★原误记 B，已修正</b></td></tr>
+<tr><td class="k">例29<br>2024 江西<br>关羽信仰</td><td class="k">B</td><td>多空跳空：由人到神的<b>擢拔</b>跃升；<b>一以贯之</b>的核心价值；众说多歧，<b>莫衷一是</b></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 36 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 37 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>逻辑填空 · 例题速查（三）</span>
+      <span>第 37 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>逻辑填空 · 例题速查（三）<span class="tag">中心理解化 · 空与空的关联（例30–41 · 按考点聚类）</span></h2>
+    <span id="a-ex-tk3"></span>
+    <table style="font-size:10px;">
+      <thead><tr><th style="width:96px;">例题</th><th style="width:36px;">答案</th><th>考点 · 判定</th></tr></thead>
+      <tbody>
+<tr><td class="k">例30<br>2024 国考<br>公正司法</td><td class="k">D</td><td>中心理解化："最后一道防线"→<b>终局性</b>；公平正义可见、可感、可<b>触及</b></td></tr>
+<tr><td class="k">例31<br>2025 联考<br>汉语表达</td><td class="k">D</td><td>主题词：名词并列、高度<b>凝练</b>；互相<b>照应</b>、有机相融；悲秋之情<b>溢于言表</b></td></tr>
+<tr><td class="k">例32<br>2024 国考<br>载人航天</td><td class="k">B</td><td>主题词：最复杂、科技最<b>密集</b>；<b>涵盖</b>众多科学领域；<b>当之无愧</b>的"集大成者"</td></tr>
+<tr><td class="k">例33<br>2024 国考<br>木刻分水</td><td class="k">A</td><td>整体理解：<b>公平</b>分配水源的制度；取之有度用之有节→<b>精打细算</b></td></tr>
+<tr><td class="k">例34<br>2022 国考<br>探索宇宙</td><td class="k">D</td><td>空空反义：烟火与超新星爆发相比<b>黯然失色</b>；难以捉摸→<b>不可思议</b>的物质</td></tr>
+<tr class="hot"><td class="k">例35<br>2025 国考<br>防空导弹</td><td class="k">D</td><td>空空反义："攥指成拳" ↔ <b>单打独斗</b>；只能命中单一目标→<b>孤掌难鸣</b>的境地</td></tr>
+<tr><td class="k">例36<br>2023 青海<br>青色文化</td><td class="k">C</td><td>空空相反：文化繁复至极 vs 波长仅 20 纳米→<b>平淡无奇</b>；"两相对比"震撼</td></tr>
+<tr><td class="k">例37<br>2023 山东<br>新业态</td><td class="k">D</td><td>祈使句空空关联：既不能<b>因噎废食</b>（怕风险不发展），也不能<b>视而不见</b>（放任风险）</td></tr>
+<tr><td class="k">例38<br>2023 青海<br>AI 理念</td><td class="k">B</td><td>空空转折：技术内核<b>先进</b> vs 理念并不<b>抽象</b>；<b>前卫</b>的思想先驱者</td></tr>
+<tr><td class="k">例39<br>2023 国考<br>短期政绩</td><td class="k">D</td><td>空空近义：只图眼前、损害长远→<b>竭泽而渔／杀鸡取卵</b></td></tr>
+<tr><td class="k">例40<br>2024 国考<br>抓落实</td><td class="k">B</td><td>空空关联：脚踏实地→<b>真抓实干</b>；不能高高在上→<b>凌空蹈虚</b>；钉钉子→<b>稳扎稳打</b></td></tr>
+<tr><td class="k">例41<br>2025 广东<br>系统集成</td><td class="k">D</td><td>空空反义：单兵突进→<b>各行其是</b>的改革致"合成谬误"；<b>挺进</b>深水区</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 37 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 38 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>逻辑填空 · 例题速查（四）</span>
+      <span>第 38 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>逻辑填空 · 例题速查（四）<span class="tag">相对性 · 热词宠词（例42–48 · 按考点聚类）</span></h2>
+    <span id="a-ex-tk4"></span>
+    <table style="font-size:10px;">
+      <thead><tr><th style="width:96px;">例题</th><th style="width:36px;">答案</th><th>考点 · 判定</th></tr></thead>
+      <tbody>
+<tr><td class="k">例42<br>2021 青海<br>普通话方言<br><span style="color:var(--muted);font-size:9.5px;">正确率 68%</span></td><td class="k">D</td><td>相对性：明确<b>界定</b>；并行不悖，甚至<b>相辅相成</b>（"甚至"递进：不违背→互相补充）</td></tr>
+<tr><td class="k">例43<br>2023 国考<br>新旧动能</td><td class="k">D</td><td>相对性：敢于"<b>壮士断腕</b>"；并行不悖、相辅相成；<b>坚决</b>破除（果断＝性格）</td></tr>
+<tr><td class="k">例44<br>2025 天津<br>数字金融</td><td class="k">D</td><td>热词：人民网"优化资源配置""弥合数字鸿沟"→ <b>配置／弥合</b></td></tr>
+<tr><td class="k">例45<br>2024 广西<br>文化共识</td><td class="k">C</td><td>热词：<b>凝聚</b>（搭配抽象精神思想）＋文化共识；统一始终是<b>主流</b></td></tr>
+<tr><td class="k">例46<br>2024 黑龙江<br>少儿影视</td><td class="k">A</td><td>热词：文艺的力量<b>春风化雨</b>；<b>塑造</b>少儿形象（渲染＝夸大；凸显＝使明显）</td></tr>
+<tr class="hot"><td class="k">例47<br>2025 国考<br>弹匣手枪</td><td class="k">A</td><td>宠词：<b>不可或缺</b>的装备；无烟火药发明→弹匣手枪<b>应运而生</b>；依托优势<b>崭露头角</b></td></tr>
+<tr><td class="k">例48<br>2025 新疆<br>糖尿病</td><td class="k">C</td><td>常见用法：<b>诱发</b>认知障碍（诱发疾病）；<b>比重</b>越来越大（部分除以整体）；<b>罪魁祸首</b></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 38 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 39 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>逻辑填空 · 例题速查（五）</span>
+      <span>第 39 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>逻辑填空 · 例题速查（五）<span class="tag">出题人视角（例49–61 · 按考点聚类）</span></h2>
+    <span id="a-ex-tk5"></span>
+    <table style="font-size:10px;">
+      <thead><tr><th style="width:96px;">例题</th><th style="width:36px;">答案</th><th>考点 · 判定</th></tr></thead>
+      <tbody>
+<tr><td class="k">例49<br>2022 四川下<br>旧厂房</td><td class="k">C</td><td>13 分组：A 人迹罕至／B 杳无人烟／D 颓垣败壁均"无人破败"→<b>人去楼空</b>；见证发展的<b>日新月异</b></td></tr>
+<tr><td class="k">例50<br>2022 天津<br>马克思主义</td><td class="k">C</td><td>13 分组：思想僵化→<b>墨守成规</b>；失去<b>生命力</b>、说服力（历久弥新＝生命力）</td></tr>
+<tr><td class="k">例51<br>2025 湖南<br>老年境界</td><td class="k">B</td><td>13 分组：<b>荣辱不惊</b>（宠辱若惊＝计较得失，反向）；对世事<b>洞若观火</b></td></tr>
+<tr><td class="k">例52<br>2025 湖南<br>文学经典<br><span style="color:var(--muted);font-size:9.5px;">†推断</span></td><td class="k">C†推断</td><td>13 分组："彼此相知的语汇"→<b>心领神会</b>；世界范围<b>林林总总</b>的经典——PPT 未标答案，建议核对</td></tr>
+<tr><td class="k">例53<br>2022 四川下<br>恩格尔系数</td><td class="k">D</td><td>211 分组：<b>可圈可点</b>的成就（可歌可泣过重；彪炳史册过高；来之不易中性偏）；与高质量发展相<b>匹配</b>（般配多指人）</td></tr>
+<tr><td class="k">例54<br>2025 国考<br>营造法式</td><td class="k">D</td><td>211 分组：形成此后<b>一以贯之</b>的发展路径（标新立异含贬；一枝独秀指同类中突出）</td></tr>
+<tr><td class="k">例55<br>2022 国考<br>文创产品</td><td class="k">D</td><td>211 分组：对传统文化<b>浅尝辄止</b>（研究、学习浅尝辄止；不以为然＝不同意，方向反）</td></tr>
+<tr><td class="k">例56<br>2022 青海<br>汽车工业</td><td class="k">B</td><td>22 分组：<b>曾经</b>是龙头（与"近年来"时间对比）；增长<b>引擎</b></td></tr>
+<tr><td class="k">例57<br>2023 广东<br>有为政府</td><td class="k">C</td><td>22 分组：政府绝不能<b>大包大揽</b>（对应"制定政策营造环境"）；以项目为<b>载体</b></td></tr>
+<tr><td class="k">例58<br>2024 浙江<br>引诗叙事</td><td class="k">C</td><td>22 分组：被<b>弃如敝履</b>，甚至被忽视遗忘；不是诸子<b>随心所欲</b>；<b>揭示</b>诗性智慧</td></tr>
+<tr class="hot"><td class="k">例59<br>2024 陕西<br>双碳目标</td><td class="k">C</td><td>语义丰富：<b>顺应</b>（顺着趋势适应）＞符合／适应；<b>锚定</b>目标（锁定并专注，热词）＞确定</td></tr>
+<tr><td class="k">例60<br>2025 江苏<br>领导细胞</td><td class="k">C†推断</td><td>语义丰富：细胞带头→<b>一马当先</b>；新组织（具体）→<b>生成</b>（形成多搭抽象：局势／趋势）。★最需人工核对：B"身先士卒／形成新组织"亦为通行搭配</td></tr>
+<tr><td class="k">例61<br>2025 湖南<br>竹木弓箭</td><td class="k">C†推断</td><td>语义丰富：雨量<b>丰沛</b>（多用于雨水物产）；<b>修复</b>工艺；<b>弘扬</b>运动</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+<section>
+    <h2>逻辑填空 · 例题速查（六）<span class="tag">并列总结 · 组合拳拆分（例62 · 按考点聚类）</span></h2>
+    <span id="a-ex-tk6"></span>
+    <table style="font-size:10px;">
+      <thead><tr><th style="width:96px;">例题</th><th style="width:36px;">答案</th><th>考点 · 判定</th></tr></thead>
+      <tbody>
+<tr class="hot"><td class="k">例62<br>2026 国考<br>红树林蓝碳汇</td><td class="k">D</td><td>并列总结＋“组合拳”拆分：<b>开源节流</b>——① <b>节流</b>＝厌氧环境减缓分解、加速碳埋藏（减流失）；② <b>开源</b>＝河口潮汐带来大量外源性碳并固定沉积（增来源）；<b>拆两半逐项对上</b>。A 标本兼治：结构是<b>枝节与根本</b>（表里层次），文段两层是碳的<b>流入／流出</b>，不分表里；B 一举两得：<b>做一件事</b>得两个好处，文段是<b>两个机制共同作用</b>，动作数对不上；C 取长补短：须有<b>长短之别</b>，文段两层是同一主体的两种作用（速记卡第 33 页七角度④）。<b>★讲义 §(七)·例 10（讲义选项序为 C，本卡按题库序记 D）</b></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 39 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 40 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>附录 ｜ 一、基础词</span>
+      <span>第 40 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>附录 ｜ 一、基础词 · 时间 / 趋势 / 紧迫 <span class="tag">这些词本身不是考点，但读错就会选错</span></h2><span id="a-fulu"></span>
+    <table style="font-size:10.5px;">
+      <thead><tr><th style="width:96px;">词</th><th style="width:250px;">释义</th><th>阅读提示 / 同义替换方向</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="k">肇始<br>zhào shǐ</td><td>开始、开端、起源</td><td>「肇」＝开始（肇端／肇建）。作「起源／开端」替换，常见「X 肇始于 Y」</td></tr>
+        <tr class="hot"><td class="k">滥觞<br>làn shāng</td><td>起源、发端</td><td>本义是江河源头水浅，只能浮起酒杯（觞＝酒杯）。＝起始，不是"泛滥"</td></tr>
+        <tr><td class="k">伊始</td><td>开始</td><td>如"新年伊始"。＝开始，不是"一向如此"</td></tr>
+        <tr><td class="k">式微</td><td>衰落、衰微</td><td>出自《诗经》"式微式微，胡不归"。＝衰落，不是"微弱"</td></tr>
+        <tr><td class="k">方兴未艾</td><td>正在兴起，一时不会停止</td><td>艾＝停止。<b>褒义</b>，＝蓬勃发展</td></tr>
+        <tr><td class="k">蔚然成风</td><td>逐渐盛行，形成风气</td><td><b>褒义</b>，＝成为风气</td></tr>
+        <tr><td class="k">甚嚣尘上</td><td>议论纷纷；气焰嚣张</td><td><b>多含贬义</b>，不是"热闹"</td></tr>
+        <tr><td class="k">亟待<br>jí dài</td><td><b>迫切需要去做</b></td><td>亟＝急迫。＝"亟须／亟需／必须／应当"。<b>对策标志词</b>，看后面跟的动作</td></tr>
+        <tr><td class="k">不可或缺</td><td>不能缺少</td><td>＝<b>必要条件</b>的信号（第 <span class="pr" data-t="a-zhiyou">2</span> 页"只有…才…"家族）</td></tr>
+        <tr><td class="k">刻不容缓<br>迫在眉睫</td><td>一刻也不能拖／已逼到眼前</td><td>＝紧迫。<b>对策标志词</b></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+<section>
+    <h2>附录 ｜ 二、补充词 · 数量 / 程度 / 态度 <span class="tag">常出现在干扰项的"程度修饰"里</span></h2>
+    <table style="font-size:10.5px;">
+      <thead><tr><th style="width:96px;">词</th><th style="width:250px;">释义</th><th>阅读提示 / 同义替换方向</th></tr></thead>
+      <tbody>
+        <tr><td class="k">俯拾皆是<br>不胜枚举</td><td>到处都有，容易得到／多得举不完</td><td>＝<b>数量极多</b>（两词可换用，都表"多"）</td></tr>
+        <tr><td class="k">寥寥无几<br>凤毛麟角</td><td>非常少，没有几个／稀少而珍贵</td><td>＝<b>数量极少</b>。凤毛麟角带"珍贵"义</td></tr>
+        <tr><td class="k">微乎其微</td><td>非常小或非常少</td><td>＝程度极小。注意与"微不足道"（不值得说）区分</td></tr>
+        <tr><td class="k">举足轻重<br>无足轻重</td><td>地位重要，影响全局／无关紧要</td><td><b>一对反义</b>，常被用来设置正反干扰项</td></tr>
+        <tr><td class="k">相形见绌</td><td>相比之下显得不足</td><td>绌＝不足。<b>需要"对比"才成立</b></td></tr>
+        <tr><td class="k">捉襟见肘</td><td>处境困难，应付不过来</td><td>＝顾此失彼。<b>是"能力/资源不足"，不是"衣服破"</b></td></tr>
+        <tr><td class="k">不置可否</td><td>不表明态度</td><td>＝<b>没表态</b>。注意与"莫衷一是"（没得出结论）区分</td></tr>
+        <tr><td class="k">讳莫如深</td><td>把事情真相隐瞒得很深</td><td>＝<b>故意不说</b>，不是"不懂"</td></tr>
+        <tr><td class="k">同日而语</td><td>相提并论（多用于否定）</td><td>"不可同日而语"＝<b>差距悬殊，不能比</b></td></tr>
+        <tr><td class="k">一蹴而就</td><td>一下子就能成功</td><td><b>几乎只用于否定</b>："不可能一蹴而就"＝需要长期过程</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 40 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 41 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>附录 ｜ 三、易混对照</span>
+      <span>第 41 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>附录 ｜ 三、易混对照 <span class="tag">★ 高危区：这几个词每年都在坑人</span></h2>
+    <table style="font-size:10.5px;">
+      <thead><tr><th style="width:200px;">这一对 / 这一个</th><th>差别在哪</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="k">不以为然　vs　不以为意</td><td><b>然＝对</b>：不认为是对的 → <b>反对</b>；<br><b>意＝心上</b>：不放在心上 → <b>不在意</b>。两个意思完全不同</td></tr>
+        <tr class="hot"><td class="k">不负众望　vs　不孚众望</td><td><b>负＝辜负／承受</b>：没辜负期望 → <b>褒义</b>；<br><b>孚＝使人信服</b>：不能让人信服 → <b>贬义</b></td></tr>
+        <tr class="hot"><td class="k">首当其冲</td><td>＝<b>最先受到冲击／遭受灾难</b>。<b>不是"首先"</b>，不是"带头做"</td></tr>
+        <tr class="hot"><td class="k">望其项背</td><td>本义＝赶得上。<b>几乎只用于否定</b>："难以望其项背"＝<b>赶不上</b></td></tr>
+        <tr class="hot"><td class="k">空穴来风</td><td>本义＝有了洞才有风 → <b>消息并非毫无根据</b>。<br>（现实中常被误用为"毫无根据"——<b>看题目语境判断，以题意为准</b>）</td></tr>
+        <tr class="hot"><td class="k">无可厚非　vs　无可非议</td><td><b>厚非＝过分指责</b>：有缺点但可理解 → <b>不完全对，但不必苛责</b>；<br><b>非议＝指责</b>：没什么可指责的 → <b>完全正确</b></td></tr>
+      </tbody>
+    </table>
+    <div class="note" style="margin-top:7px;">
+      <b>怎么用这张表：</b>做两件事——① 防止把选项<b>读反</b>（「易混对照」6 组：<b>读反一次，整道题就废了</b>）；② 作逻辑填空的词义底账（辨析取舍另见第 <span class="pr" data-t="a-bianxi">33</span> 页七角度表，两处互为补充）。<br>
+      <span style="color:var(--muted);">提示：本表只收「读错会导致选错」的词。纯生僻词不在此列。</span>
+    </div>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 41 页 / 共 42 页</span></div>
+</div>
+
+<!-- ==================== PAGE 42 ==================== -->
+<div class="sheet">
+  <div class="masthead">
+    <h1>行测言语理解 · 方法速记卡</h1>
+    <div class="sub">
+      <span>PPT 来源对照表</span>
+      <span>第 42 页 / 共 42 页</span>
+    </div>
+  </div>
+
+<section>
+    <h2>PPT 来源对照表 <span class="tag">张弓言语"十二箭"全六份</span></h2>
+    <table style="font-size:10px;">
+      <thead><tr>
+        <th style="width:52px;">PPT</th><th style="width:132px;">课件标题</th>
+        <th style="width:82px;">对应卡片</th><th style="width:86px;">思维提升</th>
+        <th style="width:72px;">例题</th><th>本地路径</th>
+      </tr></thead>
+      <tbody>
+        <tr><td class="k">（一）</td><td>言语中心理解题解题思路回顾</td><td>「一 · 主线」 第 <span class="pr" data-t="a-s1">2</span> 页起</td><td>6</td><td>11</td><td class="mono">D:\BaiduNetdiskDownload\张弓言语十二箭（1）.pptx</td></tr>
+        <tr><td class="k">（二）</td><td>中心理解题首句与例子的认知</td><td>「二 · 首句与例子」 第 <span class="pr" data-t="a-shouju">9</span> 页起</td><td>6</td><td>12</td><td class="mono">D:\BaiduNetdiskDownload\张弓言语十二箭（2）.pptx</td></tr>
+        <tr><td class="k">（三）</td><td>对策类文段</td><td>「三 · 对策类」 第 <span class="pr" data-t="a-duice">11</span> 页起</td><td>5</td><td>11</td><td class="mono">D:\BaiduNetdiskDownload\张弓言语十二箭（3）.pptx</td></tr>
+        <tr><td class="k">（四）</td><td>转折文段、因果文段</td><td>「四 · 转折/因果」 第 <span class="pr" data-t="a-yinquo">13</span> 页起</td><td>2+3</td><td>4+12</td><td class="mono">D:\BaiduNetdiskDownload\张弓言语十二箭（4）.pptx</td></tr>
+        <tr><td class="k">（五）</td><td>晦涩文段、细节判断题</td><td>「七 · 晦涩＋八 · 细节判断」 第 <span class="pr" data-t="a-huishe">22</span> 页起</td><td>2+4+1</td><td>4+8</td><td class="mono">D:\BaiduNetdiskDownload\张弓言语十二箭（5）.pptx</td></tr>
+        <tr><td class="k">（六）</td><td><b>语句填空、接语选择</b></td><td>「九 · 语句填空＋十 · 接语选择」 第 <span class="pr" data-t="a-yuju">27</span> 页起</td><td>4+4</td><td>7+5</td><td class="mono">D:\BaiduNetdiskDownload\张弓言语十二箭（6）.pptx</td></tr>
+        <tr><td class="k">（七）</td><td><b>语句排序题</b></td><td>「十一 · 语句排序」 第 <span class="pr" data-t="a-paixu">31</span> 页起</td><td>2原则+3步+4问</td><td>9</td><td class="mono">D:\BaiduNetdiskDownload\张弓言语十二箭（7）.pptx</td></tr>
+        <tr><td class="k">（八）</td><td><b>逻辑填空·思路＋句内呼应</b></td><td>「十二 · 逻辑填空」 第 <span class="pr" data-t="a-tiankong">32</span> 页起</td><td>2考法+7角度</td><td>12</td><td class="mono">D:\BaiduNetdiskDownload\张弓言语十二箭（8）.pptx</td></tr>
+        <tr><td class="k">（九）</td><td><b>逻辑填空·并列关系</b></td><td>「十二 · 逻辑填空·并列」 第 <span class="pr" data-t="a-binglie">33</span> 页起 31 页起</td><td>5类并列</td><td>12</td><td class="mono">D:\BaiduNetdiskDownload\张弓言语十二箭（9）.pptx</td></tr>
+        <tr><td class="k">（十）</td><td><b>逻辑填空·中心理解化＋空与空关联</b></td><td>「十二 · 逻辑填空·中心理解化」 第 <span class="pr" data-t="a-zxhua">33</span> 页起 31 页起</td><td>2思路+1考点</td><td>12</td><td class="mono">D:\BaiduNetdiskDownload\张弓言语十二箭（10）.pptx</td></tr>
+        <tr><td class="k">（十一）</td><td><b>逻辑填空·相对性＋多空＋热词</b></td><td>「十二 · 逻辑填空·相对性」 第 <span class="pr" data-t="a-xiangdui">34</span> 页起 31 页起</td><td>1原则+3+3</td><td>12</td><td class="mono">D:\BaiduNetdiskDownload\张弓言语十二箭（11）.pptx</td></tr>
+        <tr class="hot"><td class="k">（十二）</td><td><b>逻辑填空·出题人视角</b></td><td>「十二 · 逻辑填空·出题人视角」 第 <span class="pr" data-t="a-chutiren">34</span> 页起 31 页起</td><td>4机制</td><td>13</td><td class="mono">D:\BaiduNetdiskDownload\张弓言语十二箭（12）.pptx</td></tr>
+      </tbody>
+    </table>
+    <div class="note" style="margin-top:7px;">
+      <b>怎么用 PPT：</b>① <b>校对</b>——发现速记卡某条规则或某道例题答案可疑时，用对应 PPT 的 slide N 核对（例题答案在 PPT 里老师会标出）。<br>
+      ② <b>回查</b>——用户问"老师当时怎么讲的"时，翻 PPT 找对应 slide（PPT 是底稿，速记卡是工作版）。<br>
+      ③ <b>新增</b>——用户发下一批题或截图，先检查是否对应已有 PPT 的章节。<br>
+      ④ <b>提取工作流</b>：PPT → Python zipfile + 正则提取文本 → 写入 <code>.workbuddy/ppt_extract/ptN.md</code>（工具：<code>.workbuddy/tools/extract_ppt.py</code>）→ 写脚本追加卡片 → 跑 <code>repaginate.py</code> 重排 → Edge headless 渲 PDF 验页数。
+    </div>
+  </section>
+
+  <div class="foot"><span>行测言语理解 · 方法速记卡</span><span>第 42 页 / 共 42 页</span></div>
+</div>
+
+</body>
+</html>
