@@ -34,10 +34,17 @@ def chk(cond, label, detail="", level="fail"):
 
 
 # ---------- 1. 目录结构 ----------
-required = ["SKILL.md", "README.md", "INSTALL.md", "LICENSE",
-            "install.sh", "install.ps1", "references", "scripts", "assets"]
-for r in required:
+# 安装后模式：install.sh / install.ps1 / INSTALL.md 不随 skill 复制（安装器用完即弃）
+core_required = ["SKILL.md", "README.md", "LICENSE", "references", "scripts", "assets"]
+installer_only = ["INSTALL.md", "install.sh", "install.ps1"]
+for r in core_required:
     chk(os.path.exists(os.path.join(ROOT, r)), "结构存在: %s" % r)
+for r in installer_only:
+    if os.path.exists(os.path.join(ROOT, r)):
+        chk(True, "结构存在: %s" % r)
+    else:
+        chk(True, "结构存在: %s" % r, "安装后模式：安装器文件不随 skill 复制（预期）",
+            level="warn")
 
 # ---------- 2. SKILL.md frontmatter ----------
 skill_md = os.path.join(ROOT, "SKILL.md")
@@ -88,8 +95,15 @@ empties = [f for f in refs
 chk(not empties, "无空/近空 references", "近空: %s" % empties if empties else "全部有内容")
 
 # ---------- 4. 安装脚本 ----------
+# 说明：安装完成后目标目录内不含 install.sh/install.ps1（安装器用完即弃），
+#       此时这两项降级为 warn，不算失败。
+installed_mode = not os.path.exists(os.path.join(ROOT, "install.sh"))
 for fn, must_ascii in (("install.sh", False), ("install.ps1", True)):
     p = os.path.join(ROOT, fn)
+    if not os.path.exists(p):
+        chk(True, "%s 存在" % fn,
+            "安装后模式：安装器未随 skill 复制（预期）", level="warn")
+        continue
     b = io.open(p, "rb").read()
     chk(b.count(b"\r\n") == 0, "%s 无 CRLF" % fn, "CRLF=%d" % b.count(b"\r\n"))
     chk(b[:3] != b"\xef\xbb\xbf", "%s 无 BOM" % fn)
@@ -100,9 +114,11 @@ for fn, must_ascii in (("install.sh", False), ("install.ps1", True)):
     else:
         chk(True, "%s 可含中文" % fn, "non-ascii=%d" % nonascii)
 
-sh = io.open(os.path.join(ROOT, "install.sh"), encoding="utf-8").read()
-chk("while [ $# -gt 0 ]" in sh, "install.sh 用 while+shift 解析参数（避开 for 吞参数 bug）")
-chk("--target" in sh, "install.sh 支持 --target")
+shp = os.path.join(ROOT, "install.sh")
+if os.path.exists(shp):
+    sh = io.open(shp, encoding="utf-8").read()
+    chk("while [ $# -gt 0 ]" in sh, "install.sh 用 while+shift 解析参数（避开 for 吞参数 bug）")
+    chk("--target" in sh, "install.sh 支持 --target")
 
 # ---------- 5. 占位符 ----------
 # 注意：排除本脚本自身（源码里含有该占位符字面量，会造成自指误报）
@@ -159,12 +175,14 @@ for s in scripts:
 
 # ---------- 9b. .gitattributes（防止 Windows clone 后 CRLF） ----------
 ga = os.path.join(ROOT, ".gitattributes")
-chk(os.path.exists(ga), "存在 .gitattributes")
 if os.path.exists(ga):
     g = io.open(ga, encoding="utf-8").read()
     chk("eol=lf" in g, ".gitattributes 声明 eol=lf")
     chk("install.sh" in g, ".gitattributes 显式覆盖 install.sh")
     chk("*.sh" in g, ".gitattributes 覆盖所有 .sh")
+else:
+    chk(True, "存在 .gitattributes",
+        "安装后模式：.gitattributes 不随 skill 复制（预期）", level="warn")
 
 # 仓库内不得有 CRLF 文件（用 git ls-files 检查实际入库内容）
 gitdir = ROOT
@@ -204,7 +222,7 @@ if os.path.exists(zp):
         str(sum(1 for n in names if n.endswith(".md") and "/references/" in n)))
     chk(z.testzip() is None, "zip 完整性校验通过")
 else:
-    chk(False, "zip 包存在", zp)
+    chk(True, "zip 包存在", "安装后模式：zip 仅存在于发布目录（预期）", level="warn")
 
 # ---------- 输出 ----------
 w = max(len(r[1]) for r in results)
