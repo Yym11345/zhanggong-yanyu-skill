@@ -56,13 +56,13 @@
 **Linux / macOS**
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/<YOUR_GITHUB_USERNAME>/zhanggong-yanyu-skill/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/Yym11345/zhanggong-yanyu-skill/main/install.sh | bash
 ```
 
 **Windows（PowerShell）**
 
 ```powershell
-irm https://raw.githubusercontent.com/<YOUR_GITHUB_USERNAME>/zhanggong-yanyu-skill/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/Yym11345/zhanggong-yanyu-skill/main/install.ps1 | iex
 ```
 
 ### 手动安装（通用）

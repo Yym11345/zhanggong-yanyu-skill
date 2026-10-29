@@ -10,7 +10,7 @@
 ### Linux / macOS / Git Bash
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/<YOUR_GITHUB_USERNAME>/zhanggong-yanyu-skill/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/Yym11345/zhanggong-yanyu-skill/main/install.sh | bash
 ```
 
 可选参数：
@@ -23,7 +23,7 @@ bash install.sh --target ~/skills/zhanggong   # 自定义目录
 ### Windows PowerShell
 
 ```powershell
-irm https://raw.githubusercontent.com/<YOUR_GITHUB_USERNAME>/zhanggong-yanyu-skill/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/Yym11345/zhanggong-yanyu-skill/main/install.ps1 | iex
 ```
 
 可选参数：
@@ -42,14 +42,14 @@ irm https://raw.githubusercontent.com/<YOUR_GITHUB_USERNAME>/zhanggong-yanyu-ski
 本质只有一句话：**把整个目录放到目标 agent 的 skills 目录**。
 
 ```bash
-git clone https://github.com/<YOUR_GITHUB_USERNAME>/zhanggong-yanyu-skill.git
+git clone https://github.com/Yym11345/zhanggong-yanyu-skill.git
 cp -r zhanggong-yanyu-skill ~/.workbuddy/skills/zhanggong
 ```
 
 Windows：
 
 ```powershell
-git clone https://github.com/<YOUR_GITHUB_USERNAME>/zhanggong-yanyu-skill.git
+git clone https://github.com/Yym11345/zhanggong-yanyu-skill.git
 Copy-Item -Recurse zhanggong-yanyu-skill "$HOME\.workbuddy\skills\zhanggong"
 ```
 
