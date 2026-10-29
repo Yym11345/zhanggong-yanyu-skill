@@ -1,0 +1,20 @@
+# 默认按文本处理，但入库时统一为 LF，检出时不做转换（避免 Windows 克隆后变 CRLF）
+* text=auto eol=lf
+
+# 安装脚本必须保持 LF —— CRLF 会让 Linux/macOS 的 bash 无法执行
+install.sh text eol=lf
+*.sh text eol=lf
+
+# PowerShell 脚本：保持 LF 亦可被 PS 5.1 正确读取（脚本本身是纯 ASCII，无 BOM）
+install.ps1 text eol=lf
+*.ps1 text eol=lf
+
+# 二进制资源
+*.pdf binary
+*.zip binary
+*.png binary
+*.jpg binary
+
+# 速记卡 HTML 与 Markdown 统一 LF
+*.html text eol=lf
+*.md text eol=lf
