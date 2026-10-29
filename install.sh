@@ -2,7 +2,7 @@
 # zhanggong skill 一键安装脚本（Linux / macOS / Git Bash）
 #
 # 用法：
-#   curl -fsSL https://raw.githubusercontent.com/YOUR_USER/zhanggong-skill/main/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/<YOUR_GITHUB_USERNAME>/zhanggong-yanyu-skill/main/install.sh | bash
 #   或本地：bash install.sh
 #
 # 说明：

@@ -56,13 +56,13 @@
 **Linux / macOS**
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/YOUR_USER/zhanggong-skill/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/<YOUR_GITHUB_USERNAME>/zhanggong-yanyu-skill/main/install.sh | bash
 ```
 
 **Windows（PowerShell）**
 
 ```powershell
-irm https://raw.githubusercontent.com/YOUR_USER/zhanggong-skill/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/<YOUR_GITHUB_USERNAME>/zhanggong-yanyu-skill/main/install.ps1 | iex
 ```
 
 ### 手动安装（通用）
@@ -85,7 +85,7 @@ irm https://raw.githubusercontent.com/YOUR_USER/zhanggong-skill/main/install.ps1
 ## 目录结构
 
 ```
-zhanggong-skill/
+zhanggong-yanyu-skill/
 ├── SKILL.md                      # 主入口：身份卡、模式路由、铁律、5副镜片、输出模板
 ├── README.md                     # 本文件
 ├── INSTALL.md                    # 多平台安装详解

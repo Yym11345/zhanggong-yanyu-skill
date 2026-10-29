@@ -1,7 +1,7 @@
 # zhanggong skill installer (Windows PowerShell 5.1 / 7+ compatible)
 #
 # Usage:
-#   irm https://raw.githubusercontent.com/YOUR_USER/zhanggong-skill/main/install.ps1 | iex
+#   irm https://raw.githubusercontent.com/<YOUR_GITHUB_USERNAME>/zhanggong-yanyu-skill/main/install.ps1 | iex
 #   powershell -ExecutionPolicy Bypass -File install.ps1
 #   Options: -Project  -> install into ./.workbuddy/skills/zhanggong
 #             -Target D -> custom destination directory
