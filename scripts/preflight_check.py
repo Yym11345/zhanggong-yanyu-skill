@@ -183,6 +183,80 @@ if cards:
     pages = len(re.findall(r'class="sheet"', c))
     chk(pages == 43, "速记卡 43 页", "实际 %d 页" % pages)
 
+# ---------- 8b. 题型边界护栏（用户铁律：zhanggong 不扩展） ----------
+# 本 skill 只做言语理解与表达。以下模块名一旦作为「教学内容」出现即越界。
+#
+# 豁免用「双重条件」，防止有人把实质内容藏进边界句：
+#   1) 该行含否定/边界标记（不适用、不并入、另建…），
+#   2) 且该行不含实质教学内容信号词（讲解、方法、真题、口诀…）。
+# 两个条件同时满足才放行——所以「本 skill 不适用判断推理，下面讲解图形推理方法」
+# 这类伪装行仍会被判 FAIL。
+#
+# 词表刻意保持高精度：不收录「比重/平均数/同比」等在言语题 passage 与词义辨析中
+# 会合法出现的通用词，避免误伤（参见 references/15 例48、references/19 练习题库）。
+BOUNDARY_KEYWORDS = [
+    # 判断推理
+    "判断推理", "图形推理", "定义判断", "类比推理", "逻辑判断", "翻译推理",
+    "加强论证", "削弱论证", "论证推理", "空间重构", "立体截面", "三视图",
+    # 数量关系
+    "数量关系", "排列组合", "容斥原理", "整除问题", "概率问题", "行程问题",
+    "工程问题", "浓度问题", "利润问题", "数字推理", "数列规律",
+    # 资料分析
+    "资料分析",
+]
+# 否定/边界标记：出现在这一行，说明该行在声明「不做这件事」
+BOUNDARY_EXEMPT_HINT = [
+    "不适用", "不覆盖", "不涉及", "不属于", "不并入", "不写入", "一律不",
+    "不得", "不在本 skill", "另建", "隔离", "超出", "只允许",
+]
+# 实质教学内容信号：出现在这一行，说明该行在「教」这个模块 → 不豁免
+BOUNDARY_TEACH_SIGNAL = [
+    "讲解", "教授", "教一", "方法如下", "解题", "技巧", "口诀", "真题",
+    "考点", "步骤", "练习", "训练", "例题", "规律是", "秒选", "套路",
+]
+
+
+def scan_boundary_violations():
+    """返回越界命中列表 [(文件, 行号, 关键词, 整行文本)]。"""
+    hits = []
+    targets = []
+    for dp, dns, fns in os.walk(ROOT):
+        dns[:] = [d for d in dns if d != ".git"]
+        for f in fns:
+            if f.endswith((".md", ".html", ".py", ".sh", ".ps1")):
+                targets.append(os.path.join(dp, f))
+    for p in sorted(targets):
+        rel = os.path.relpath(p, ROOT)
+        # 护栏脚本自身含词表字面量，跳过
+        if rel == os.path.join("scripts", os.path.basename(__file__)):
+            continue
+        try:
+            lines = io.open(p, encoding="utf-8", errors="ignore").read().splitlines()
+        except Exception:
+            continue
+        for i, line in enumerate(lines, 1):
+            has_neg = any(h in line for h in BOUNDARY_EXEMPT_HINT)
+            has_teach = any(t in line for t in BOUNDARY_TEACH_SIGNAL)
+            for kw in BOUNDARY_KEYWORDS:
+                if kw not in line:
+                    continue
+                # 双重条件豁免：既是否定语境，又不含实质教学内容
+                if has_neg and not has_teach:
+                    continue
+                hits.append((rel, i, kw, line.strip()[:90]))
+    return hits
+
+
+violations = scan_boundary_violations()
+chk(not violations,
+    "题型边界：无越界模块内容（判断推理/数量关系/资料分析）",
+    "命中 %d 处: %s" % (len(violations), violations[:3]) if violations
+    else "词表 %d 词，0 命中" % len(BOUNDARY_KEYWORDS))
+
+# 边界声明必须存在且明确
+chk(any(h in sm for h in BOUNDARY_EXEMPT_HINT),
+    "SKILL.md 保留边界声明句")
+
 # ---------- 9. scripts 可执行性 ----------
 sdir = os.path.join(ROOT, "scripts")
 scripts = sorted(os.listdir(sdir))
